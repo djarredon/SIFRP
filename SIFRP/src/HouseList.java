@@ -3,6 +3,7 @@
  */
 public class HouseList {
     private HouseNode head;
+    private int num;
 
     public HouseList() {
         head = null;
@@ -19,10 +20,13 @@ public class HouseList {
     }
 
     public void copyList(HouseList toCopy) {
-        if (toCopy.head == null)
+        if (toCopy.head == null) {
             head = null;
+            num = 0;
+        }
         else {
             head = new HouseNode(toCopy.head);
+            ++num;
             HouseNode prevNode = head;
             HouseNode thisCurrent;
             HouseNode copyCurrent = toCopy.head;
@@ -33,18 +37,26 @@ public class HouseList {
                 prevNode.setNext(thisCurrent);
                 prevNode = prevNode.getNext();
                 copyCurrent = copyCurrent.getNext();
+                ++num;
             }
         }
     }
 
     public void insert(HouseNode toAdd) {
-        if (head == null)
+        if (head == null) {
             head = new HouseNode(toAdd);
+            num = 1;
+        }
         else {
             HouseNode temp = new HouseNode(toAdd);
             temp.setNext(head);
             head = temp;
+            ++num;
         }
+    }
+
+    public int getNum() {
+        return num;
     }
 
     public void display() {

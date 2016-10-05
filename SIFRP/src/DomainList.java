@@ -20,24 +20,24 @@ public class DomainList {
         if (head == null)
             head = new DomainNode(domain);
         else {
-            FeatureNode temp = new FeatureNode(domain);
+            DomainNode temp = new DomainNode(domain);
             temp.setNext(head);
             head = temp;
         }
     }
 
-    public void copyList(FeatureList toCopy) {
+    public void copyList(DomainList toCopy) {
         if (toCopy.head == null)
             head = null;
         else {
-            head = new FeatureNode(toCopy.head);
-            FeatureNode prevNode = head;
-            FeatureNode thisCurrent;
-            FeatureNode copyCurrent = toCopy.head;
+            head = new DomainNode(toCopy.head);
+            DomainNode prevNode = head;
+            DomainNode thisCurrent;
+            DomainNode copyCurrent = toCopy.head;
             copyCurrent = copyCurrent.getNext();
 
             while (copyCurrent != null) {
-                thisCurrent = new FeatureNode(copyCurrent);
+                thisCurrent = new DomainNode(copyCurrent);
                 prevNode.setNext(thisCurrent);
                 prevNode = prevNode.getNext();
                 copyCurrent = copyCurrent.getNext();

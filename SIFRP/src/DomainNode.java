@@ -13,6 +13,11 @@ public class DomainNode extends Domain {
         next = null;
     }
 
+    public DomainNode(Domain domain) {
+        super(domain);
+        next = null;
+    }
+
     public DomainNode(DomainNode domainNode) {
         super(domainNode);
         next = null;

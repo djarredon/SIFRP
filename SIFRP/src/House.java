@@ -52,6 +52,7 @@ public class House {
 
     //Copy Constructor
     public House(House toCopy) {
+        die = new Dice();
         copyHouse(toCopy);
     }
 
@@ -270,8 +271,10 @@ public class House {
         realm = toCopy.realm;
         founded = toCopy.founded;
         foundingEvent = toCopy.foundingEvent;
-        history = new History(toCopy.history);
-        banners = new HouseList(toCopy.banners);
+        if (toCopy.history != null)
+            history = new History(toCopy.history);
+        if (toCopy.banners != null)
+            banners = new HouseList(toCopy.banners);
         age = toCopy.age;
         //stats
         defense = toCopy.defense;
@@ -289,7 +292,10 @@ public class House {
         displayHouseInfo();
         displayStats();
         displayHistory();
-        displayHoldings();
+
+        //System.out.println();
+        displayBanners();
+        System.out.println("----------------------------------------");
     }
 
     //displays name, realm, and founding
@@ -322,11 +328,11 @@ public class House {
                 "Wealth " + wealth + ": " + data.getWealthDefinition(wealth));
     }
 
-    public void displayHoldings() {
+    public void displayBanners() {
         if (banners != null) {
-            System.out.println("\nBanners: ");
+            System.out.println("\nBanners: " + banners.getNum());
+            System.out.println("----------------------------------------");
             banners.display();
-            System.out.println("______________");
         }
     }
 

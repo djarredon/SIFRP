@@ -12,12 +12,25 @@ public class Main {
         Dice die = new Dice();
         Data data = new Data();
 
+        /*
         House test = new House();
         test.setName("Daniel");
         test.generateRandHouse();
         test.generateHoldings();
         //test.buyBanner();
         test.displayAll();
+        */
+
+        HouseNode temp;
+        HouseList list = new HouseList();
+        for (int i = 0; i < 10; ++i) {
+            temp = new HouseNode();
+            temp.generateRandHouse();
+            list.insert(temp);
+        }
+
+        list.display();
+
 
 
         /*
