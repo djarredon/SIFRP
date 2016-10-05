@@ -30,6 +30,7 @@ public class House {
     //Holdings
     private HouseList banners;
     private boolean isBanner;
+    private DomainList domains;
 
     //+++++GENERAL METHODS+++++
     //default constructor
@@ -41,6 +42,7 @@ public class House {
         foundingEvent = null;
         banners = null;
         isBanner = false;
+        domains = null;
     }
 
     //Constructor with House name
@@ -53,6 +55,7 @@ public class House {
         history = null;
         banners = null;
         isBanner = false;
+        domains = null;
     }
 
     //Copy Constructor
@@ -279,9 +282,18 @@ public class House {
         foundingEvent = toCopy.foundingEvent;
         if (toCopy.history != null)
             history = new History(toCopy.history);
+        else
+            history = null;
         if (toCopy.banners != null)
             banners = new HouseList(toCopy.banners);
+        else
+            banners = null;
         isBanner = toCopy.isBanner;
+        if (toCopy.domains != null)
+            domains = new DomainList(toCopy.domains);
+        else
+            domains = null;
+
         age = toCopy.age;
         //stats
         defense = toCopy.defense;
@@ -418,6 +430,39 @@ public class House {
     //+++++HOLDINGS SECTION+++++
     public void generateHoldings() {
         generatePowerHoldings();
+    }
+
+    //Generates Domains for the House usings this.lands
+    //Should eventually purchase holdings based on realm
+    public void generateLandHoldings() {
+        int toSpend = lands;
+        this.domains = new DomainList();
+        //while tospend > 3, keep purchasing domains
+        // (3 is the cheapest terrain)
+        while (toSpend > 3 ) {
+            DomainNode domain = new DomainNode();
+            Terrain terrain = new Terrain();
+            FeatureList features = new FeatureList();
+            //purchase terrain
+            int num = die.roll();
+            if (num == 1 || num == 2) //purchase hills
+                terrain.setTerrain(1);
+            else if (num == 3)  //Mountains
+                terrain.setTerrain(2);
+            else if (num == 4 || num == 5)  //Plains
+                terrain.setTerrain(3);
+            else if (num == 6)  //Wetlands
+                terrain.setTerrain(4);
+            else
+                System.out.println("Invalid Terrain type");
+
+            //purchase features
+
+
+            //Insert new Domain into this.domains
+            domain.setTerrain(terrain);
+            this.domains.insert(domain);
+        }
     }
 
     public void generatePowerHoldings() {

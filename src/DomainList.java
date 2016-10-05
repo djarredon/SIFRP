@@ -4,6 +4,14 @@
 public class DomainList {
     private DomainNode head;
 
+    public DomainList() {
+        head = null;
+    }
+
+    public DomainList(DomainList domains) {
+        copyList(domains);
+    }
+
     public void display() {
         if (head == null)
             System.out.println("No Features");

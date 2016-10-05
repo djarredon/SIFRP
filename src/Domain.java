@@ -4,6 +4,7 @@
 public class Domain extends Holding{
     private Terrain terrain;
     private FeatureList features;
+    private int cost; //sum of cost of terrain and features
 
     public Domain() {
         terrain = null;
@@ -18,6 +19,16 @@ public class Domain extends Holding{
     public Domain(Domain toCopy) {
         this.terrain = toCopy.terrain;
         features = new FeatureList(toCopy.features);
+    }
+
+    public int getCost() {
+        if (terrain == null)
+            return 0;
+        else {
+            cost = terrain.getCost();
+            cost += features.getCost();
+        }
+        return cost;
     }
 
     public void setTerrain(Terrain terrain) {
