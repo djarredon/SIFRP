@@ -33,15 +33,6 @@ public class Main {
 
 
 
-        /*
-        for (int i = 1; i <= 10; ++i)
-            System.out.println("Rolling " + i + " dice: " + die.roll(i));
-        System.out.println("\n");
-        for (int i = 1; i <= 10; ++i)
-            for (int j = 0; j <= i; ++j)
-                System.out.println("Rolling "+i+" dice " +
-                        "plus "+j+" bonus dice: " + die.roll(i,j));
-         */
     }
 
 }
