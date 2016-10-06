@@ -1,22 +1,35 @@
+import java.util.Random;
+
 /**
  * Created by arredon on 10/1/2016.
  */
 public class Feature extends Holding {
-    private  int featureType;
+    private int featureType;
     private String description;
+    private Random rand;
 
     public Feature() {
         super();
         description = null;
+        rand = null;
     }
 
     public Feature(int featureType) {
         this.featureType = featureType;
         description = null;
+        rand = null;
     }
 
     public Feature(Feature feature) {
+        rand = null;
         copyFeature(feature);
+    }
+
+    public boolean equals(Feature toCompare) {
+        if (featureType == toCompare.featureType)
+            if (toCompare.description.equalsIgnoreCase(description))
+                return true;
+        return false;
     }
 
     public void copyFeature(Feature feature) {
@@ -24,8 +37,14 @@ public class Feature extends Holding {
         description = feature.description;
     }
 
+    public void randomFeature() {
+        rand = new Random();
+        setFeatureType(rand.nextInt(16) + 1);
+    }
+
     public void setFeatureType(int featureType) {
         this.featureType = featureType;
+        setFeature(this.featureType);
     }
 
     public void setFeature(int featureType) {
@@ -78,6 +97,9 @@ public class Feature extends Holding {
                 break;
             case 16: description = "Woods: Dense";
                 setCost(5);
+                break;
+            default:
+                System.out.println("FEATURE ERROR.");
                 break;
         }
     }

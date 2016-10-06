@@ -319,6 +319,7 @@ public class House {
         displayHouseInfo();
         displayStats();
         displayHistory();
+        displayLandHoldings();
 
         if (!isBanner) {
             displayBanners();
@@ -364,6 +365,15 @@ public class House {
         }
         else
             System.out.println("\nNo Banner Houses");
+    }
+
+    public void displayLandHoldings() {
+        if (domains != null) {
+            System.out.println("\nDomains: ");
+            domains.display();
+        }
+        else
+            System.out.println("\nNo Domains.");
     }
 
     //+++++HOME HOUSE SECTION+++++
@@ -430,6 +440,7 @@ public class House {
     //+++++HOLDINGS SECTION+++++
     public void generateHoldings() {
         generatePowerHoldings();
+        generateLandHoldings();
     }
 
     //Generates Domains for the House usings this.lands
@@ -442,10 +453,9 @@ public class House {
         while (toSpend > 3 ) {
             DomainNode domain = new DomainNode();
             Terrain terrain = new Terrain();
-            FeatureList features = new FeatureList();
             //purchase terrain
             int num = die.roll();
-            if (num == 1 || num == 2) //purchase hills
+            if (num == 1 || num == 2)   //purchase hills
                 terrain.setTerrain(1);
             else if (num == 3)  //Mountains
                 terrain.setTerrain(2);
@@ -456,8 +466,62 @@ public class House {
             else
                 System.out.println("Invalid Terrain type");
 
-            //purchase features
+            toSpend -= terrain.getCost();
 
+            //purchase features
+            //Each Terrain can have zero or more features,
+            //but let's just go with 1d6
+            int numFeatures = die.roll();
+            while (numFeatures-- > 0 && toSpend > 1) {
+                Feature temp = new Feature();
+                if (toSpend < 3) {
+                    //purchase grassland
+                    temp.setFeatureType(7);
+                    domain.addFeature(temp);
+                    --toSpend;
+                    numFeatures = 0;
+                }
+                else if (toSpend > 50) {
+                    //buy large city
+                    temp.setFeatureType(6);
+                    domain.addFeature(temp);
+                    toSpend -= 50;
+                }
+                else if (toSpend > 40) {
+                    //buy Small city
+                    temp.setFeatureType(5);
+                    domain.addFeature(temp);
+                    toSpend -= 40;
+                }
+                else if (toSpend > 30) {
+                    //buy Large Town
+                    temp.setFeatureType(4);
+                    domain.addFeature(temp);
+                    toSpend -= 30;
+                }
+                else if (toSpend >= 20) {
+                    //buy Small Town
+                    temp.setFeatureType(3);
+                    domain.addFeature(temp);
+                    toSpend -= 20;
+                }
+                else {
+                    //loop through potential purchases until price is less
+                    //than toSpend
+                    temp.randomFeature();
+                    int attempts = 5;   //this prevents the following loop from
+                                        //looping infinitely
+                    while (attempts-- > 0 && temp.getCost() > toSpend)
+                        temp.randomFeature();
+
+                    if (attempts != 0 && !domain.containsFeature(temp)) {
+                        domain.addFeature(temp);
+                        toSpend -= temp.getCost();
+                    }
+                    else
+                        numFeatures = 0;
+                }
+            }
 
             //Insert new Domain into this.domains
             domain.setTerrain(terrain);
@@ -509,6 +573,7 @@ public class House {
         this.isBanner = true;
         randStats(influenceMax, 5);
         createHistory(ageMax);
+        generateLandHoldings();
     }
 
     //create random stats for Banner House

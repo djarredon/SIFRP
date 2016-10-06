@@ -45,12 +45,27 @@ public class FeatureList {
     }
 
     public void insert(Feature feature) {
+        //this method also needs collision testing
         if (head == null)
             head = new FeatureNode(feature);
         else {
             FeatureNode temp = new FeatureNode(feature);
             temp.setNext(head);
             head = temp;
+        }
+    }
+
+    public boolean contains(Feature feature) {
+        if (head == null)
+            return false;
+        else {
+            FeatureNode current = head;
+            while (current != null) {
+                if (!current.equals(feature))
+                    return true;
+                current = current.getNext();
+            }
+            return false;
         }
     }
 

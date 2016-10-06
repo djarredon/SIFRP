@@ -18,7 +18,10 @@ public class Domain extends Holding{
 
     public Domain(Domain toCopy) {
         this.terrain = toCopy.terrain;
-        features = new FeatureList(toCopy.features);
+        if (toCopy.features != null)
+            features = new FeatureList(toCopy.features);
+        else
+            features = null;
     }
 
     public int getCost() {
@@ -36,7 +39,7 @@ public class Domain extends Holding{
     }
 
     public void addFeature(Feature feature) {
-        if (feature == null) {
+        if (features == null) {
             features = new FeatureList(feature);
         }
         else {
@@ -48,10 +51,22 @@ public class Domain extends Holding{
         if (terrain == null)
             System.out.println("No Domain to display");
         else {
+            System.out.print("Terrain: ");
             terrain.display();
 
+            System.out.print("Features: ");
             if (features != null)
                 features.display();
+            else
+                System.out.println("Barren");
+            System.out.println("----------");
         }
+    }
+
+    public boolean containsFeature(Feature toCheck) {
+        if (features == null)
+            return false;
+        else
+            return features.contains(toCheck);
     }
 }
