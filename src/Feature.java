@@ -26,9 +26,12 @@ public class Feature extends Holding {
     }
 
     public boolean equals(Feature toCompare) {
-        if (featureType == toCompare.featureType)
-            if (toCompare.description.equalsIgnoreCase(description))
+        if (featureType == toCompare.featureType) {
+            if (description != null && toCompare.description != null)
+            if (toCompare.description.equalsIgnoreCase(description)) {
                 return true;
+            }
+        }
         return false;
     }
 
@@ -40,6 +43,52 @@ public class Feature extends Holding {
     public void randomFeature() {
         rand = new Random();
         setFeatureType(rand.nextInt(16) + 1);
+    }
+
+    public void randomFeature(String realm) {
+        rand = new Random();
+        int num = rand.nextInt(16) + 1;
+        switch (realm) {
+            case "Dorne": //1-6, 8,9-14
+                while (num == 7 || num > 14)
+                    num = rand.nextInt(16) + 1;
+                break;
+            case "Dragonstone": //1-10;
+                while (num > 10)
+                    num = rand.nextInt(16) + 1;
+                break;
+            case "The Iron Islands": //1-10
+                while (num > 10)
+                    num = rand.nextInt(16) + 1;
+                break;
+            case "King's Landing": //1-7, 9-16
+                while (num == 8)
+                    num = rand.nextInt(16) + 1;
+                break;
+            case "The Mountains of the Moon": //1-14
+                while (num > 14)
+                    num = rand.nextInt(16) + 1;
+                break;
+            case "The North": //1-16 (all)
+                break;
+            case "The Reach": //1-14
+                while (num > 14)
+                    num = rand.nextInt(16) + 1;
+                break;
+            case "The Riverlands": //2-7, 9-14
+                while (num < 2 || num == 8 || num > 14)
+                    num = rand.nextInt(16) + 1;
+                break;
+            case "The Stormlands": //1-16 (all)
+                break;
+            case "The Westerlands": //1-14
+                while (num > 14)
+                    num = rand.nextInt(16) + 1;
+                break;
+            default:
+                System.out.println("FEATURE REALM ERROR");
+        }
+        setFeatureType(num);
     }
 
     public void setFeatureType(int featureType) {

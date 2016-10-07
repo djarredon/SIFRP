@@ -454,18 +454,8 @@ public class House {
             DomainNode domain = new DomainNode();
             Terrain terrain = new Terrain();
             //purchase terrain
-            int num = die.roll();
-            if (num == 1 || num == 2)   //purchase hills
-                terrain.setTerrain(1);
-            else if (num == 3)  //Mountains
-                terrain.setTerrain(2);
-            else if (num == 4 || num == 5)  //Plains
-                terrain.setTerrain(3);
-            else if (num == 6)  //Wetlands
-                terrain.setTerrain(4);
-            else
-                System.out.println("Invalid Terrain type");
 
+            terrain.randomTerrain(realm);
             toSpend -= terrain.getCost();
 
             //purchase features
@@ -508,13 +498,13 @@ public class House {
                 else {
                     //loop through potential purchases until price is less
                     //than toSpend
-                    temp.randomFeature();
+                    temp.randomFeature(realm);
                     int attempts = 5;   //this prevents the following loop from
                                         //looping infinitely
                     while (attempts-- > 0 && temp.getCost() > toSpend)
-                        temp.randomFeature();
+                        temp.randomFeature(realm);
 
-                    if (attempts != 0 && !domain.containsFeature(temp)) {
+                    if (attempts != 0 && !domain.containsFeature(temp) && temp.getCost() <= toSpend) {
                         domain.addFeature(temp);
                         toSpend -= temp.getCost();
                     }
