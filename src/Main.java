@@ -12,16 +12,20 @@ public class Main {
         Dice die = new Dice();
         Data data = new Data();
 
+        HouseTest();
+        //HouseListTest();
+    }
 
+    public static void HouseTest() {
         House test = new House();
         test.setName("Daniel");
         test.generateRandHouse();
         test.generateHoldings();
         //test.buyBanner();
         test.displayAll();
+    }
 
-
-        /*
+    public static void HouseListTest() {
         HouseNode temp;
         HouseList list = new HouseList();
         for (int i = 0; i < 10; ++i) {
@@ -31,10 +35,6 @@ public class Main {
         }
 
         list.display();
-        */
-
-
-
     }
 
 }
