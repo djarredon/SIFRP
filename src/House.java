@@ -557,6 +557,14 @@ public class House {
         //After buying any banner houses, purchase units
     }
 
+    public void generateDefenseHoldings() {
+        int toSpend = defense;
+
+        while (toSpend >= 10) {
+            if (toSpend > 60)
+        }
+    }
+
     //+++++BANNER HOUSE SECTION+++++
     //used to generate Banner House based on realm, age, and influence of Home House
     public void buyBanner() {

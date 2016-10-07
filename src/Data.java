@@ -25,6 +25,46 @@ public class Data {
         }
     }
 
+    public String getDefenseHoldingDescription(int type) {
+        switch (type) {
+            case 1: return "A superior castle is a massive stronghold in the vein of Harrenhal, the\n" +
+                    "\t\t\tEyrie, Storm’s End, Dragonstone, and Winterfell. A superior castle has\n" +
+                    "\t\t\tseveral towers, structures, and smaller buildings, all surrounded by a\n" +
+                    "\t\t\tsteep curtain wall and likely a moat as well.";
+            case 2: return "Castles are impressive fortified strongholds but are not as large or as\n" +
+                    "\t\t\timposing as a superior castle. Most castles incorporate at least one\n" +
+                    "\t\t\tcentral keep and several towers connected by walls and surrounded\n" +
+                    "\t\t\tby a moat. Example castles include Deepwood Motte, the Twins, and\n" +
+                    "\t\t\tRiverrun.";
+            case 3: return "A small castle is simply a smaller version of a standard castle. It usually\n" +
+                    "\t\t\thas no more than a single keep, perhaps two towers and a wall. Examples\n" +
+                    "\t\t\tof small castles include Bronzegate, Honeyholt, and Yronwood.";
+            case 4: return "A hall (or keep) is usually a small, fortified building. It may or may not\n" +
+                    "\t\t\tbe surrounded by a wall, and it could have a tower, though it’s unlikely.\n" +
+                    "\t\t\tExamples of halls include Acorn Hall, Cider Hall, and Longbow Hall.";
+            case 5: return "Towers are single free-standing stone or timber structures that thrust\n" +
+                    "\t\t\tup from the ground. If they have any outbuildings, they are small and\n" +
+                    "\t\t\tunprotected. Petyr Baelish’s holdings in the Fingers included a single\n" +
+                    "\t\t\ttower.";
+            default:
+                System.out.println("DEFENSE HOLDING DESCRIPTION ERROR");
+                return "";
+        }
+    }
+
+    public String getDefenseHoldingBenefit(int type) {
+        switch (type) {
+            case 1: return "Units defending a superior castle gain a +12 bonus to their Defense.";
+            case 2: return "Units defending a castle gain a +8 bonus to their Defense.";
+            case 3: return "Units defending a small castle gain a +6 bonus to their Defense.";
+            case 4: return "Units defending a hall gain a +4 bonus to their Defense.";
+            case 5: return "Units defending a tower gain a +3 bonus to their Defense.";
+            default:
+                System.out.println("DEFENSE HOLDING BENEFIT ERROR");
+                return "";
+        }
+    }
+
     public History getHistory(int age) {
         //determine number of events
         Dice die = new Dice();
