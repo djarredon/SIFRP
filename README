@@ -20,16 +20,16 @@ Completed:
 				' Purchases Banner Houses
 			> Land
 				' "Domain" consists of a terrain type and a list of features.
+			> Defense (Castles, Forts, etc)
 
 In-progress:
 	* House
 		- Purchase Holdings
-			> Defense (Castles, Forts, etc)
+			> Influence (heirs)
 
 Planned:
 	* House
 		- Purchase Holdings
-			> Influence (heirs)
 			> Power (Units)
 			> Wealth ()
 			> Law
