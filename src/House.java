@@ -15,6 +15,7 @@ public class House {
     private String foundingEvent;
     private History history;    //list of historical events
     private int age;    //age of the house
+    private Character steward;  //Lord/Lady of the House
 
     private Dice die;   //used for rolling dice
 
@@ -26,6 +27,8 @@ public class House {
     private int population;
     private int power;
     private int wealth;
+
+    private int maxStatus;
 
     //Holdings
     private HouseList banners;
@@ -46,6 +49,7 @@ public class House {
         isBanner = false;
         domains = null;
         castles = null;
+        steward = null;
     }
 
     //Constructor with House name
@@ -60,6 +64,7 @@ public class House {
         isBanner = false;
         domains = null;
         castles = null;
+        steward = null;
     }
 
     //Copy Constructor
@@ -289,6 +294,10 @@ public class House {
             history = new History(toCopy.history);
         else
             history = null;
+        if (toCopy.steward != null)
+            steward = new Character(toCopy.steward);
+        else
+            steward = null;
 
         //Holdings
         if (toCopy.heirs != null)
@@ -309,6 +318,7 @@ public class House {
         else
             castles = null;
 
+        maxStatus = toCopy.maxStatus;
         age = toCopy.age;
         //stats
         defense = toCopy.defense;
@@ -352,6 +362,9 @@ public class House {
         System.out.println("Realm: " + realm + "\n" +
                 "Founded: " + founded + "\n" +
                 "Founding Event: " + foundingEvent);
+        if (steward != null) {
+            System.out.println("Current Steward: " + steward.getName());
+        }
     }
 
     //displays House history
@@ -418,6 +431,7 @@ public class House {
         randRealm();
         randStats();
         createHistory();
+        generateSteward();
         generateHoldings();
     }
 
@@ -432,6 +446,23 @@ public class House {
         wealth = die.roll(7);
 
         realmModifier();
+    }
+
+    public void setMaxStatus() {
+        if (influence >= 0 && influence <= 10)
+            maxStatus = 2;
+        else if (influence >10 && influence <= 20)
+            maxStatus = 3;
+        else if (influence > 20 && influence <= 30)
+            maxStatus = 4;
+        else if (influence > 30 && influence <= 40)
+            maxStatus = 5;
+        else if (influence > 40 && influence <= 50)
+            maxStatus = 6;
+        else if (influence > 50 && influence <= 60)
+            maxStatus = 7;
+        else if (influence > 70)
+            maxStatus = 8;
     }
 
     //creates history for Home House
@@ -470,6 +501,12 @@ public class House {
             realm = "The Stormlands";
         else
             realm = "Dorne";
+    }
+
+    private void generateSteward() {
+        setMaxStatus();
+        steward = new Character(name, realm, maxStatus);
+        steward.generateCharacter();
     }
 
     //+++++HOLDINGS SECTION+++++
@@ -624,23 +661,46 @@ public class House {
     }
 
     public void generateHeirs() {
+        setMaxStatus();
         int toSpend = influence;
         boolean firstHeir = false;
         boolean secondHeir = false;
         if (toSpend > 5)
             heirs = new CharacterList();
 
+        /*create new character with
+            > House name
+            > realm
+            > gender
+            > max status
+          */
+
         while (toSpend > 5) {
             if (!firstHeir && toSpend >= 20) {
-                heirs.insert(new CharacterNode());
+                firstHeir = true;
+                if (realm != "Dorne") {
+                    CharacterNode temp = new CharacterNode(name, realm, "Male", maxStatus -1);
+                    temp.generateCharacter();
+                    heirs.insert(temp);
+                }
+                else {
+                    CharacterNode temp = new CharacterNode(name, realm, maxStatus -1);
+                    temp.generateCharacter();
+                    heirs.insert(temp);
+                }
                 toSpend -= 20;
             }
             if (!secondHeir && toSpend >= 10) {
-                heirs.insert(new CharacterNode());
+                secondHeir = true;
+                CharacterNode temp = new CharacterNode(name, realm, maxStatus -2);
+                temp.generateCharacter();
+                heirs.insert(temp);
                 toSpend -= 10;
             }
             if (toSpend >= 5) {
-                heirs.insert(new CharacterNode());
+                CharacterNode temp = new CharacterNode(name, realm, maxStatus -3);
+                temp.generateCharacter();
+                heirs.insert(temp);
                 toSpend -= 5;
             }
         }
@@ -664,6 +724,7 @@ public class House {
         createHistory(ageMax);
         generateLandHoldings();
         generateDefenseHoldings();
+        generateSteward();
         generateHeirs();
     }
 

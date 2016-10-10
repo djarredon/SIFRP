@@ -1,7 +1,6 @@
 /**
  * Created by arredon on 3/7/2016.
  */
-import java.io.*;
 import java.util.Random;
 
 public class Main {
@@ -12,8 +11,15 @@ public class Main {
         Dice die = new Dice();
         Data data = new Data();
 
+        //CharacterTest();
         HouseTest();
         //HouseListTest();
+    }
+
+    public static void CharacterTest() {
+        Character test = new Character("Daniel");
+        test.generateCharacter();
+        test.displayAll();
     }
 
     public static void HouseTest() {

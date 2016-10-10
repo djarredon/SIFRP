@@ -18,7 +18,7 @@ public class CharacterList {
         else {
             CharacterNode current = head;
             while (current != null) {
-                current.display();
+                current.displayAll();
                 current = current.getNext();
             }
         }
