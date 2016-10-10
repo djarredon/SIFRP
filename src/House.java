@@ -31,6 +31,8 @@ public class House {
     private HouseList banners;
     private boolean isBanner;
     private DomainList domains;
+    private DefenseList castles;
+    private CharacterList heirs;
 
     //+++++GENERAL METHODS+++++
     //default constructor
@@ -43,6 +45,7 @@ public class House {
         banners = null;
         isBanner = false;
         domains = null;
+        castles = null;
     }
 
     //Constructor with House name
@@ -56,6 +59,7 @@ public class House {
         banners = null;
         isBanner = false;
         domains = null;
+        castles = null;
     }
 
     //Copy Constructor
@@ -280,10 +284,17 @@ public class House {
         realm = toCopy.realm;
         founded = toCopy.founded;
         foundingEvent = toCopy.foundingEvent;
+
         if (toCopy.history != null)
             history = new History(toCopy.history);
         else
             history = null;
+
+        //Holdings
+        if (toCopy.heirs != null)
+            heirs = new CharacterList(toCopy.heirs);
+        else
+            heirs = null;
         if (toCopy.banners != null)
             banners = new HouseList(toCopy.banners);
         else
@@ -293,6 +304,10 @@ public class House {
             domains = new DomainList(toCopy.domains);
         else
             domains = null;
+        if (toCopy.castles != null)
+            this.castles = new DefenseList(toCopy.castles);
+        else
+            castles = null;
 
         age = toCopy.age;
         //stats
@@ -318,8 +333,10 @@ public class House {
     public void displayAll() {
         displayHouseInfo();
         displayStats();
+        displayHeirs();
         displayHistory();
         displayLandHoldings();
+        displayDefenseHoldings();
 
         if (!isBanner) {
             displayBanners();
@@ -374,6 +391,24 @@ public class House {
         }
         else
             System.out.println("\nNo Domains.");
+    }
+
+    public void displayDefenseHoldings() {
+        if (castles != null) {
+            System.out.println("\nDefense Holdings: ");
+            castles.display();
+        }
+        else
+            System.out.println("\nNo Defense Holdings.");
+    }
+
+    public void displayHeirs() {
+        if (heirs != null) {
+            System.out.println("\nHeirs: ");
+            heirs.display();
+        }
+        else
+            System.out.println("\nNo Heirs.");
     }
 
     //+++++HOME HOUSE SECTION+++++
@@ -441,6 +476,8 @@ public class House {
     public void generateHoldings() {
         generatePowerHoldings();
         generateLandHoldings();
+        generateDefenseHoldings();
+        generateHeirs();
     }
 
     //Generates Domains for the House usings this.lands
@@ -548,10 +585,64 @@ public class House {
     }
 
     public void generateDefenseHoldings() {
+        castles = new DefenseList();
         int toSpend = defense;
+        DefenseNode temp = new DefenseNode();
 
         while (toSpend >= 10) {
-            if (toSpend > 60)
+            if (toSpend > 60) {
+                //superior castle
+                temp.setType(1);
+                toSpend -= temp.getCost();
+                castles.insert(temp);
+            }
+            if (toSpend > 50) {
+                //castle
+                temp.setType(2);
+                toSpend -= temp.getCost();
+                castles.insert(temp);
+            }
+            if (toSpend > 40) {
+                //small castle
+                temp.setType(3);
+                toSpend -= temp.getCost();
+                castles.insert(temp);
+            }
+            if (toSpend > 30) {
+                //Hall
+                temp.setType(4);
+                toSpend -= temp.getCost();
+                castles.insert(temp);
+            }
+            if (toSpend >= 10) {
+                //Tower
+                temp.setType(5);
+                toSpend -= temp.getCost();
+                castles.insert(temp);
+            }
+        }
+    }
+
+    public void generateHeirs() {
+        int toSpend = influence;
+        boolean firstHeir = false;
+        boolean secondHeir = false;
+        if (toSpend > 5)
+            heirs = new CharacterList();
+
+        while (toSpend > 5) {
+            if (!firstHeir && toSpend >= 20) {
+                heirs.insert(new CharacterNode());
+                toSpend -= 20;
+            }
+            if (!secondHeir && toSpend >= 10) {
+                heirs.insert(new CharacterNode());
+                toSpend -= 10;
+            }
+            if (toSpend >= 5) {
+                heirs.insert(new CharacterNode());
+                toSpend -= 5;
+            }
         }
     }
 
@@ -572,6 +663,8 @@ public class House {
         randStats(influenceMax, 5);
         createHistory(ageMax);
         generateLandHoldings();
+        generateDefenseHoldings();
+        generateHeirs();
     }
 
     //create random stats for Banner House

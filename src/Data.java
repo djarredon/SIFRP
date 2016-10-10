@@ -330,4 +330,19 @@ public class Data {
             return "Invalid Score";
     }
 
+    public String randName() {
+        Dice die = new Dice();
+        int num = die.roll();
+
+        switch (num) {
+            case 1: return "Jon";
+            case 2: return "Sansa";
+            case 3: return "Bran";
+            case 4: return "Eddard";
+            case 5: return "Catelyn";
+            case 6: return "Renly";
+            default: return "Robert";
+        }
+    }
+
 }

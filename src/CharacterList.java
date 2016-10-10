@@ -1,24 +1,22 @@
-import java.util.zip.DeflaterInputStream;
-
 /**
- * Created by arredon on 10/7/2016.
+ * Created by arredon on 10/9/2016.
  */
-public class DefenseList {
-    DefenseNode head;
+public class CharacterList {
+    CharacterNode head;
 
-    public DefenseList() {
+    public CharacterList() {
         head = null;
     }
 
-    public DefenseList(DefenseList castle) {
-        copyList(castle);
+    public CharacterList(CharacterList characters) {
+        copyList(characters);
     }
 
     public void display() {
         if (head == null)
             System.out.println("No Features");
         else {
-            DefenseNode current = head;
+            CharacterNode current = head;
             while (current != null) {
                 current.display();
                 current = current.getNext();
@@ -26,28 +24,28 @@ public class DefenseList {
         }
     }
 
-    public void insert(DefenseNode castle) {
+    public void insert(CharacterNode characters) {
         if (head == null)
-            head = new DefenseNode(castle);
+            head = new CharacterNode(characters);
         else {
-            DefenseNode temp = new DefenseNode(castle);
+            CharacterNode temp = new CharacterNode(characters);
             temp.setNext(head);
             head = temp;
         }
     }
 
-    public void copyList(DefenseList toCopy) {
+    public void copyList(CharacterList toCopy) {
         if (toCopy.head == null)
             head = null;
         else {
-            head = new DefenseNode(toCopy.head);
-            DefenseNode prevNode = head;
-            DefenseNode thisCurrent;
-            DefenseNode copyCurrent = toCopy.head;
+            head = new CharacterNode(toCopy.head);
+            CharacterNode prevNode = head;
+            CharacterNode thisCurrent;
+            CharacterNode copyCurrent = toCopy.head;
             copyCurrent = copyCurrent.getNext();
 
             while (copyCurrent != null) {
-                thisCurrent = new DefenseNode(copyCurrent);
+                thisCurrent = new CharacterNode(copyCurrent);
                 prevNode.setNext(thisCurrent);
                 prevNode = prevNode.getNext();
                 copyCurrent = copyCurrent.getNext();
