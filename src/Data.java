@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /**
  * Created by arredon on 9/29/2016.
  */
@@ -330,18 +332,144 @@ public class Data {
             return "Invalid Score";
     }
 
-    public String randName() {
-        Dice die = new Dice();
-        int num = die.roll();
+    public String randMaleName() {
+        Random rand = new Random();
+        int num = rand.nextInt(6) + 1;
 
         switch (num) {
             case 1: return "Jon";
-            case 2: return "Sansa";
+            case 2: return "Tyrion";
             case 3: return "Bran";
             case 4: return "Eddard";
-            case 5: return "Catelyn";
+            case 5: return "Jaime";
             case 6: return "Renly";
-            default: return "Robert";
+            default: return "Male Name Error";
+        }
+    }
+
+    public String randFemaleName() {
+        Random rand = new Random();
+        int num = rand.nextInt(6) + 1;
+
+        switch (num) {
+            case 1: return "Cercei";
+            case 2: return "Sansa";
+            case 3: return "Igrid";
+            case 4: return "Danaerys";
+            case 5: return "Catelyn";
+            case 6: return "Myrcella";
+            default: return "Female Name Error";
+        }
+    }
+
+    public String randHouseName() {
+        Random rand = new Random();
+        int num = rand.nextInt(6) + 1;
+
+        switch (num) {
+            case 1: return "Stark";
+            case 2: return "Baratheon";
+            case 3: return "Lannister";
+            case 4: return "Martell";
+            case 5: return "Tyrell";
+            case 6: return "Tully";
+            default: return "House Name Error";
+        }
+    }
+
+    public String randBackground() {
+        Dice die = new Dice();
+        int num = die.roll(2);
+        switch (num) {
+            case 2: return "You served another house (page, sworn sword).";
+            case 3: return "You had a torrid love affair.";
+            case 4: return "You fought or were involved in a battle.";
+            case 5: return "You were kidnapped and escaped, were ransomed, or rescued.";
+            case 6: return "You traveled across the narrow sea for a time.";
+            case 7: return "You achieved a significant deed, maybe saving the life of your lord,\n" +
+                    "killed a giant boar, and so on.";
+            case 8: return "You kept the company of a famous individual.";
+            case 9: return "You were present at a significant tournament (competing or watching).";
+            case 10: return "You were involved in a villainous scandal.";
+            case 11: return "You were falsely accused of wrongdoing.";
+            case 12: return "You were held hostage by another house as a ward or prisoner.";
+            default: return "Random Background Error";
+        }
+    }
+
+    public String randGoal() {
+        Dice die = new Dice();
+        int num = die.roll(2);
+        switch (num) {
+            case 2: return "Enlightenment";
+            case 3: return "Skill, mastery in a specific ability";
+            case 4: return "Fame";
+            case 5: return "Knowledge";
+            case 6: return "Love";
+            case 7: return "Power";
+            case 8: return "Security";
+            case 9: return "Revenge";
+            case 10: return "Wealth";
+            case 11: return "Justice";
+            case 12: return "Good";
+            default: return "Random Goal Error";
+        }
+    }
+
+    public String randMotivation() {
+        Dice die = new Dice();
+        int num = die.roll(2);
+        switch (num) {
+            case 2: return "Charity";
+            case 3: return "Duty";
+            case 4: return "Fear";
+            case 5: return "Greed";
+            case 6: return "Love";
+            case 7: return "Hatred";
+            case 8: return "Lust";
+            case 9: return "Peace";
+            case 10: return "Stability";
+            case 11: return "Excellence";
+            case 12: return "Madness";
+            default: return "Random Motivation Error";
+        }
+    }
+
+    public String randVirtue() {
+        Dice die = new Dice();
+        int num = die.roll(2);
+        switch (num) {
+            case 2: return "Charitable";
+            case 3: return "Chaste";
+            case 4: return "Courageous";
+            case 5: return "Devoted";
+            case 6: return "Honest";
+            case 7: return "Humble";
+            case 8: return "Just";
+            case 9: return "Magnanimous";
+            case 10: return "Merciful";
+            case 11: return "Pious";
+            case 12: return "Wise";
+            default: return "Random Virtue Error";
+        }
+    }
+
+    public String randVice() {
+        Dice die = new Dice();
+        int num = die.roll(2);
+        switch (num) {
+            case 2: return "Ambitious/Grasping";
+            case 3: return "Arrogant";
+            case 4: return "Avaricious";
+            case 5: return "Cowardly";
+            case 6: return "Cruel";
+            case 7: return "Foolish";
+            case 8: return "Licentious";
+            case 9: return "Miserly";
+            case 10: return "Prejudiced";
+            case 11: return "Scheming";
+            case 12: return "Wrathful";
+            default: return "Random Vice Error";
         }
     }
 
