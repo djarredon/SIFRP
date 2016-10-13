@@ -4,12 +4,10 @@ This is my first attempt at a -large- project, and my first attempt at working o
 project outside of school activity.
 
 Goals:
-	
 	* Create a program that generates (randomly or partially defined) objects from the Song of Ice and Fire
 		Roleplaying (SIFRP) core rulebook. 
 
 Completed:
-	
 	* Dice class rolls a number of six-sided dice (d6's) based on input (die.roll() returns the results
 		of 1d6, die.roll(num) returns the result of (num)d6).
 	* House
@@ -34,7 +32,6 @@ Completed:
 		
 
 In-progress:
-	
 	* House
 		- Purchase Holdings
 		
@@ -42,7 +39,6 @@ In-progress:
 		- Qualities
 
 Planned:
-	
 	* House
 		- Purchase Holdings
 			> Power (Units)
