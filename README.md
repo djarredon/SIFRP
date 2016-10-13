@@ -23,10 +23,20 @@ Completed:
 			> Defense (Castles, Forts, etc)
 			> Influence (heirs)
 				' Now purchases Heirs, but needs to purchase them according to "Heirs" table on p. 107
+		
+	* Character
+		- Abilities
+		- Specialties
+		- Gear
+		- Concept
+		
 
 In-progress:
 	* House
 		- Purchase Holdings
+		
+	* Character
+		- Qualities
 
 Planned:
 	* House
@@ -37,3 +47,6 @@ Planned:
 				' Isn't an object, just needs to adjust "House Fortune Rolls"
 			> Population
 				' Isn't an object, just needs to adjust "House Fortune Rolls"
+				
+	*Character
+		-
