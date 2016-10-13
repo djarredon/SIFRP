@@ -16,7 +16,7 @@ public class DefenseList {
 
     public void display() {
         if (head == null)
-            System.out.println("No Features");
+            System.out.println("No Defense Holdings");
         else {
             DefenseNode current = head;
             while (current != null) {

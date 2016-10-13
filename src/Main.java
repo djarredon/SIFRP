@@ -11,23 +11,35 @@ public class Main {
         Dice die = new Dice();
         Data data = new Data();
 
-        //CharacterTest();
-        HouseTest();
+
+        //WeaponTest();
+        CharacterTest();
+        //HouseTest();
         //HouseListTest();
     }
 
     public static void CharacterTest() {
-        Character test = new Character("Daniel");
+        Character test = new Character();
         test.generateCharacter();
+        test.displayAll();
+    }
+
+    public static void WeaponTest() {
+        Character test = new Character();
+        test.generateCharacter();
+
+        Weapon weapon = new Weapon("Battleaxe");
+        test.giveWeapon(weapon);
+        test.giveOffHand(new Weapon("Buckler"));
+        Armor armor = new Armor();
+        armor.randArmor();
+        test.giveArmor(armor);
         test.displayAll();
     }
 
     public static void HouseTest() {
         House test = new House();
-        test.setName("Daniel");
         test.generateRandHouse();
-        test.generateHoldings();
-        //test.buyBanner();
         test.displayAll();
     }
 

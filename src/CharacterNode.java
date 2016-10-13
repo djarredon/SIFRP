@@ -16,6 +16,11 @@ public class CharacterNode extends Character {
         next = null;
     }
 
+    public CharacterNode(Character toCopy) {
+        super(toCopy);
+        next = null;
+    }
+
     //Constructor given House Name, Realm, and status. For Heirs
     public CharacterNode(String houseName, String realm, int status) {
         super(houseName, realm, status);
