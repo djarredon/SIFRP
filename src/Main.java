@@ -17,14 +17,17 @@ public class Main {
     }
 
     public static void CharacterTest() {
-        Character test = new Character();
+        Character test = new Character("Daniel");
         test.generateCharacter();
         test.displayAll();
     }
 
     public static void HouseTest() {
         House test = new House();
+        test.setName("Daniel");
         test.generateRandHouse();
+        test.generateHoldings();
+        //test.buyBanner();
         test.displayAll();
     }
 

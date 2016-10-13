@@ -33,7 +33,7 @@ public class DefenseHolding extends Holding {
 
     public void display() {
         System.out.println("Type: " + name);
-        //System.out.println("Description: " + description);
+        System.out.println("Description: " + description);
         System.out.println("Benefits: " + benefit);
         System.out.println("----------");
     }

@@ -12,25 +12,13 @@ public class CharacterList {
         copyList(characters);
     }
 
-    public void displayAll() {
+    public void display() {
         if (head == null)
-            System.out.println("No Characters");
+            System.out.println("No Features");
         else {
             CharacterNode current = head;
             while (current != null) {
                 current.displayAll();
-                current = current.getNext();
-            }
-        }
-    }
-
-    public void displayNames() {
-        if (head == null)
-            System.out.println("No Characters");
-        else {
-            CharacterNode current = head;
-            while (current != null) {
-                current.displayName();
                 current = current.getNext();
             }
         }
@@ -44,11 +32,6 @@ public class CharacterList {
             temp.setNext(head);
             head = temp;
         }
-    }
-
-    public void insert(Character toAdd) {
-        CharacterNode temp = new CharacterNode(toAdd);
-        insert(temp);
     }
 
     public void copyList(CharacterList toCopy) {

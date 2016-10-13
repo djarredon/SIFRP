@@ -18,7 +18,6 @@ public class House {
     private Character steward;  //Lord/Lady of the House
 
     private Dice die;   //used for rolling dice
-    private CharacterList residents;
 
     //stats
     private int defense;
@@ -51,7 +50,6 @@ public class House {
         domains = null;
         castles = null;
         steward = null;
-        residents = null;
     }
 
     //Constructor with House name
@@ -67,7 +65,6 @@ public class House {
         domains = null;
         castles = null;
         steward = null;
-        residents = null;
     }
 
     //Copy Constructor
@@ -301,10 +298,6 @@ public class House {
             steward = new Character(toCopy.steward);
         else
             steward = null;
-        if (toCopy.residents != null)
-            this.residents = new CharacterList(toCopy.residents);
-        else
-            this.residents = null;
 
         //Holdings
         if (toCopy.heirs != null)
@@ -345,19 +338,12 @@ public class House {
         isBanner = value;
     }
 
-    public void insertResident(Character toAdd) {
-        if (residents == null)
-            residents = new CharacterList();
-        residents.insert(toAdd);
-    }
-
     //+++++DISPLAY SECTION+++++
     //calls all display functions
     public void displayAll() {
         displayHouseInfo();
         displayStats();
         displayHeirs();
-        displayResidents();
         displayHistory();
         displayLandHoldings();
         displayDefenseHoldings();
@@ -392,23 +378,14 @@ public class House {
 
     //displays House's seven stats and definitions
     public void displayStats() {
-        /*
         Data data = new Data();
-        System.out.println("\nDefense " + defense + ": " + data.getDefenseDefinition(defense) + "\n" +
+        System.out.println("Defense " + defense + ": " + data.getDefenseDefinition(defense) + "\n" +
                 "Influence " + influence + ": " + data.getInfluenceDefinition(influence) + "\n" +
                 "Lands " + lands + ": " + data.getLandsDefinition(lands) + "\n" +
                 "Law " + law + ": " + data.getLawDefinition(law) + "\n" +
                 "Populaion " + population + ": " + data.getPopulationDefinition(population) + "\n" +
                 "Power " + power + ": " + data.getPowerDefinition(power) + "\n" +
                 "Wealth " + wealth + ": " + data.getWealthDefinition(wealth));
-        */
-        System.out.println("\nDefense: " + defense + "\n" +
-                "Influence: " + influence + "\n" +
-                "Lands " + lands + "\n" +
-                "Law " + law + "\n" +
-                "Population " + population + "\n" +
-                "Power " + power + "\n" +
-                "Wealth " + wealth);
     }
 
     public void displayBanners() {
@@ -441,38 +418,21 @@ public class House {
     public void displayHeirs() {
         if (heirs != null) {
             System.out.println("\nHeirs: ");
-            heirs.displayNames();
+            heirs.display();
         }
         else
             System.out.println("\nNo Heirs.");
-    }
-
-    public void displayResidents() {
-        if (residents != null) {
-            System.out.println("\nResidents: ");
-            residents.displayNames();
-        }
-        else
-            System.out.println("\nNo Residents.");
     }
 
     //+++++HOME HOUSE SECTION+++++
     //Create all random info except House name
     //House name may eventually be added.
     public void generateRandHouse() {
-        randName();
         randRealm();
         randStats();
         createHistory();
         generateSteward();
         generateHoldings();
-    }
-
-    public void randName() {
-        if (name == null) {
-            Data data = new Data();
-            name = data.randHouseName();
-        }
     }
 
     //create random stats for Home House
@@ -547,10 +507,6 @@ public class House {
         setMaxStatus();
         steward = new Character(name, realm, maxStatus);
         steward.generateCharacter();
-        if (steward.getGender().equalsIgnoreCase("Male"))
-            steward.setTitle("Lord");
-        else
-            steward.setTitle("Lady");
     }
 
     //+++++HOLDINGS SECTION+++++
@@ -764,7 +720,6 @@ public class House {
     public void generateBannerHouse(String realm, int ageMax, int influenceMax) {
         this.realm = realm;
         this.isBanner = true;
-        randName();
         randStats(influenceMax, 5);
         createHistory(ageMax);
         generateLandHoldings();
