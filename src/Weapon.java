@@ -69,6 +69,74 @@ public class Weapon extends Item {
         return ability;
     }
 
+    public String print() {
+        setWeapon(getName());
+        String toReturn = new String();
+
+        toReturn = toReturn.concat(getName());
+        toReturn = toReturn.concat("Specialty: " + specialty + "\n" +
+                "Damage: (" + damageDesc + ") = " + damage + "\n");
+        if (training != 0)
+            toReturn = toReturn.concat("Training: " + training + "\n");
+        if (qualities != null) {
+            toReturn = toReturn.concat("Qualities:");
+            if (qualities[0] != 0)
+                toReturn = toReturn.concat(" Adaptable");
+            if (qualities[1] != 0)
+                toReturn = toReturn.concat(" Bulk " + qualities[1]);
+            if (qualities[2] != 0)
+                toReturn = toReturn.concat(" Close Range");
+            if (qualities[3] != 0)
+                toReturn = toReturn.concat(" Defensive " + qualities[3]);
+            if (qualities[4] != 0)
+                toReturn = toReturn.concat(" Entangling");
+            if (qualities[5] != 0)
+                toReturn = toReturn.concat(" Fast");
+            if (qualities[6] != 0)
+                toReturn = toReturn.concat(" Fragile");
+            if (qualities[7] != 0)
+                toReturn = toReturn.concat(" Grab");
+            if (qualities[8] != 0)
+                toReturn = toReturn.concat(" Impale");
+            if (qualities[9] != 0)
+                toReturn = toReturn.concat(" Pinning an Opponent");
+            if (qualities[10] != 0)
+                toReturn = toReturn.concat(" Getting Free");
+            if (qualities[11] != 0)
+                toReturn = toReturn.concat(" Long Range");
+            if (qualities[12] != 0)
+                toReturn = toReturn.concat(" Mounted");
+            if (qualities[13] != 0)
+                toReturn = toReturn.concat(" Off-hand " + qualities[13]);
+            if (qualities[14] != 0)
+                toReturn = toReturn.concat(" Piercing " + qualities[14]);
+            if (qualities[15] != 0)
+                toReturn = toReturn.concat(" Powerful");
+            if (qualities[16] != 0)
+                toReturn = toReturn.concat(" Reach " + qualities[16]);
+            if (qualities[17] != 0 && qualities[17] == 1)
+                toReturn = toReturn.concat(" Reload (Lesser)");
+            if (qualities[17] != 0 && qualities[17] == 2)
+                toReturn = toReturn.concat(" Reload {Greater)");
+            if (qualities[18] != 0)
+                toReturn = toReturn.concat(" Set for Charge Only");
+            if (qualities[19] != 0)
+                toReturn = toReturn.concat(" Shattering " + qualities[19]);
+            if (qualities[20] != 0)
+                toReturn = toReturn.concat(" Slow");
+            if (qualities[21] != 0)
+                toReturn = toReturn.concat(" Staggering");
+            if (qualities[22] != 0)
+                toReturn = toReturn.concat(" Two-handed");
+            if (qualities[23] != 0)
+                toReturn = toReturn.concat(" Unwieldy");
+            if (qualities[24] != 0)
+                toReturn = toReturn.concat(" Vicious");
+        }
+
+        return toReturn;
+    }
+
     public void display() {
         setWeapon(getName());
 

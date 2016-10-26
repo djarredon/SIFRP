@@ -24,6 +24,18 @@ public class CharacterList {
         }
     }
 
+    public String printAll() {
+        if (head == null)
+            return "\nNo Characters";
+        CharacterNode current = head;
+        String toReturn = new String();
+        while (current != null) {
+            toReturn = toReturn.concat(current.getName());
+            current = current.getNext();
+        }
+        return  toReturn;
+    }
+
     public void displayNames() {
         if (head == null)
             System.out.println("No Characters");
@@ -34,6 +46,18 @@ public class CharacterList {
                 current = current.getNext();
             }
         }
+    }
+
+    public String printNames() {
+        if (head == null)
+            return "No Characters";
+        CharacterNode current = head;
+        String toReturn = new String();
+        while (current != null) {
+            toReturn = toReturn.concat(current.getName());
+            current = current.getNext();
+        }
+        return toReturn;
     }
 
     public void insert(CharacterNode characters) {

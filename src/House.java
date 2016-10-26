@@ -351,6 +351,58 @@ public class House {
         residents.insert(toAdd);
     }
 
+    //+++++PRINT SECTION+++++
+    public String printAll() {
+        String toReturn = new String();
+        toReturn = toReturn.concat(printHouseInfo());
+        /*
+        toReturn = toReturn.concat(printStats());
+        toReturn = toReturn.concat(printHeirs());
+        toReturn = toReturn.concat(printResidents());
+        toReturn = toReturn.concat(printHistory());
+        toReturn = toReturn.concat(printLandHoldings());
+        toReturn = toReturn.concat(printDefenseHoldings());
+
+        if (!isBanner) {
+            toReturn = toReturn.concat(printBanner());
+            toReturn = toReturn.concat("----------------------------------------\n" +
+                    "----------------------------------------");
+        }
+        */
+        return toReturn;
+    }
+
+    public String printHouseInfo() {
+        String toReturn = new String();
+
+        toReturn = toReturn.concat("House " + name + "\n" +
+                "Realm: " + realm + "\n" +
+                "Founded: " + founded + "\n" +
+                "Founding Event: " + foundingEvent);
+        if (steward != null) {
+            toReturn = toReturn.concat("\nCurrent Steward: " + steward.getName());
+        }
+        return toReturn;
+    }
+
+    public String printStats() {
+        return "Defense: " + defense + "\n" +
+                "Influence: " + influence + "\n" +
+                "Lands: " + lands + "\n" +
+                "Population: " + population + "\n" +
+                "Power " + power + "\n" +
+                "Wealth " + wealth;
+    }
+
+    public String printResidents() {
+        if (residents == null)
+            return "\nNo Residents";
+        String toReturn = "\nResidents";
+        toReturn = toReturn.concat(residents.printNames());
+
+        return toReturn;
+    }
+
     //+++++DISPLAY SECTION+++++
     //calls all display functions
     public void displayAll() {
@@ -803,4 +855,10 @@ public class House {
         foundingEvent = history.head.getEvent();
         historyModifier();
     }
+
+    //SETTERS AND GETTERS
+    public String getName() {
+        return name;
+    }
+
 }

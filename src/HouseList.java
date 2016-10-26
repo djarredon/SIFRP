@@ -59,6 +59,22 @@ public class HouseList {
         return num;
     }
 
+    public String printList() {
+        String toReturn = new String();
+        if (head == null)
+            toReturn = "No Houses to display.";
+        else {
+            HouseNode current = head;
+            while (current != null) {
+                if (current.getIsBanner())
+                    toReturn = toReturn.concat("----------------------------------------");
+                toReturn = toReturn.concat(current.printAll() + "\n");
+                current = current.getNext();
+            }
+        }
+        return toReturn;
+    }
+
     public void display() {
         if (head == null)
             System.out.println("No Houses to display.");

@@ -114,6 +114,13 @@ public class Armor extends Item {
                 "Bulk: " + bulk);
     }
 
+    public String print() {
+        return getName() + "\n" +
+                "Rating: " + armorRating + "\n" +
+                "Penalty: " + armorPenalty + "\n" +
+                "Bulk: " + bulk + "\n";
+    }
+
     public void randArmor() {
         Random rand = new Random();
         int num = rand.nextInt(16) + 1;
