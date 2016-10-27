@@ -44,6 +44,18 @@ public class History {
         }
     }
 
+    public String printAll() {
+        if (head == null)
+            return "No History\n";
+        EventNode current = head;
+        String toReturn = new String();
+        while (current != null) {
+            toReturn = current.print();
+            current = current.getNext();
+        }
+        return toReturn;
+    }
+
     public void display() {
         if (head == null)
             System.out.println("No History");

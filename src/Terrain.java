@@ -19,6 +19,12 @@ public class Terrain extends Holding{
         setName(this.type);
     }
 
+    public String print() {
+        if (name == null)
+            return "No Terrain.\n";
+        return name;
+    }
+
     public void display() {
         if (name != null)
             System.out.println(name);

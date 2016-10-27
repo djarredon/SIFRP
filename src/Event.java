@@ -42,6 +42,10 @@ public class Event{
         return event;
     }
 
+    public String print() {
+        return event;
+    }
+
     public void display() {
         System.out.println(event);
     }

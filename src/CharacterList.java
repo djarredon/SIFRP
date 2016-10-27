@@ -54,7 +54,7 @@ public class CharacterList {
         CharacterNode current = head;
         String toReturn = new String();
         while (current != null) {
-            toReturn = toReturn.concat(current.getName());
+            toReturn = toReturn.concat(current.getName() + "\n");
             current = current.getNext();
         }
         return toReturn;

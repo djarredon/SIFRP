@@ -18,6 +18,18 @@ public class FeatureList {
         copyList(toCopy);
     }
 
+    public String printAll() {
+        if (head == null)
+            return "No Features\n";
+        FeatureNode current = head;
+        String toReturn = new String();
+        while (current != null) {
+            toReturn = toReturn.concat(current.print());
+            current = current.getNext();
+        }
+        return toReturn;
+    }
+
     public void display() {
         if (head == null)
             System.out.println("No Features");

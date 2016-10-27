@@ -353,14 +353,12 @@ public class House {
 
     //+++++PRINT SECTION+++++
     public String printAll() {
-        String toReturn = new String();
-        toReturn = toReturn.concat(printHouseInfo());
-        /*
-        toReturn = toReturn.concat(printStats());
-        toReturn = toReturn.concat(printHeirs());
-        toReturn = toReturn.concat(printResidents());
-        toReturn = toReturn.concat(printHistory());
-        toReturn = toReturn.concat(printLandHoldings());
+        String toReturn = printHouseInfo() + "\n";
+        toReturn = toReturn.concat(printStats() + "\n");
+        toReturn = toReturn.concat(printHeirs() + "\n");
+        toReturn = toReturn.concat(printResidents() + "\n");
+        toReturn = toReturn.concat(printHistory() + "\n");
+        toReturn = toReturn.concat(printLandHoldings() + "\n");
         toReturn = toReturn.concat(printDefenseHoldings());
 
         if (!isBanner) {
@@ -368,7 +366,7 @@ public class House {
             toReturn = toReturn.concat("----------------------------------------\n" +
                     "----------------------------------------");
         }
-        */
+
         return toReturn;
     }
 
@@ -380,7 +378,8 @@ public class House {
                 "Founded: " + founded + "\n" +
                 "Founding Event: " + foundingEvent);
         if (steward != null) {
-            toReturn = toReturn.concat("\nCurrent Steward: " + steward.getName());
+            toReturn = toReturn.concat("\nCurrent Steward: "
+                    + steward.getName() + "\n");
         }
         return toReturn;
     }
@@ -391,16 +390,50 @@ public class House {
                 "Lands: " + lands + "\n" +
                 "Population: " + population + "\n" +
                 "Power " + power + "\n" +
-                "Wealth " + wealth;
+                "Wealth " + wealth + "\n";
     }
 
     public String printResidents() {
         if (residents == null)
-            return "\nNo Residents";
-        String toReturn = "\nResidents";
+            return "No Residents\n";
+        String toReturn = "Residents\n";
         toReturn = toReturn.concat(residents.printNames());
 
         return toReturn;
+    }
+
+    public String printHeirs() {
+        if (heirs == null)
+            return "No Heirs.\n";
+        String toReturn = "Heirs: \n";
+        toReturn = toReturn.concat(heirs.printNames());
+        return toReturn;
+    }
+
+    public String printHistory() {
+        String toReturn = "Historical Events: \n";
+        if (history != null)
+            toReturn = toReturn.concat(history.printAll());
+        return toReturn + "\n";
+    }
+
+    public String printLandHoldings() {
+        if (domains == null)
+            return "No Domains\n";
+        return domains.printAll();
+    }
+
+    public String printDefenseHoldings() {
+        if (castles == null)
+            return "No Defense Holdings.\n";
+        return "Defense Holdings: \n" + castles.printAll();
+    }
+
+    public String printBanner() {
+        if (banners == null)
+            return "No Banner Houses\n";
+        return "Banners: " + banners.getNum() + "\n" +
+                banners.printList();
     }
 
     //+++++DISPLAY SECTION+++++

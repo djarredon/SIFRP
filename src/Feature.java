@@ -165,6 +165,10 @@ public class Feature extends Holding {
         return description;
     }
 
+    public String print() {
+        return description + "\n";
+    }
+
     public void display() {
         if (description != null)
             System.out.println(description);

@@ -3,10 +3,12 @@
  */
 public class HouseList {
     private HouseNode head;
+    private HouseNode current;
     private int num;
 
     public HouseList() {
         head = null;
+        current = null;
     }
 
     public HouseList(HouseNode head) {
@@ -19,13 +21,61 @@ public class HouseList {
             copyList(toCopy);
     }
 
-    public void copyList(HouseList toCopy) {
+    public String printCurrent() {
+        if (current != null)
+            return current.printAll();
+        return "No Houses in list.";
+    }
+
+    public HouseNode getCurrent() {
+        return current;
+    }
+
+    public void moveNext() {
+        if (current != null)
+            if (current.getNext() != null)
+                current = current.getNext();
+    }
+
+    public void movePrev() {
+        if (current != null)
+            if (current.getPrev() != null)
+                current = current.getPrev();
+    }
+
+
+    public void copyList(HouseList toCopy){
         if (toCopy.head == null) {
-            head = null;
+            head = current = null;
             num = 0;
         }
         else {
             head = new HouseNode(toCopy.head);
+            current = head;
+            ++num;
+            HouseNode copyCurrent = toCopy.head.getNext();
+            HouseNode prevNode = head;
+
+            while (copyCurrent != null) {
+                current = new HouseNode(copyCurrent);
+                current.setPrev(prevNode);
+                prevNode.setNext(current);
+                prevNode = prevNode.getNext();
+                copyCurrent = copyCurrent.getNext();
+                ++num;
+            }
+        }
+    }
+/*
+    public void copyList(HouseList toCopy) {
+        if (toCopy.head == null) {
+            head = null;
+            current = null;
+            num = 0;
+        }
+        else {
+            head = new HouseNode(toCopy.head);
+            current = head;
             ++num;
             HouseNode prevNode = head;
             HouseNode thisCurrent;
@@ -41,7 +91,29 @@ public class HouseList {
             }
         }
     }
+    */
 
+    public void insert(HouseNode toAdd) {
+        if (head == null) {
+            head = new HouseNode(toAdd);
+            current = head;
+            num = 1;
+        }
+        else {
+            HouseNode temp = new HouseNode(toAdd);
+            HouseNode trail = head;
+            HouseNode current = head;
+            while (current != null) {
+                trail = current;
+                current = current.getNext();
+            }
+            trail.setNext(temp);
+            temp.setPrev(trail);
+            ++num;
+        }
+    }
+
+    /*
     public void insert(HouseNode toAdd) {
         if (head == null) {
             head = new HouseNode(toAdd);
@@ -54,6 +126,7 @@ public class HouseList {
             ++num;
         }
     }
+    */
 
     public int getNum() {
         return num;

@@ -47,6 +47,19 @@ public class Domain extends Holding{
         }
     }
 
+    public String print() {
+        if (terrain == null)
+            return "No Domain\n";
+        String toReturn = "Terrain: " + terrain.print()
+                + "\nFeatures: \n";
+        if (features == null)
+            toReturn = toReturn.concat("Barren\n");
+        else
+            toReturn = toReturn.concat(features.printAll());
+        toReturn = toReturn.concat("----------");
+        return toReturn;
+    }
+
     public void display() {
         if (terrain == null)
             System.out.println("No Domain to display");
