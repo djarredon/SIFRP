@@ -18,9 +18,8 @@ public class Main {
         int xmax = 1200;
         int ymax = 700;
 
-        Screen screen = new Screen("SIFRP");
+        Screen screen = new Screen("SIFRP", xmax, ymax);
         screen.setVisible(true);
-        screen.setSize(xmax, ymax);
         screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 

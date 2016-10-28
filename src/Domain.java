@@ -56,7 +56,7 @@ public class Domain extends Holding{
             toReturn = toReturn.concat("Barren\n");
         else
             toReturn = toReturn.concat(features.printAll());
-        toReturn = toReturn.concat("----------");
+        toReturn = toReturn.concat("----------\n");
         return toReturn;
     }
 

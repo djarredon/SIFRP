@@ -34,7 +34,7 @@ public class DefenseHolding extends Holding {
     public String print() {
         return "Type: " + name + "\n" +
                 "Benefits: " + benefit + "\n" +
-                "----------";
+                "----------\n";
     }
 
     public void display() {

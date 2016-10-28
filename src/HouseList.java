@@ -43,7 +43,6 @@ public class HouseList {
                 current = current.getPrev();
     }
 
-
     public void copyList(HouseList toCopy){
         if (toCopy.head == null) {
             head = current = null;
@@ -66,32 +65,6 @@ public class HouseList {
             }
         }
     }
-/*
-    public void copyList(HouseList toCopy) {
-        if (toCopy.head == null) {
-            head = null;
-            current = null;
-            num = 0;
-        }
-        else {
-            head = new HouseNode(toCopy.head);
-            current = head;
-            ++num;
-            HouseNode prevNode = head;
-            HouseNode thisCurrent;
-            HouseNode copyCurrent = toCopy.head;
-            copyCurrent = copyCurrent.getNext();
-
-            while (copyCurrent != null) {
-                thisCurrent = new HouseNode(copyCurrent);
-                prevNode.setNext(thisCurrent);
-                prevNode = prevNode.getNext();
-                copyCurrent = copyCurrent.getNext();
-                ++num;
-            }
-        }
-    }
-    */
 
     public void insert(HouseNode toAdd) {
         if (head == null) {
@@ -113,39 +86,21 @@ public class HouseList {
         }
     }
 
-    /*
-    public void insert(HouseNode toAdd) {
-        if (head == null) {
-            head = new HouseNode(toAdd);
-            num = 1;
-        }
-        else {
-            HouseNode temp = new HouseNode(toAdd);
-            temp.setNext(head);
-            head = temp;
-            ++num;
-        }
-    }
-    */
-
     public int getNum() {
         return num;
     }
 
     public String printList() {
-        String toReturn = new String();
         if (head == null)
-            toReturn = "No Houses to display.";
-        else {
-            HouseNode current = head;
-            while (current != null) {
-                if (current.getIsBanner())
-                    toReturn = toReturn.concat("----------------------------------------");
-                toReturn = toReturn.concat(current.printAll() + "\n");
-                current = current.getNext();
-            }
-        }
-        return toReturn;
+            return "No Houses to display.\n";
+        else
+            return printList(head);
+    }
+
+    public String printList(HouseNode head) {
+        if (head == null)
+            return null;
+        return head.printAll() + "\n" + printList(head.getNext());
     }
 
     public void display() {
