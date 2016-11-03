@@ -280,6 +280,26 @@ public class Character {
         return toReturn;
     }
 
+    public String printCombatDefense() {
+        if (armor != null)
+            return combatDefense + " (" + (combatDefense + armor.getArmorPenalty())
+                    + " W/Armor)";
+        else
+            return combatDefense + "";
+    }
+
+    public String printHealth() {
+        return "" + health;
+    }
+
+    public String printIntrigueDefense() {
+        return "" + intrigueDefense;
+    }
+
+    public String printComposure() {
+        return "" + composure;
+    }
+
     public void displayConcept() {
         System.out.println("Background: " + background + "\n" +
                 "Goal: " + goal + "\n" +
@@ -1055,6 +1075,14 @@ Venerable
         return temp;
     }
 
+    public String getAge() {
+        return age;
+    }
+
+    public String getHouseName() {
+        return houseName;
+    }
+
     public void setGender(String gender) {
         this.gender = gender;
     }
@@ -1452,71 +1480,84 @@ Venerable
     }
 
     public String printAgility() {
-        String toReturn = new String ();
-        if (agility > 2 || agilitySpecialties != null) {
-            toReturn = toReturn.concat("Agility: " + agility + "\t\t\t||");
-            if (agilitySpecialties != null) {
-                if (agilitySpecialties[0] > 0)
-                    toReturn = toReturn.concat("Acrobatics " + agilitySpecialties[0] + " ");
-                if (agilitySpecialties[1] > 0)
-                    toReturn = toReturn.concat("Balance " + agilitySpecialties[1] + " ");
-                if (agilitySpecialties[2] > 0)
-                    toReturn = toReturn.concat("Contortions " + agilitySpecialties[2] + " ");
-                if (agilitySpecialties[3] > 0)
-                    toReturn = toReturn.concat("Dodge " + agilitySpecialties[3] + " ");
-                if (agilitySpecialties[4] > 0)
-                    toReturn = toReturn.concat("Quickness " + agilitySpecialties[4] + " ");
-            }
+        return "" + agility;
+    }
+
+    public String printAgilitySpecialties() {
+        String toReturn = new String();
+        if (agilitySpecialties != null) {
+            if (agilitySpecialties[0] > 0)
+                toReturn = toReturn.concat("Acrobatics " + agilitySpecialties[0] + " ");
+            if (agilitySpecialties[1] > 0)
+                toReturn = toReturn.concat("Balance " + agilitySpecialties[1] + " ");
+            if (agilitySpecialties[2] > 0)
+                toReturn = toReturn.concat("Contortions " + agilitySpecialties[2] + " ");
+            if (agilitySpecialties[3] > 0)
+                toReturn = toReturn.concat("Dodge " + agilitySpecialties[3] + " ");
+            if (agilitySpecialties[4] > 0)
+                toReturn = toReturn.concat("Quickness " + agilitySpecialties[4] + " ");
             toReturn = toReturn.concat("\n");
         }
+        else
+            toReturn = null;
         return toReturn;
     }
 
     public String printAnimalHandling() {
+        return "" + animalHandling;
+    }
+
+    public String printAnimalHandlingSpecialties() {
         String toReturn = new String ();
-        if (animalHandling > 2 || animalHandlingSpecialties != null) {
-            toReturn = toReturn.concat("Animal Handling: " + animalHandling + "\t||");
-            if (animalHandlingSpecialties != null) {
-                if (animalHandlingSpecialties[0] > 0)
-                    toReturn = toReturn.concat("Charm " + animalHandlingSpecialties[0] + " ");
-                if (animalHandlingSpecialties[1] > 0)
-                    toReturn = toReturn.concat("Drive " + animalHandlingSpecialties[1] + " ");
-                if (animalHandlingSpecialties[2] > 0)
-                    toReturn = toReturn.concat("Ride " + animalHandlingSpecialties[2] + " ");
-                if (animalHandlingSpecialties[3] > 0)
-                    toReturn = toReturn.concat("Train " + animalHandlingSpecialties[3] + " ");
-            }
+         if (animalHandlingSpecialties != null) {
+            if (animalHandlingSpecialties[0] > 0)
+                toReturn = toReturn.concat("Charm " + animalHandlingSpecialties[0] + " ");
+            if (animalHandlingSpecialties[1] > 0)
+                toReturn = toReturn.concat("Drive " + animalHandlingSpecialties[1] + " ");
+            if (animalHandlingSpecialties[2] > 0)
+                toReturn = toReturn.concat("Ride " + animalHandlingSpecialties[2] + " ");
+            if (animalHandlingSpecialties[3] > 0)
+                toReturn = toReturn.concat("Train " + animalHandlingSpecialties[3] + " ");
             toReturn = toReturn.concat("\n");
         }
+        else
+            toReturn = null;
+
         return toReturn;
     }
 
     public String printAthletics() {
-        String toReturn = new String ();
-        if (athletics > 2 || athleticsSpecialties != null) {
-            toReturn = toReturn.concat("Athletics: " + athletics + "\t\t||");
-            if (athleticsSpecialties != null) {
-                //Jump, Run, Strength, Swim, Throw
-                if (athleticsSpecialties[0] > 0)
-                    toReturn = toReturn.concat("Climb " + athleticsSpecialties[0] + " ");
-                if (athleticsSpecialties[1] > 0)
-                    toReturn = toReturn.concat("Jump " + athleticsSpecialties[1] + " ");
-                if (athleticsSpecialties[2] > 0)
-                    toReturn = toReturn.concat("Strength " + athleticsSpecialties[2] + " ");
-                if (athleticsSpecialties[3] > 0)
-                    toReturn = toReturn.concat("Swim " + athleticsSpecialties[3] + " ");
-                if (athleticsSpecialties[4] > 0)
-                    toReturn = toReturn.concat("Throw " + athleticsSpecialties[4] + " ");
-            }
+        return "" + athletics;
+    }
+
+    public String printAthleticsSpecialties() {
+        if (athleticsSpecialties != null) {
+            String toReturn = new String();
+            //Jump, Run, Strength, Swim, Throw
+            if (athleticsSpecialties[0] > 0)
+                toReturn = toReturn.concat("Climb " + athleticsSpecialties[0] + " ");
+            if (athleticsSpecialties[1] > 0)
+                toReturn = toReturn.concat("Jump " + athleticsSpecialties[1] + " ");
+            if (athleticsSpecialties[2] > 0)
+                toReturn = toReturn.concat("Strength " + athleticsSpecialties[2] + " ");
+            if (athleticsSpecialties[3] > 0)
+                toReturn = toReturn.concat("Swim " + athleticsSpecialties[3] + " ");
+            if (athleticsSpecialties[4] > 0)
+                toReturn = toReturn.concat("Throw " + athleticsSpecialties[4] + " ");
             toReturn = toReturn.concat("\n");
+            return toReturn;
         }
-        return toReturn;
+        else
+            return null;
     }
 
     public String printAwareness() {
-        String toReturn = new String ();
+        return "" + awareness;
+    }
+
+    public String printAwarenessSpecialties() {
         if (awareness > 2 || awarenessSpecialties != null) {
-            toReturn = toReturn.concat("Awareness: " + awareness + "\t\t||");
+            String toReturn = new String();
             if (awarenessSpecialties != null) {
                 if (awarenessSpecialties[0] > 0)
                     toReturn = toReturn.concat("Empathy " + awarenessSpecialties[0] + " ");
@@ -1524,14 +1565,18 @@ Venerable
                     toReturn = toReturn.concat("Notice " + awarenessSpecialties[1] + " ");
             }
             toReturn = toReturn.concat("\n");
+            return toReturn;
         }
-        return toReturn;
+        return null;
     }
 
     public String printCunning() {
+        return "" + cunning;
+    }
+
+    public String printCunningSpecialties() {
         String toReturn = new String ();
         if (cunning > 2 || cunningSpecialties != null) {
-            toReturn = toReturn.concat("Cunning: " + cunning + "\t\t\t||");
             if (cunningSpecialties != null) {
                 //Decipher, Logic, Memory
                 if (cunningSpecialties[0] > 0)
@@ -1542,14 +1587,18 @@ Venerable
                     toReturn = toReturn.concat("Memory " + cunningSpecialties[2] + " ");
             }
             toReturn = toReturn.concat("\n");
+            return toReturn;
         }
-        return toReturn;
+        return null;
     }
 
     public String printDeception() {
+        return "" + deception;
+    }
+
+    public String printDeceptionSpecialties() {
         String toReturn = new String ();
         if (deception > 2 || deceptionSpecialties != null) {
-            toReturn = toReturn.concat("Deception: " + deception + "\t\t||");
             if (deceptionSpecialties != null) {
                 //Act, Bluff, Cheat, Disguise
                 if (deceptionSpecialties[0] > 0)
@@ -1562,14 +1611,18 @@ Venerable
                     toReturn = toReturn.concat("Disguise " + deceptionSpecialties[3] + " ");
             }
             toReturn = toReturn.concat("\n");
+            return toReturn;
         }
-        return toReturn;
+        return null;
     }
 
     public String printEndurance() {
+        return "" + endurance;
+    }
+
+    public String printEnduranceSpecialties() {
         String toReturn = new String ();
         if (endurance > 2 || enduranceSpecialties != null) {
-            toReturn = toReturn.concat("Endurance: " + endurance + "\t\t||");
             if (enduranceSpecialties != null) {
                 //Resilience, Stamina
                 if (enduranceSpecialties[0] > 0)
@@ -1578,14 +1631,18 @@ Venerable
                     toReturn = toReturn.concat("Stamina " + enduranceSpecialties[1] + " ");
             }
             toReturn = toReturn.concat("\n");
+            return toReturn;
         }
-        return toReturn;
+        return null;
     }
 
     public String printFighting() {
+        return fighting + "";
+    }
+
+    public String printFightingSpecialties() {
         String toReturn = new String ();
         if (fighting > 2 || fightingSpecialties != null) {
-            toReturn = toReturn.concat("Fighting: " + fighting + "\t\t\t||");
             if (fightingSpecialties != null) {
                 //Axes, Bludgeons, Brawling, Fencing, Long Blades,
                 //Pole-Arms, Shields, Short Blades, Spears
@@ -1609,14 +1666,18 @@ Venerable
                     toReturn = toReturn.concat("Spears " + fightingSpecialties[8] + " ");
             }
             toReturn = toReturn.concat("\n");
+            return toReturn;
         }
-        return toReturn;
+        return null;
     }
 
     public String printHealing() {
+        return healing + "";
+    }
+
+    public String printHealingSpecialties() {
         String toReturn = new String ();
         if (healing > 2 || healingSpecialties != null) {
-            toReturn = toReturn.concat("Healing: " + healing + "\t\t\t||");
             if (healingSpecialties != null) {
                 //Diagnose, Treat Ailment, Treat Injury
                 if (healingSpecialties[0] > 0)
@@ -1627,14 +1688,18 @@ Venerable
                     toReturn = toReturn.concat("Treat Injury " + healingSpecialties[2] + " ");
             }
             toReturn = toReturn.concat("\n");
+            return toReturn;
         }
-        return toReturn;
+        return null;
     }
 
     public String printKnowledge() {
+        return "" + knowledge;
+    }
+
+    public String printKnowledgeSpecialties() {
         String toReturn = new String ();
         if (knowledge > 2 || knowledgeSpecialties != null) {
-            toReturn = toReturn.concat("Knowledge: " + knowledge + "\t\t||");
             if (knowledgeSpecialties != null) {
                 //Education, Research, Streetwise
                 if (knowledgeSpecialties[0] > 0)
@@ -1645,14 +1710,27 @@ Venerable
                     toReturn = toReturn.concat("Streetwise " + knowledgeSpecialties[2] + " ");
             }
             toReturn = toReturn.concat("\n");
+            return toReturn;
         }
-        return toReturn;
+        return null;
+    }
+
+    public String printLanguage() {
+        return "" + language;
+    }
+
+    public String printLanguageSpecialties() {
+        //will implement later
+        return "";
     }
 
     public String printMarksmanship() {
+        return "" + marksmanship;
+    }
+
+    public String printMarksmanshipSpecialties() {
         String toReturn = new String ();
         if (marksmanship > 2 || marksmanshipSpecialties != null) {
-            toReturn = toReturn.concat("Marksmanship: " + marksmanship + "\t\t||");
             if (marksmanshipSpecialties != null) {
                 //Bows, Crossbows, Siege, Thrown
                 if (marksmanshipSpecialties[0] > 0)
@@ -1665,14 +1743,18 @@ Venerable
                     toReturn = toReturn.concat("Thrown " + marksmanshipSpecialties[3] + " ");
             }
             toReturn = toReturn.concat("\n");
+            return toReturn;
         }
-        return toReturn;
+        return null;
     }
 
     public String printPersuasion() {
+        return "" + persuasion;
+    }
+
+    public String printPersuasionSpecialties() {
         String toReturn = new String ();
         if (persuasion > 2 || persuasionSpecialties != null) {
-            toReturn = toReturn.concat("Persuasion: " + persuasion + "\t\t||");
             if (persuasionSpecialties != null) {
                 //Bargain, Charm, Convince, Incite, Intimidate, Seduce, Taunt
                 if (persuasionSpecialties[0] > 0)
@@ -1691,13 +1773,17 @@ Venerable
                     toReturn = toReturn.concat("Taunt " + persuasionSpecialties[6] + " ");
             }
             toReturn = toReturn.concat("\n");
+            return toReturn;
         }
         return toReturn;
     }
 
     public String printStatus() {
+        return "" + status;
+    }
+
+    public String printStatusSpecialties() {
         String toReturn = new String ();
-        toReturn = toReturn.concat("Status: " + status + "\t\t\t||");
         if (statusSpecialties != null) {
             //Breeding, Reputation, Stewardship, Tournaments
             if (statusSpecialties[0] > 0)
@@ -1714,9 +1800,12 @@ Venerable
     }
 
     public String printStealth() {
+        return "" + stealth;
+    }
+
+    public String printStealthSpecialties() {
         String toReturn = new String ();
         if (stealth > 2 || stealthSpecialties != null) {
-            toReturn = toReturn.concat("Stealth: " + stealth + "\t\t\t||");
             if (stealthSpecialties != null) {
                 //Blend In, Sneak
                 if (stealthSpecialties[0] > 0)
@@ -1730,9 +1819,12 @@ Venerable
     }
 
     public String printSurvival() {
+        return "" + survival;
+    }
+
+    public String printSurvivalSpecialties() {
         String toReturn = new String ();
         if (survival > 2 || survivalSpecialties != null) {
-            toReturn = toReturn.concat("Survival: " + survival + "\t\t\t||");
             if (survivalSpecialties != null) {
                 //Forage, Hunt, Orientation, Track
                 if (survivalSpecialties[0] > 0)
@@ -1750,9 +1842,12 @@ Venerable
     }
 
     public String printThievery() {
+        return "" + thievery;
+    }
+
+    public String printThieverySpecialties() {
         String toReturn = new String ();
         if (thievery > 2 || thieverySpecialties != null) {
-            toReturn = toReturn.concat("Thievery: " + thievery + "\t\t\t||");
             if (thieverySpecialties != null) {
                 //Pick Lock, Sleight of Hand, Steal
                 if (thieverySpecialties[0] > 0)
@@ -1768,9 +1863,12 @@ Venerable
     }
 
     public String printWarfare() {
+        return "" + warfare;
+    }
+
+    public String printWarfareSpecialties() {
         String toReturn = new String ();
         if (warfare > 2 || warfareSpecialties != null) {
-            toReturn = toReturn.concat("Warfare: " + warfare + "\t\t\t||");
             if (warfareSpecialties != null) {
                 //Command, Strategy, Tactics
                 if (warfareSpecialties[0] > 0)
@@ -1786,9 +1884,12 @@ Venerable
     }
 
     public String printWill() {
+        return "" + will;
+    }
+
+    public String printWillSpecialties() {
         String toReturn = new String ();
         if (will > 2 || willSpecialties != null) {
-            toReturn = toReturn.concat("Will: " + will + "\t\t\t\t||");
             if (willSpecialties != null) {
                 //Courage, Coordinate, Dedication
                 if (willSpecialties[0] > 0)

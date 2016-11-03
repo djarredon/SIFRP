@@ -235,7 +235,9 @@ public class Screen extends JFrame {
         characterSheet.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                characterSheet();
+                Character character = new Character();
+                character.generateCharacter();
+                characterSheet(character);
             }
         });
     }
@@ -266,9 +268,24 @@ public class Screen extends JFrame {
         });
     }
 
-    public void characterSheet() {
+    public void characterSheet(Character character) {
         repaint();
         getContentPane().removeAll();
+        if (character == null) {
+            character = new Character();
+            character.generateCharacter();
+            Armor test = new Armor("Ring");
+            character.giveArmor(test);
+        }
+
+        Dimension specialtySize = new Dimension(300, 30);
+        Dimension fieldSize = new Dimension(75, 30);
+        //column and row locations
+        int col1 = 20;  //column one for rating
+        int col2 = 100;  //column for ability name
+        int col3 = 175; //column for specialties
+        int row = 100;  //y coordinate
+        int rowInc = 40; //row increment value
 
         //Back button
         JButton back = new JButton("Back");
@@ -276,124 +293,414 @@ public class Screen extends JFrame {
         back.setLocation(20,10);
 
         //Bio stuff
-        JTextField charName = new JTextField();
+        //name
+        JLabel nameLabel = new JLabel("Name");
+        nameLabel.setLocation(250, 10);
+        nameLabel.setSize(buttonSize);
+        JTextField charName = new JTextField(character.getName());
         charName.setSize(300, 30);
-        charName.setLocation(150, 50);
-        JTextField charAge = new JTextField();
-        charAge.setSize(75, 30);
-        charAge.setLocation(150, 90);
-        JTextField charGender = new JTextField();
-        charGender.setSize(75, 30);
-        charGender.setLocation(250, 90);
-        JTextField charHouse = new JTextField();
-        charHouse.setSize(75, 30);
-        charHouse.setLocation(350, 90);
+        charName.setLocation(300, 10);
+        //age
+        JLabel ageLabel = new JLabel("Age");
+        ageLabel.setLocation(250, 50);
+        ageLabel.setSize(fieldSize);
+        JTextField charAge = new JTextField(character.getAge());
+        charAge.setSize(fieldSize);
+        charAge.setLocation(300, 50);
+        //gender
+        JLabel genderLabel = new JLabel("Gender");
+        genderLabel.setLocation(400, 50);
+        genderLabel.setSize(fieldSize);
+        JTextField charGender = new JTextField(character.getGender());
+        charGender.setSize(fieldSize);
+        charGender.setLocation(450, 50);
+        //house
+        JLabel houseLabel = new JLabel("House");
+        houseLabel.setSize(buttonSize);
+        houseLabel.setLocation(550, 50);
+        JTextField charHouse = new JTextField(character.getHouseName());
+        charHouse.setSize(fieldSize);
+        charHouse.setLocation(600, 50);
         //Stats
+        //column labels
+        JLabel rating = new JLabel("Rating");
+        rating.setSize(fieldSize);
+        rating.setLocation(col1, row);
+        JLabel ability = new JLabel("Ability");
+        ability.setSize(fieldSize);
+        ability.setLocation(col2, row);
+        JLabel specialties = new JLabel("Specialties");
+        specialties.setSize(fieldSize);
+        specialties.setLocation(col3, row);
+        row += rowInc;
         //agility
         JLabel agility = new JLabel("Agility");
-        agility.setSize(buttonSize);
-        //agility.setLocation();
-        JTextField agilityRating = new JTextField();
-        JTextField agilitySpecialties = new JTextField();
+        agility.setSize(fieldSize);
+        agility.setLocation(col2, row);
+        JTextField agilityRating = new JTextField(character.printAgility());
+        agilityRating.setEditable(false);
+        agilityRating.setSize(fieldSize);
+        agilityRating.setLocation(col1, row);
+        JTextField agilitySpecialties = new JTextField(character.printAgilitySpecialties());
+        agilitySpecialties.setEditable(false);
+        agilitySpecialties.setSize(specialtySize);
+        agilitySpecialties.setLocation(col3, row);
+        row += rowInc;
         //animal handling
-        JLabel animalHandling = new JLabel("Animal Handling");
-        animalHandling.setSize(buttonSize);
-        JTextField animalHandlingRating = new JTextField();
-        JTextField animalHandlingSpecialties = new JTextField();
+        JLabel animalHandling = new JLabel("<html>Animal<br>Handling</html>");
+        animalHandling.setSize(fieldSize);
+        animalHandling.setLocation(col2, row);
+        JTextField animalHandlingRating = new JTextField(character.printAnimalHandling());
+        animalHandlingRating.setEditable(false);
+        animalHandlingRating.setSize(fieldSize);
+        animalHandlingRating.setLocation(col1, row);
+        JTextField animalHandlingSpecialties = new JTextField(character.printAnimalHandlingSpecialties());
+        animalHandlingSpecialties.setEditable(false);
+        animalHandlingSpecialties.setSize(specialtySize);
+        animalHandlingSpecialties.setLocation(col3, row);
+        row += rowInc;
         //Athletics
         JLabel athletics = new JLabel("Athletics");
-        athletics.setSize(buttonSize);
-        JTextField athleticsRating = new JTextField();
-        JTextField athleticsSpecialties = new JTextField();
+        athletics.setSize(fieldSize);
+        athletics.setLocation(col2, row);
+        JTextField athleticsRating = new JTextField(character.printAthletics());
+        athleticsRating.setEditable(false);
+        athleticsRating.setSize(fieldSize);
+        athleticsRating.setLocation(col1, row);
+        JTextField athleticsSpecialties = new JTextField(character.printAthleticsSpecialties());
+        athleticsSpecialties.setEditable(false);
+        athleticsSpecialties.setSize(specialtySize);
+        athleticsSpecialties.setLocation(col3, row);
+        row += rowInc;
         //Awareness
         JLabel awareness = new JLabel("Awareness");
-        awareness.setSize(buttonSize);
-        JTextField awarenessRating = new JTextField();
-        JTextField awarenessSpecialties = new JTextField();
+        awareness.setSize(fieldSize);
+        awareness.setLocation(col2, row);
+        JTextField awarenessRating = new JTextField(character.printAwareness());
+        awarenessRating.setEditable(false);
+        awarenessRating.setSize(fieldSize);
+        awarenessRating.setLocation(col1, row);
+        JTextField awarenessSpecialties = new JTextField(character.printAwarenessSpecialties());
+        awarenessSpecialties.setEditable(false);
+        awarenessSpecialties.setSize(specialtySize);
+        awarenessSpecialties.setLocation(col3, row);
+        row += rowInc;
         //Cunning
         JLabel cunning = new JLabel("Cunning");
-        cunning.setSize(buttonSize);
-        JTextField cunningRating = new JTextField();
-        JTextField cunningSpecialties = new JTextField();
+        cunning.setSize(fieldSize);
+        cunning.setLocation(col2, row);
+        JTextField cunningRating = new JTextField(character.printCunning());
+        cunningRating.setEditable(false);
+        cunningRating.setSize(fieldSize);
+        cunningRating.setLocation(col1, row);
+        JTextField cunningSpecialties = new JTextField(character.printCunningSpecialties());
+        cunningSpecialties.setEditable(false);
+        cunningSpecialties.setSize(specialtySize);
+        cunningSpecialties.setLocation(col3, row);
+        row += rowInc;
         //Deception
         JLabel deception = new JLabel("Deception");
-        deception.setSize(buttonSize);
-        JTextField deceptionRating = new JTextField();
-        JTextField deceptionSpecialties = new JTextField();
+        deception.setSize(fieldSize);
+        deception.setLocation(col2, row);
+        JTextField deceptionRating = new JTextField(character.printDeception());
+        deceptionRating.setEditable(false);
+        deceptionRating.setSize(fieldSize);
+        deceptionRating.setLocation(col1, row);
+        JTextField deceptionSpecialties = new JTextField(character.printDeceptionSpecialties());
+        deceptionSpecialties.setEditable(false);
+        deceptionSpecialties.setSize(specialtySize);
+        deceptionSpecialties.setLocation(col3, row);
+        row += rowInc;
         //Endurance
         JLabel endurance = new JLabel("Endurance");
-        endurance.setSize(buttonSize);
-        JTextField enduranceRating = new JTextField();
-        JTextField enduranceSpecialties = new JTextField();
+        endurance.setSize(fieldSize);
+        endurance.setLocation(col2, row);
+        JTextField enduranceRating = new JTextField(character.printEndurance());
+        enduranceRating.setEditable(false);
+        enduranceRating.setSize(fieldSize);
+        enduranceRating.setLocation(col1, row);
+        JTextField enduranceSpecialties = new JTextField(character.printEnduranceSpecialties());
+        enduranceSpecialties.setEditable(false);
+        enduranceSpecialties.setSize(specialtySize);
+        enduranceSpecialties.setLocation(col3, row);
+        row += rowInc;
         //Fighting
         JLabel fighting = new JLabel("Fighting");
-        fighting.setSize(buttonSize);
-        JTextField fightingRating = new JTextField();
-        JTextField fightingSpecialties = new JTextField();
+        fighting.setSize(fieldSize);
+        fighting.setLocation(col2, row);
+        JTextField fightingRating = new JTextField(character.printFighting());
+        fightingRating.setEditable(false);
+        fightingRating.setSize(fieldSize);
+        fightingRating.setLocation(col1, row);
+        JTextField fightingSpecialties = new JTextField(character.printFightingSpecialties());
+        fightingSpecialties.setEditable(false);
+        fightingSpecialties.setSize(specialtySize);
+        fightingSpecialties.setLocation(col3, row);
+        row += rowInc;
         //Healing
         JLabel healing = new JLabel("Healing");
-        healing.setSize(buttonSize);
-        JTextField healingRating = new JTextField();
-        JTextField healingSpecialties = new JTextField();
+        healing.setSize(fieldSize);
+        healing.setLocation(col2, row);
+        JTextField healingRating = new JTextField(character.printHealing());
+        healingRating.setEditable(false);
+        healingRating.setSize(fieldSize);
+        healingRating.setLocation(col1, row);
+        JTextField healingSpecialties = new JTextField(character.printHealingSpecialties());
+        healingSpecialties.setEditable(false);
+        healingSpecialties.setSize(specialtySize);
+        healingSpecialties.setLocation(col3, row);
+        row += rowInc;
         //Language
         JLabel language = new JLabel("Language");
-        language.setSize(buttonSize);
-        JTextField languageRating = new JTextField();
-        JTextField languageSpecialties = new JTextField();
+        language.setSize(fieldSize);
+        language.setLocation(col2, row);
+        JTextField languageRating = new JTextField(character.printLanguage());
+        languageRating.setEditable(false);
+        languageRating.setSize(fieldSize);
+        languageRating.setLocation(col1, row);
+        JTextField languageSpecialties = new JTextField(character.printLanguageSpecialties());
+        languageSpecialties.setEditable(false);
+        languageSpecialties.setSize(180 + (specialtySize.width * 2), specialtySize.height);
+        languageSpecialties.setLocation(col3, row);
+        row += rowInc;
+        //new columns
+        int col12 = col1 + 480;
+        int col22 = col2 + 480;
+        int col32 = col3 + 480;
+        row = 100;
+        //second column labels
+        JLabel rating2 = new JLabel("Rating");
+        rating2.setSize(fieldSize);
+        rating2.setLocation(col12, row);
+        JLabel ability2 = new JLabel("Ability");
+        ability2.setSize(fieldSize);
+        ability2.setLocation(col22, row);
+        JLabel specialties2 = new JLabel("Specialties");
+        specialties2.setSize(fieldSize);
+        specialties2.setLocation(col32, row);
+        row += rowInc;
         //Knowledge
         JLabel knowledge = new JLabel("Knowledge");
-        knowledge.setSize(buttonSize);
-        JTextField knowledgeRating = new JTextField();
-        JTextField knowledgeSpecialties = new JTextField();
+        knowledge.setSize(fieldSize);
+        knowledge.setLocation(col22, row);
+        JTextField knowledgeRating = new JTextField(character.printKnowledge());
+        knowledgeRating.setEditable(false);
+        knowledgeRating.setSize(fieldSize);
+        knowledgeRating.setLocation(col12, row);
+        JTextField knowledgeSpecialties = new JTextField(character.printKnowledgeSpecialties());
+        knowledgeSpecialties.setEditable(false);
+        knowledgeSpecialties.setSize(specialtySize);
+        knowledgeSpecialties.setLocation(col32, row);
+        row += rowInc;
         //Marksmanship
-        JLabel marksmanship = new JLabel("Marksmanship");
-        marksmanship.setSize(buttonSize);
-        JTextField marksmanshipRating = new JTextField();
-        JTextField marksmanshipSpecialties = new JTextField();
+        JLabel marksmanship = new JLabel("<html>Marks-<br>manship</html>");
+        marksmanship.setSize(fieldSize);
+        marksmanship.setLocation(col22, row);
+        JTextField marksmanshipRating = new JTextField(character.printMarksmanship());
+        marksmanshipRating.setEditable(false);
+        marksmanshipRating.setSize(fieldSize);
+        marksmanshipRating.setLocation(col12, row);
+        JTextField marksmanshipSpecialties = new JTextField(character.printMarksmanshipSpecialties());
+        marksmanshipSpecialties.setEditable(false);
+        marksmanshipSpecialties.setSize(specialtySize);
+        marksmanshipSpecialties.setLocation(col32, row);
+        row += rowInc;
         //Persuasion
         JLabel persuasion = new JLabel("Persuasion");
-        persuasion.setSize(buttonSize);
-        JTextField persuasionRating = new JTextField();
-        JTextField persuasionSpecialties = new JTextField();
+        persuasion.setSize(fieldSize);
+        persuasion.setLocation(col22, row);
+        JTextField persuasionRating = new JTextField(character.printPersuasion());
+        persuasionRating.setEditable(false);
+        persuasionRating.setSize(fieldSize);
+        persuasionRating.setLocation(col12, row);
+        JTextField persuasionSpecialties = new JTextField(character.printPersuasionSpecialties());
+        persuasionSpecialties.setEditable(false);
+        persuasionSpecialties.setSize(specialtySize);
+        persuasionSpecialties.setLocation(col32, row);
+        row += rowInc;
         //Status
         JLabel status = new JLabel("Status");
-        status.setSize(buttonSize);
-        JTextField statusRating = new JTextField();
-        JTextField statusSpecialties = new JTextField();
+        status.setSize(fieldSize);
+        status.setLocation(col22, row);
+        JTextField statusRating = new JTextField(character.printStatus());
+        statusRating.setEditable(false);
+        statusRating.setSize(fieldSize);
+        statusRating.setLocation(col12, row);
+        JTextField statusSpecialties = new JTextField(character.printStatusSpecialties());
+        statusSpecialties.setEditable(false);
+        statusSpecialties.setSize(specialtySize);
+        statusSpecialties.setLocation(col32, row);
+        row += rowInc;
         //Stealth
         JLabel stealth = new JLabel("Stealth");
-        stealth.setSize(buttonSize);
-        JTextField stealthRating = new JTextField();
-        JTextField stealthSpecialties = new JTextField();
+        stealth.setSize(fieldSize);
+        stealth.setLocation(col22, row);
+        JTextField stealthRating = new JTextField(character.printStealth());
+        stealthRating.setEditable(false);
+        stealthRating.setSize(fieldSize);
+        stealthRating.setLocation(col12, row);
+        JTextField stealthSpecialties = new JTextField(character.printStealthSpecialties());
+        stealthSpecialties.setEditable(false);
+        stealthSpecialties.setSize(specialtySize);
+        stealthSpecialties.setLocation(col32, row);
+        row += rowInc;
         //Survival
         JLabel survival = new JLabel("Survival");
-        survival.setSize(buttonSize);
-        JTextField survivalRating = new JTextField();
-        JTextField survivalSpecialties = new JTextField();
+        survival.setSize(fieldSize);
+        survival.setLocation(col22, row);
+        JTextField survivalRating = new JTextField(character.printSurvival());
+        survivalRating.setEditable(false);
+        survivalRating.setSize(fieldSize);
+        survivalRating.setLocation(col12, row);
+        JTextField survivalSpecialties = new JTextField(character.printSurvivalSpecialties());
+        survivalSpecialties.setEditable(false);
+        survivalSpecialties.setSize(specialtySize);
+        survivalSpecialties.setLocation(col32, row);
+        row += rowInc;
         //Thievery
         JLabel thievery = new JLabel("Thievery");
-        thievery.setSize(buttonSize);
-        JTextField thieveryRating = new JTextField();
-        JTextField thieverySpecialties = new JTextField();
+        thievery.setSize(fieldSize);
+        thievery.setLocation(col22, row);
+        JTextField thieveryRating = new JTextField(character.printThievery());
+        thieveryRating.setEditable(false);
+        thieveryRating.setSize(fieldSize);
+        thieveryRating.setLocation(col12, row);
+        JTextField thieverySpecialties = new JTextField(character.printThieverySpecialties());
+        thieverySpecialties.setEditable(false);
+        thieverySpecialties.setSize(specialtySize);
+        thieverySpecialties.setLocation(col32, row);
+        row += rowInc;
         //Warfare
         JLabel warfare = new JLabel("Warfare");
-        warfare.setSize(buttonSize);
-        JTextField warfareRating = new JTextField();
-        JTextField warfareSpecialties = new JTextField();
+        warfare.setSize(fieldSize);
+        warfare.setLocation(col22, row);
+        JTextField warfareRating = new JTextField(character.printWarfare());
+        warfareRating.setEditable(false);
+        warfareRating.setSize(fieldSize);
+        warfareRating.setLocation(col12, row);
+        JTextField warfareSpecialties = new JTextField(character.printWarfareSpecialties());
+        warfareSpecialties.setEditable(false);
+        warfareSpecialties.setSize(specialtySize);
+        warfareSpecialties.setLocation(col32, row);
+        row += rowInc;
         //Will
         JLabel will = new JLabel("Will");
-        will.setSize(buttonSize);
-        JTextField willRating = new JTextField();
-        JTextField willSpecialties = new JTextField();
+        will.setSize(fieldSize);
+        will.setLocation(col22, row);
+        JTextField willRating = new JTextField(character.printWill());
+        willRating.setEditable(false);
+        willRating.setSize(fieldSize);
+        willRating.setLocation(col12, row);
+        JTextField willSpecialties = new JTextField(character.printWillSpecialties());
+        willSpecialties.setEditable(false);
+        willSpecialties.setSize(specialtySize);
+        willSpecialties.setLocation(col32, row);
+        //row += rowInc;
+
+        //Qualities
+        JLabel qualitiesLabel = new JLabel("Qualities");
+        qualitiesLabel.setSize(fieldSize);
+        qualitiesLabel.setLocation(col1, row += 80);
+        JTextArea qualities = new JTextArea();
+        qualities.setEditable(false);
+        qualities.setSize(450, 90);
+        qualities.setLocation(col1, row + 30);
+
+        //Destiny points
+        //will do later
+
+        //Intrigue
+        JLabel intrigueLabel = new JLabel("Intrigue");
+        intrigueLabel.setSize(fieldSize);
+        intrigueLabel.setLocation(col12, row);
+        JLabel intrigueDefenseLabel = new JLabel("Intrigue Defense");
+        intrigueDefenseLabel.setSize(buttonSize);
+        intrigueDefenseLabel.setLocation(col12, row + 20);
+        JTextField intrigueValue = new JTextField(character.printIntrigueDefense());
+        intrigueValue.setEditable(false);
+        intrigueValue.setLocation(col12, row + 45);
+        intrigueValue.setSize(buttonSize);
+        JLabel intrigueExplanation = new JLabel("Awareness + Cunning + Status");
+        intrigueExplanation.setSize(buttonSize);
+        intrigueExplanation.setLocation(col12 + 15, row + 75);
+        JLabel composureLabel = new JLabel("Composure");
+        composureLabel.setLocation(col12, row + 100);
+        composureLabel.setSize(buttonSize);
+        JTextField composureValue = new JTextField(character.printComposure());
+        composureValue.setEditable(false);
+        composureValue.setSize(buttonSize);
+        composureValue.setLocation(col12, row + 130);
+        JLabel composureExplanation = new JLabel("Will Ranks x 3");
+        composureExplanation.setLocation(col12 + 45, row + 155);
+        composureExplanation.setSize(buttonSize);
+
+        //Combat
+        JLabel combatLabel = new JLabel("Combat");
+        combatLabel.setSize(fieldSize);
+        combatLabel.setLocation(col32 + 50, row);
+        JLabel combatDefenseLabel = new JLabel("Combat Defense");
+        combatDefenseLabel.setSize(buttonSize);
+        combatDefenseLabel.setLocation(col32 + 50, row + 20);
+        JTextField combatValue = new JTextField(character.printCombatDefense());
+        combatValue.setEditable(false);
+        combatValue.setLocation(col32 + 50, row + 45);
+        combatValue.setSize(buttonSize);
+        JLabel combatExplanation = new JLabel("<html>Agility+Athletics+Awareness<br>" +
+                "Defensive Bonus-Armor Penalty</html>");
+        combatExplanation.setSize(buttonSize);
+        combatExplanation.setLocation(col32 + 50 + 15, row + 75);
+        JLabel healthLabel = new JLabel("Health");
+        healthLabel.setLocation(col32 + 50, row + 100);
+        healthLabel.setSize(buttonSize);
+        JTextField healthValue = new JTextField(character.printHealth());
+        healthValue.setEditable(false);
+        healthValue.setSize(buttonSize);
+        healthValue.setLocation(col32 + 50, row + 130);
+        JLabel healthExplanation = new JLabel("Endurance Ranks x 3");
+        healthExplanation.setLocation(col32 + 50 + 25, row + 155);
+        healthExplanation.setSize(buttonSize);
+
+        //Weapons, Armor, Damage
+        row += 160;
 
 
         c = getContentPane();
 
         c.add(back);
         c.add(charName);
+        c.add(nameLabel);
         c.add(charAge);
+        c.add(ageLabel);
         c.add(charGender);
+        c.add(genderLabel);
         c.add(charHouse);
+        c.add(houseLabel);
+        //qualities, destiny, intrigue, combat
+        c.add(qualitiesLabel);
+        c.add(qualities);
+        //combat
+        c.add(combatLabel);
+        c.add(combatDefenseLabel);
+        c.add(combatValue);
+        c.add(combatExplanation);
+        c.add(healthLabel);
+        c.add(healthValue);
+        c.add(healthExplanation);
+        //intrigue
+        c.add(intrigueDefenseLabel);
+        c.add(intrigueLabel);
+        c.add(intrigueValue);
+        c.add(intrigueExplanation);
+        c.add(composureLabel);
+        c.add(composureValue);
+        c.add(composureExplanation);
+        //Abilities section
+        c.add(rating);
+        c.add(rating2);
+        c.add(ability);
+        c.add(ability2);
+        c.add(specialties);
+        c.add(specialties2);
         c.add(agility);
         c.add(agilityRating);
         c.add(agilitySpecialties);
