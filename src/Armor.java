@@ -102,7 +102,11 @@ public class Armor extends Item {
                     bulk = 3;
                     break;
                 default:
-                    System.out.println("+++++SETARMOR ERROR+++++");
+                    setName("Clothes");
+                    armorRating = 0;
+                    armorPenalty = 0;
+                    bulk = 0;
+                    break;
             }
         }
     }

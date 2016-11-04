@@ -237,6 +237,19 @@ public class Screen extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Character character = new Character();
                 character.generateCharacter();
+
+                Armor test = new Armor();
+                test.randArmor();
+                character.giveArmor(test);
+
+                Weapon weapon = new Weapon();
+                weapon.randWeapon();
+                character.giveWeapon(weapon);
+                weapon.randWeapon();
+                character.giveWeapon(weapon);
+                weapon.randWeapon();
+                character.giveWeapon(weapon);
+
                 characterSheet(character);
             }
         });
@@ -274,11 +287,9 @@ public class Screen extends JFrame {
         if (character == null) {
             character = new Character();
             character.generateCharacter();
-            Armor test = new Armor("Ring");
-            character.giveArmor(test);
         }
 
-        Dimension specialtySize = new Dimension(300, 30);
+        Dimension specialtySize = new Dimension(250, 30);
         Dimension fieldSize = new Dimension(75, 30);
         //column and row locations
         int col1 = 20;  //column one for rating
@@ -464,9 +475,9 @@ public class Screen extends JFrame {
         languageSpecialties.setLocation(col3, row);
         row += rowInc;
         //new columns
-        int col12 = col1 + 480;
-        int col22 = col2 + 480;
-        int col32 = col3 + 480;
+        int col12 = col1 + 430;
+        int col22 = col2 + 430;
+        int col32 = col3 + 430;
         row = 100;
         //second column labels
         JLabel rating2 = new JLabel("Rating");
@@ -603,7 +614,7 @@ public class Screen extends JFrame {
         qualitiesLabel.setLocation(col1, row += 80);
         JTextArea qualities = new JTextArea();
         qualities.setEditable(false);
-        qualities.setSize(450, 90);
+        qualities.setSize(400, 90);
         qualities.setLocation(col1, row + 30);
 
         //Destiny points
@@ -661,11 +672,224 @@ public class Screen extends JFrame {
         healthExplanation.setSize(buttonSize);
 
         //Weapons, Armor, Damage
+        //Weapons columns
+        int weaponNameCol = col1;
+        int weaponDiceCol = col1 + 160;
+        int weaponDamageCol = weaponDiceCol + fieldSize.width + 10;
         row += 160;
+        JLabel weaponSection = new JLabel("Weapons");
+        weaponSection.setSize(buttonSize);
+        weaponSection.setLocation(col3, row);
+        //
+        JLabel attack = new JLabel("Attack");
+        attack.setLocation(weaponNameCol, row + 40);
+        attack.setSize(150, 30);
+        //
+        JLabel testDice = new JLabel("Test Dice");
+        testDice.setLocation(weaponDiceCol, row + 40);
+        testDice.setSize(specialtySize);
+        //
+        JLabel weaponDamage = new JLabel("Weapon Damage");
+        weaponDamage.setSize(specialtySize);
+        weaponDamage.setLocation(weaponDamageCol, row + 40);
+        //Weapon1
+        JTextField weapon1Name = new JTextField(character.printWeapon1Name());
+        weapon1Name.setLocation(weaponNameCol, row + 70);
+        weapon1Name.setSize(150, 30);
+        weapon1Name.setEditable(false);
+        JTextField weapon1Dice = new JTextField(character.printWeapon1AttackDice());
+        weapon1Dice.setLocation(weaponDiceCol, row + 70);
+        weapon1Dice.setSize(fieldSize);
+        weapon1Dice.setEditable(false);
+        JTextField weapon1Damage = new JTextField(character.printWeapon1Damage()
+                + "   " + character.printWeapon1Description());
+        weapon1Damage.setLocation(weaponDamageCol, row + 70);
+        weapon1Damage.setSize(specialtySize.width + 50, specialtySize.height);
+        weapon1Damage.setEditable(false);
+        //
+        row += 40;
+        //Off-Hand weapon
+        JTextField offHandName = new JTextField(character.printOffHandName());
+        offHandName.setLocation(weaponNameCol, row + 70);
+        offHandName.setSize(150, 30);
+        offHandName.setEditable(false);
+        JTextField offHandDice = new JTextField(character.printOffHandAttackDice());
+        offHandDice.setLocation(weaponDiceCol, row + 70);
+        offHandDice.setSize(fieldSize);
+        offHandDice.setEditable(false);
+        JTextField offHandDamage = new JTextField(character.printOffHandDamage()
+                + "   " + character.printOffHandDescription());
+        offHandDamage.setLocation(weaponDamageCol, row + 70);
+        offHandDamage.setSize(specialtySize.width + 50, specialtySize.height);
+        offHandDamage.setEditable(false);
+        //
+        row += 40;
+        //weapon2
+        JTextField weapon2Name = new JTextField(character.printWeapon2Name());
+        weapon2Name.setLocation(weaponNameCol, row + 70);
+        weapon2Name.setSize(150, 30);
+        weapon2Name.setEditable(false);
+        JTextField weapon2Dice = new JTextField(character.printWeapon2AttackDice());
+        weapon2Dice.setLocation(weaponDiceCol, row + 70);
+        weapon2Dice.setSize(fieldSize);
+        weapon2Dice.setEditable(false);
+        JTextField weapon2Damage = new JTextField(character.printWeapon2Damage()
+                + "   " + character.printWeapon2Description());
+        weapon2Damage.setLocation(weaponDamageCol, row + 70);
+        weapon2Damage.setSize(specialtySize.width + 50, specialtySize.height);
+        weapon2Damage.setEditable(false);
+        //
+        row += 40;
+        //weapon3
+        JTextField weapon3Name = new JTextField(character.printWeapon3Name());
+        weapon3Name.setLocation(weaponNameCol, row + 70);
+        weapon3Name.setSize(150, 30);
+        weapon3Name.setEditable(false);
+        JTextField weapon3Dice = new JTextField(character.printWeapon3AttackDice());
+        weapon3Dice.setLocation(weaponDiceCol, row + 70);
+        weapon3Dice.setSize(fieldSize);
+        weapon3Dice.setEditable(false);
+        JTextField weapon3Damage = new JTextField(character.printWeapon3Damage()
+                + "   " + character.printWeapon2Description());
+        weapon3Damage.setLocation(weaponDamageCol, row + 70);
+        weapon3Damage.setSize(specialtySize.width + 50, specialtySize.height);
+        weapon3Damage.setEditable(false);
+
+
+
+        //panel for containing things
+        JPanel sheet = new JPanel(null);
+        sheet.setPreferredSize(new Dimension(xMax-100, yMax*3));
+
 
 
         c = getContentPane();
 
+        sheet.add(weapon1Name);
+        sheet.add(weapon1Dice);
+        sheet.add(weapon1Damage);
+        sheet.add(weapon2Name);
+        sheet.add(weapon2Dice);
+        sheet.add(weapon2Damage);
+        sheet.add(weapon3Name);
+        sheet.add(weapon3Dice);
+        sheet.add(weapon3Damage);
+        sheet.add(offHandName);
+        sheet.add(offHandDice);
+        sheet.add(offHandDamage);
+        sheet.add(weaponSection);
+        sheet.add(attack);
+        sheet.add(testDice);
+        sheet.add(weaponDamage);
+
+        sheet.add(back);
+        sheet.add(charName);
+        sheet.add(nameLabel);
+        sheet.add(charAge);
+        sheet.add(ageLabel);
+        sheet.add(charGender);
+        sheet.add(genderLabel);
+        sheet.add(charHouse);
+        sheet.add(houseLabel);
+        //qualities, destiny, intrigue, combat
+        sheet.add(qualitiesLabel);
+        sheet.add(qualities);
+        //combat
+        sheet.add(combatLabel);
+        sheet.add(combatDefenseLabel);
+        sheet.add(combatValue);
+        sheet.add(combatExplanation);
+        sheet.add(healthLabel);
+        sheet.add(healthValue);
+        sheet.add(healthExplanation);
+        //intrigue
+        sheet.add(intrigueDefenseLabel);
+        sheet.add(intrigueLabel);
+        sheet.add(intrigueValue);
+        sheet.add(intrigueExplanation);
+        sheet.add(composureLabel);
+        sheet.add(composureValue);
+        sheet.add(composureExplanation);
+        //Abilities section
+        sheet.add(rating);
+        sheet.add(rating2);
+        sheet.add(ability);
+        sheet.add(ability2);
+        sheet.add(specialties);
+        sheet.add(specialties2);
+        sheet.add(agility);
+        sheet.add(agilityRating);
+        sheet.add(agilitySpecialties);
+        sheet.add(animalHandling);
+        sheet.add(animalHandlingRating);
+        sheet.add(animalHandlingSpecialties);
+        sheet.add(athletics);
+        sheet.add(athleticsRating);
+        sheet.add(athleticsSpecialties);
+        sheet.add(awareness);
+        sheet.add(awarenessRating);
+        sheet.add(awarenessSpecialties);
+        sheet.add(cunning);
+        sheet.add(cunningRating);
+        sheet.add(cunningSpecialties);
+        sheet.add(deception);
+        sheet.add(deceptionRating);
+        sheet.add(deceptionSpecialties);
+        sheet.add(endurance);
+        sheet.add(enduranceRating);
+        sheet.add(enduranceSpecialties);
+        sheet.add(fighting);
+        sheet.add(fightingRating);
+        sheet.add(fightingSpecialties);
+        sheet.add(healing);
+        sheet.add(healingRating);
+        sheet.add(healingSpecialties);
+        sheet.add(language);
+        sheet.add(languageRating);
+        sheet.add(languageSpecialties);
+        sheet.add(knowledge);
+        sheet.add(knowledgeRating);
+        sheet.add(knowledgeSpecialties);
+        sheet.add(marksmanship);
+        sheet.add(marksmanshipRating);
+        sheet.add(marksmanshipSpecialties);
+        sheet.add(persuasion);
+        sheet.add(persuasionRating);
+        sheet.add(persuasionSpecialties);
+        sheet.add(status);
+        sheet.add(statusRating);
+        sheet.add(statusSpecialties);
+        sheet.add(stealth);
+        sheet.add(stealthRating);
+        sheet.add(stealthSpecialties);
+        sheet.add(survival);
+        sheet.add(survivalRating);
+        sheet.add(survivalSpecialties);
+        sheet.add(thievery);
+        sheet.add(thieveryRating);
+        sheet.add(thieverySpecialties);
+        sheet.add(warfare);
+        sheet.add(warfareRating);
+        sheet.add(warfareSpecialties);
+        sheet.add(will);
+        sheet.add(willRating);
+        sheet.add(willSpecialties);
+
+
+        //contains the panel for scrolling
+        JScrollPane scrollPane = new JScrollPane(sheet);
+        scrollPane.setViewportView(sheet);
+
+        scrollPane.setSize(xMax-50, yMax - 120);
+        scrollPane.setLocation(20, 60);
+        scrollPane.setWheelScrollingEnabled(true);
+        scrollPane.setPreferredSize(new Dimension(xMax - 100, yMax-100));
+        //scrollPane.revalidate();
+        repaint();
+
+        c.add(back);
+        c.add(scrollPane);
+/*
         c.add(back);
         c.add(charName);
         c.add(nameLabel);
@@ -758,6 +982,7 @@ public class Screen extends JFrame {
         c.add(will);
         c.add(willRating);
         c.add(willSpecialties);
+        */
 
         back.addActionListener(new ActionListener() {
             @Override

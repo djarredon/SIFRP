@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /**
  * Created by arredon on 10/11/2016.
  */
@@ -8,7 +10,6 @@ public class Weapon extends Item {
     private int training;
     private int damage;
     private int[] qualities;
-    private int abilityScore;    //the relevant abilityScore score of user
     private String ability;
 
     public Weapon() {
@@ -36,29 +37,55 @@ public class Weapon extends Item {
         setWeapon(name);
     }
 
-    public Weapon(String name, int abilityScore) {
-        super(name);
-        this.abilityScore = abilityScore;
-        specialty = null;
-        qualities = null;
-        damageDesc = null;
-        ability = null;
-
-        qualities = new int[25];
-        for (int i = 0; i < 25; ++i)
-            qualities[i] = 0;
-
-        setWeapon(name);
-    }
-
-    public void setWeapon(String name, int abilityScore) {
-        this.abilityScore = abilityScore;
-        setWeapon(name);
+    public void randWeapon() {
+        Random rand = new Random();
+        int num = rand.nextInt(12) + 1;
+        switch (num) {
+            case 1:
+                setWeapon("Battleaxe");
+                break;
+            case 2:
+                setWeapon("Ball and Chain");
+                break;
+            case 3:
+                setWeapon("Fist");
+                break;
+            case 4:
+                setWeapon("Braavosi Blade");
+                break;
+            case 5:
+                setWeapon("Arakh");
+                break;
+            case 6:
+                setWeapon("Halberd");
+                break;
+            case 7:
+                setWeapon("Buckler");
+                break;
+            case 8:
+                setWeapon("Dagger");
+                break;
+            case 9:
+                setWeapon("Boar Spear");
+                break;
+            case 10:
+                setWeapon("Bow, Double-curved");
+                break;
+            case 11:
+                setWeapon("Crossbow, Heavy");
+                break;
+            case 12:
+                setWeapon("Frog Spear");
+                break;
+            default:
+                setWeapon("Dagger");
+                break;
+        }
     }
 
     public Weapon getWeapon(String name, int abilityScore) {
         if (name != null) {
-            Weapon temp = new Weapon(name, abilityScore);
+            Weapon temp = new Weapon(name);
             return temp;
         }
         else
@@ -80,61 +107,80 @@ public class Weapon extends Item {
             toReturn = toReturn.concat("Training: " + training + "\n");
         if (qualities != null) {
             toReturn = toReturn.concat("Qualities:");
-            if (qualities[0] != 0)
-                toReturn = toReturn.concat(" Adaptable");
-            if (qualities[1] != 0)
-                toReturn = toReturn.concat(" Bulk " + qualities[1]);
-            if (qualities[2] != 0)
-                toReturn = toReturn.concat(" Close Range");
-            if (qualities[3] != 0)
-                toReturn = toReturn.concat(" Defensive " + qualities[3]);
-            if (qualities[4] != 0)
-                toReturn = toReturn.concat(" Entangling");
-            if (qualities[5] != 0)
-                toReturn = toReturn.concat(" Fast");
-            if (qualities[6] != 0)
-                toReturn = toReturn.concat(" Fragile");
-            if (qualities[7] != 0)
-                toReturn = toReturn.concat(" Grab");
-            if (qualities[8] != 0)
-                toReturn = toReturn.concat(" Impale");
-            if (qualities[9] != 0)
-                toReturn = toReturn.concat(" Pinning an Opponent");
-            if (qualities[10] != 0)
-                toReturn = toReturn.concat(" Getting Free");
-            if (qualities[11] != 0)
-                toReturn = toReturn.concat(" Long Range");
-            if (qualities[12] != 0)
-                toReturn = toReturn.concat(" Mounted");
-            if (qualities[13] != 0)
-                toReturn = toReturn.concat(" Off-hand " + qualities[13]);
-            if (qualities[14] != 0)
-                toReturn = toReturn.concat(" Piercing " + qualities[14]);
-            if (qualities[15] != 0)
-                toReturn = toReturn.concat(" Powerful");
-            if (qualities[16] != 0)
-                toReturn = toReturn.concat(" Reach " + qualities[16]);
-            if (qualities[17] != 0 && qualities[17] == 1)
-                toReturn = toReturn.concat(" Reload (Lesser)");
-            if (qualities[17] != 0 && qualities[17] == 2)
-                toReturn = toReturn.concat(" Reload {Greater)");
-            if (qualities[18] != 0)
-                toReturn = toReturn.concat(" Set for Charge Only");
-            if (qualities[19] != 0)
-                toReturn = toReturn.concat(" Shattering " + qualities[19]);
-            if (qualities[20] != 0)
-                toReturn = toReturn.concat(" Slow");
-            if (qualities[21] != 0)
-                toReturn = toReturn.concat(" Staggering");
-            if (qualities[22] != 0)
-                toReturn = toReturn.concat(" Two-handed");
-            if (qualities[23] != 0)
-                toReturn = toReturn.concat(" Unwieldy");
-            if (qualities[24] != 0)
-                toReturn = toReturn.concat(" Vicious");
         }
+        toReturn = toReturn.concat(printDescription());
 
         return toReturn;
+    }
+
+    public String printDescription() {
+        String toReturn = "";
+        if (qualities[0] != 0)
+            toReturn = toReturn.concat(" Adaptable");
+        if (qualities[1] != 0)
+            toReturn = toReturn.concat(" Bulk " + qualities[1]);
+        if (qualities[2] != 0)
+            toReturn = toReturn.concat(" Close Range");
+        if (qualities[3] != 0)
+            toReturn = toReturn.concat(" Defensive " + qualities[3]);
+        if (qualities[4] != 0)
+            toReturn = toReturn.concat(" Entangling");
+        if (qualities[5] != 0)
+            toReturn = toReturn.concat(" Fast");
+        if (qualities[6] != 0)
+            toReturn = toReturn.concat(" Fragile");
+        if (qualities[7] != 0)
+            toReturn = toReturn.concat(" Grab");
+        if (qualities[8] != 0)
+            toReturn = toReturn.concat(" Impale");
+        if (qualities[9] != 0)
+            toReturn = toReturn.concat(" Pinning an Opponent");
+        if (qualities[10] != 0)
+            toReturn = toReturn.concat(" Getting Free");
+        if (qualities[11] != 0)
+            toReturn = toReturn.concat(" Long Range");
+        if (qualities[12] != 0)
+            toReturn = toReturn.concat(" Mounted");
+        if (qualities[13] != 0)
+            toReturn = toReturn.concat(" Off-hand " + qualities[13]);
+        if (qualities[14] != 0)
+            toReturn = toReturn.concat(" Piercing " + qualities[14]);
+        if (qualities[15] != 0)
+            toReturn = toReturn.concat(" Powerful");
+        if (qualities[16] != 0)
+            toReturn = toReturn.concat(" Reach " + qualities[16]);
+        if (qualities[17] != 0 && qualities[17] == 1)
+            toReturn = toReturn.concat(" Reload (Lesser)");
+        if (qualities[17] != 0 && qualities[17] == 2)
+            toReturn = toReturn.concat(" Reload {Greater)");
+        if (qualities[18] != 0)
+            toReturn = toReturn.concat(" Set for Charge Only");
+        if (qualities[19] != 0)
+            toReturn = toReturn.concat(" Shattering " + qualities[19]);
+        if (qualities[20] != 0)
+            toReturn = toReturn.concat(" Slow");
+        if (qualities[21] != 0)
+            toReturn = toReturn.concat(" Staggering");
+        if (qualities[22] != 0)
+            toReturn = toReturn.concat(" Two-handed");
+        if (qualities[23] != 0)
+            toReturn = toReturn.concat(" Unwieldy");
+        if (qualities[24] != 0)
+            toReturn = toReturn.concat(" Vicious");
+
+        return toReturn;
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public String printSpecialty() {
+        return specialty;
+    }
+
+    public String printAbility() {
+        return ability;
     }
 
     public void display() {
@@ -206,11 +252,12 @@ public class Weapon extends Item {
         //test name against all weapons in book,
         //set other stats (including weight and price)
         if (name != null) {
+            setName(name);
             switch (name) {
                 case "Battleaxe":
                     specialty = "Axes";
                     training = 0;
-                    damage = abilityScore;
+                    damage = 0;
                     ability = "Athletics";
                     damageDesc = "Athletics";
                     qualities[0] = 1;  //Adaptable
@@ -218,7 +265,7 @@ public class Weapon extends Item {
                 case "Ball and Chain":
                     specialty = "Bludgeon";
                     training = 1;
-                    damage = abilityScore;
+                    damage = 0;
                     ability = "Athletics";
                     damageDesc = "Athletics";
                     qualities[15] = 1; //Powerful
@@ -227,7 +274,7 @@ public class Weapon extends Item {
                 case "Fist":
                     specialty = "Brawling";
                     training = 0;
-                    damage = abilityScore - 3;
+                    damage =  - 3;
                     ability = "Athletics";
                     damageDesc = "Athletics - 3";
                     qualities[7] = 1; //grab
@@ -236,7 +283,7 @@ public class Weapon extends Item {
                 case "Braavosi Blade":
                     specialty = "Fencing";
                     training = 1;
-                    damage = abilityScore;
+                    damage = 0;
                     ability = "Agility";
                     damageDesc = "Agility";
                     qualities[3] = 1; //Defensive + 1
@@ -245,7 +292,7 @@ public class Weapon extends Item {
                 case "Arakh":
                     specialty = "Long Blade";
                     training = 1;
-                    damage = abilityScore;
+                    damage = 0;
                     ability = "Athletics";
                     damageDesc = "Athletics";
                     qualities[0] = 1; //Adaptable
@@ -254,7 +301,7 @@ public class Weapon extends Item {
                 case "Halberd":
                     specialty = "Pole-arm";
                     training = 1;
-                    damage = abilityScore + 3;
+                    damage = 0 + 3;
                     ability = "Athletics";
                     damageDesc = "Athletics + 3";
                     qualities[1] = 1; //Bulk 1
@@ -264,7 +311,7 @@ public class Weapon extends Item {
                 case "Buckler":
                     specialty = "Shield";
                     training = 0;
-                    damage = abilityScore -2;
+                    damage = 0 -2;
                     ability = "Athletics";
                     damageDesc = "Athletics - 2";
                     qualities[3] = 1; //Defensive 1
@@ -273,7 +320,7 @@ public class Weapon extends Item {
                 case "Dagger":
                     specialty = "Short Blade";
                     training = 0;
-                    damage = abilityScore - 2;
+                    damage = 0 - 2;
                     ability = "Agility";
                     damageDesc = "Agility - 2";
                     qualities[3] = 1; //Defensive 1
@@ -282,7 +329,7 @@ public class Weapon extends Item {
                 case "Boar Spear":
                     specialty = "Spear";
                     training = 1;
-                    damage = abilityScore + 1;
+                    damage = 0 + 1;
                     ability = "Athletics";
                     damageDesc = "Athletics + 1";
                     qualities[8] = 1; //Impale
@@ -293,7 +340,7 @@ public class Weapon extends Item {
                 case "Bow, Double-curved":
                     specialty = "Bow";
                     training = 1;
-                    damage = abilityScore + 1;
+                    damage = 0 + 1;
                     ability = "Agility";
                     damageDesc = "Agility + 1";
                     qualities[11] = 1; //Long Range
@@ -303,7 +350,7 @@ public class Weapon extends Item {
                 case "Crossbow, Heavy":
                     specialty = "Crossbow";
                     training = 0;
-                    damage = abilityScore + 2;
+                    damage = 0 + 2;
                     ability = "Agility";
                     damageDesc = "Agility + 2";
                     qualities[11] = 1; //Long Range
@@ -315,7 +362,7 @@ public class Weapon extends Item {
                 case "Frog Spear":
                     specialty = "Thrown";
                     training = 1;
-                    damage = abilityScore + 1;
+                    damage = 0 + 1;
                     ability = "Agility";
                     damageDesc = "Agility + 1";
                     qualities[3] = 1; //Close Range

@@ -412,10 +412,190 @@ public class Character {
         if (weapon3 != null)
             toReturn = toReturn.concat("Weapon 3: " + weapon3.print() + "\n");
 
-        if (toReturn != null)
-            return toReturn;
-        return "\n";
+        return toReturn;
     }
+
+    public String printWeapon1Description() {
+        if (weapon1 == null)
+            return "";
+        return weapon1.printDescription();
+    }
+
+    public String printWeapon2Description() {
+        if (weapon2 == null)
+            return "";
+        return weapon2.printDescription();
+    }
+
+    public String printWeapon3Description() {
+        if (weapon3 == null)
+            return "";
+        return weapon3.printDescription();
+    }
+
+    public String printOffHandDescription() {
+        if (offHand == null)
+            return "";
+        return offHand.printDescription();
+    }
+
+    public String printWeapon1Name() {
+        if (weapon1 == null)
+            return "";
+        return weapon1.getName();
+    }
+
+    public String printWeapon2Name() {
+        if (weapon2 == null)
+            return "";
+        return weapon2.getName();
+    }
+
+    public String printWeapon3Name() {
+        if (weapon3 == null)
+            return "";
+        return weapon3.getName();
+    }
+
+    public String printOffHandName() {
+        if (offHand == null)
+            return "";
+        return offHand.getName();
+    }
+
+    public String printWeapon1Damage() {
+        if (weapon1 == null)
+            return "";
+        return printWeaponDamage(weapon1);
+    }
+
+    public String printWeapon2Damage() {
+        if (weapon2 == null)
+            return "";
+        return printWeaponDamage(weapon2);
+    }
+
+    public String printWeapon3Damage() {
+        if (weapon3 == null)
+            return "";
+        return printWeaponDamage(weapon3);
+    }
+
+    public String printOffHandDamage() {
+        if (offHand == null)
+            return "";
+        return printWeaponDamage(offHand);
+    }
+
+    private String printWeaponDamage(Weapon weapon) {
+        if (weapon == null)
+            return "";
+        String toReturn = "";
+        if (weapon.printAbility() != null) {
+            switch (weapon.printAbility()) {
+                case "Agility":
+                    if (agility + weapon.getDamage() < 1)
+                        toReturn = toReturn.concat(1 + "");
+                    else
+                        toReturn = toReturn.concat((agility + weapon.getDamage()) + "");
+                    break;
+                case "Animal Handling":
+                    if (animalHandling + weapon.getDamage() < 1)
+                        toReturn = toReturn.concat(1 + "");
+                    else
+                        toReturn = toReturn.concat((animalHandling + weapon.getDamage()) + "");
+                    break;
+                case "Athletics":
+                    if (athletics + weapon.getDamage() < 1)
+                        toReturn = toReturn.concat(1 + "");
+                    else
+                        toReturn = toReturn.concat((athletics + weapon.getDamage()) + "");
+                    break;
+            }
+        }
+        return toReturn;
+    }
+
+    public String printWeapon1AttackDice() {
+        if (weapon1 == null)
+            return "";
+        return printWeaponAttackDice(weapon1);
+    }
+
+    public String printWeapon2AttackDice() {
+        if (weapon2 == null)
+            return "";
+        return printWeaponAttackDice(weapon2);
+    }
+
+    public String printWeapon3AttackDice() {
+        if (weapon3 == null)
+            return "";
+        return printWeaponAttackDice(weapon3);
+    }
+
+    public String printOffHandAttackDice() {
+        if (offHand == null)
+            return "";
+        return printWeaponAttackDice(offHand);
+    }
+
+    private String printWeaponAttackDice(Weapon weapon) {
+        if (weapon == null)
+            return "";
+        else {
+            String toReturn = fighting + "D";
+
+            if (fightingSpecialties != null) {
+                switch (weapon.printSpecialty()) {
+                    case "Axes":
+                        toReturn = toReturn.concat(" + " + fightingSpecialties[0] + "B");
+                        break;
+                    case "Bludgeon":
+                        toReturn = toReturn.concat(" + " + fightingSpecialties[1] + "B");
+                        break;
+                    case "Brawling":
+                        toReturn = toReturn.concat(" + " + fightingSpecialties[2] + "B");
+                        break;
+                    case "Fencing":
+                        toReturn = toReturn.concat(" + " + fightingSpecialties[3] + "B");
+                        break;
+                    case "Long Blade":
+                        toReturn = toReturn.concat(" + " + fightingSpecialties[4] + "B");
+                        break;
+                    case "Pole-Arm":
+                        toReturn = toReturn.concat(" + " + fightingSpecialties[5] + "B");
+                        break;
+                    case "Shield":
+                        toReturn = toReturn.concat(" + " + fightingSpecialties[6] + "B");
+                        break;
+                    case "Short Blade":
+                        toReturn = toReturn.concat(" + " + fightingSpecialties[7] + "B");
+                        break;
+                    case "Spear":
+                        toReturn = toReturn.concat(" + " + fightingSpecialties[8] + "B");
+                        break;
+
+                    default:
+                }
+            }
+            if (marksmanshipSpecialties != null) {
+                switch (weapon.printSpecialty()) {
+                    case "Bow":
+                        toReturn = toReturn.concat(" + " + marksmanshipSpecialties[0] + "B");
+                        break;
+                    case "Crossbow":
+                        toReturn = toReturn.concat(" + " + marksmanshipSpecialties[1] + "B");
+                        break;
+                    case "Thrown":
+                        toReturn = toReturn.concat(" + " + marksmanshipSpecialties[3] + "B");
+                        break;
+                }
+            }
+            return toReturn;
+        }
+    }
+
 
     public void generateCharacter() {
         randAge();
@@ -1114,16 +1294,16 @@ Venerable
                     score = 0;
             }
             if (weapon1 == null)
-                weapon1 = new Weapon(toGive.getName(),score);
+                weapon1 = new Weapon(toGive.getName());
 
             else if (weapon2 == null)
-                weapon2 = new Weapon(toGive.getName(),score);
+                weapon2 = new Weapon(toGive.getName());
 
             else if (weapon3 == null)
-                weapon3 = new Weapon(toGive.getName(),score);
+                weapon3 = new Weapon(toGive.getName());
 
             else
-                weapon3.setWeapon(toGive.getName(),score);
+                weapon3.setWeapon(toGive.getName());
         }
     }
 
@@ -1151,9 +1331,9 @@ Venerable
             }
 
             if (offHand == null)
-                offHand = new Weapon(toGive.getName(), score);
+                offHand = new Weapon(toGive.getName());
             else
-                offHand.setWeapon(toGive.getName(), score);
+                offHand.setWeapon(toGive.getName());
         }
 
     }
