@@ -100,7 +100,7 @@ public class Wealth extends Holding {
                 requirements = "Small Town or Larger Community";
                 setCost(15);
                 time = "2D6 Months";
-                description = "All members of the household gain a 10% discount on any goods purchased in their own lands.";
+                description = "All members of the household gain a 10% discount on any goods \npurchased in their own lands.";
                 break;
             case "Maester":
                 this.name = name;
@@ -156,7 +156,7 @@ public class Wealth extends Holding {
                 requirements = "Small Town or Larger Community";
                 setCost(15);
                 time = "2D6 Months";
-                description = "All members of the household gain a 10% discount on any goods purchased in their own lands.";
+                description = "All members of the household gain a 10% discount on any goods \npurchased in their own lands.";
                 break;
         }
     }

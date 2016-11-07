@@ -24,6 +24,22 @@ public class Weapon extends Item {
             qualities[i] = 0;
     }
 
+    public Weapon(Weapon toCopy) {
+        super();
+        if (toCopy != null)
+            copyWeapon(toCopy);
+        else {
+            specialty = null;
+            qualities = null;
+            damageDesc = null;
+            ability = null;
+
+            qualities = new int[25];
+            for (int i = 0; i < 25; ++i)
+                qualities[i] = 0;
+        }
+    }
+
     public Weapon(String name) {
         super(name);
         specialty = null;
@@ -80,6 +96,18 @@ public class Weapon extends Item {
             default:
                 setWeapon("Dagger");
                 break;
+        }
+    }
+
+    public void copyWeapon(Weapon toCopy) {
+        if (toCopy != null) {
+            setName(toCopy.getName());
+            specialty = toCopy.specialty;
+            damageDesc = toCopy.damageDesc;
+            training = toCopy.training;
+            damage = toCopy.damage;
+            qualities = toCopy.qualities;
+            ability = toCopy.ability;
         }
     }
 

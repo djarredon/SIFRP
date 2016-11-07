@@ -439,7 +439,7 @@ public class House {
     }
 
     public String printHistory() {
-        String toReturn = "Historical Events: \n";
+        String toReturn = "";
         if (history != null)
             toReturn = toReturn.concat(history.printAll());
         return toReturn + "\n";
@@ -1066,6 +1066,18 @@ public class House {
     //SETTERS AND GETTERS
     public String getName() {
         return name;
+    }
+
+    public Character getSteward() {
+        return steward;
+    }
+
+    public CharacterList getHeirs() {
+        return heirs;
+    }
+
+    public CharacterList getResidents() {
+        return residents;
     }
 
     public int getDefense() { return defense; }

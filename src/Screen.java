@@ -5,6 +5,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.util.Scanner;
 
 /**
@@ -47,7 +49,11 @@ public class Screen extends JFrame {
 
         mainMenu();
         //houseMenu();
+    }
 
+    private void calculateSize() {
+        setSize(xMax = getWidth(), yMax = getHeight());
+        halfX = xMax/2 - 100;
     }
 
     public void mainMenu() {
@@ -87,7 +93,7 @@ public class Screen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 repaint();
-                houseMenu(baseHouseList);
+                houseMenu(baseHouseList.getCurrent());
             }
         });
 
@@ -97,9 +103,32 @@ public class Screen extends JFrame {
                 System.exit(0);
             }
         });
+
+        /*
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+                calculateSize();
+                mainMenu();
+            }
+        });
+        */
     }
 
-    public void houseMenu(HouseList houseList) {
+    /*
+    Needs
+        * House information     - done
+        * House Stats           - done
+        * steward               - done
+        * heir(s)               - done
+        * residents             -
+        * historical events     - done
+        * holdings              - done
+        * Banner house(s)       - done
+ */
+    public void houseMenu(HouseNode houseNode) {
+        repaint();
         getContentPane().removeAll();
 
         //Screen name
@@ -118,32 +147,44 @@ public class Screen extends JFrame {
         previous.setSize(buttonSize);
         previous.setLocation(xMax - 700, yMax - 100);
 
-        /*
-            Needs
-                * House information
-                * House Stats
-                * steward
-                * heir(s)
-                * residents
-                * historical events
-                * holdings
-                * Banner house(s)
-         */
-
         Dimension labelSize = new Dimension(100, 20);
+        int panelHeight = yMax - 200;
 
-        HouseNode current = houseList.getCurrent();
+        //HouseNode current = houseList.getCurrent();
+
+        //historical events
+        JLabel historyLabel = new JLabel("History");
+        historyLabel.setSize(labelSize);
+        historyLabel.setLocation(20, 210);
+        JTextArea historyArea = new JTextArea(houseNode.printHistory());
+        historyArea.setSize(200, 200);
+        historyArea.setEditable(false);
+        JScrollPane historyScroll = new JScrollPane(historyArea);
+        historyScroll.setSize(200, 110);
+        historyScroll.setLocation(20, 230);
+
         //return to Liege House
         JButton liegeHouse = new JButton("Liege House");
         liegeHouse.setSize(buttonSize);
-        liegeHouse.setLocation(xMax/2 - 100, 10);
+        liegeHouse.setLocation(20, 10);
+
+        //Displays Lord/Lady of the house
+        JLabel stewardLabel = new JLabel("Steward");
+        stewardLabel.setLocation(20, 150);
+        stewardLabel.setSize(labelSize);
+        JButton stewardButton = new JButton();
+        if (houseNode.getSteward() != null) {
+            stewardButton.setText(houseNode.getSteward().getName());
+        }
+        stewardButton.setSize(buttonSize);
+        stewardButton.setLocation(20, 170);
 
         //displays house information
         JLabel houseArea = new JLabel("House Information");
         houseArea.setSize(200, 20);
         houseArea.setLocation(20,20);
 
-        JTextArea houseInfo = new JTextArea(current.printHouseInfo());
+        JTextArea houseInfo = new JTextArea(houseNode.printHouseInfo());
         houseInfo.setLocation(20,40);
         houseInfo.setSize(200, 100);
         houseInfo.setEditable(false);
@@ -154,11 +195,11 @@ public class Screen extends JFrame {
         statsArea.setLocation(250, 20);
         //Defense, Influence, Lands, Law, Population, Power, Wealth
         int row = 10;
-        JLabel defenseLabel = new JLabel("Defense " + current.getDefense());
+        JLabel defenseLabel = new JLabel("Defense " + houseNode.getDefense());
         defenseLabel.setLocation(0, row);
         defenseLabel.setSize(labelSize);
 
-        JTextArea temp = new JTextArea(current.printDefenseHoldings());
+        JTextArea temp = new JTextArea(houseNode.printDefenseHoldings());
         temp.setEditable(false);
         temp.getPreferredSize();
 
@@ -168,25 +209,29 @@ public class Screen extends JFrame {
         row += 120;
 
         //Influence / Heirs
-        JLabel heirsLabel = new JLabel("Influence " + current.getInfluence());
+        JLabel heirsLabel = new JLabel("Influence " + houseNode.getInfluence());
         heirsLabel.setLocation(0, row);
         heirsLabel.setSize(labelSize);
 
-        temp = new JTextArea(current.printHeirs());
+        temp = new JTextArea(houseNode.printHeirs());
         temp.getPreferredSize();
         temp.setEditable(false);
 
+        JButton heirsButton = new JButton("Heirs");
+        heirsButton.setSize(buttonSize);
+        heirsButton.setLocation(350, row);
+
         JScrollPane heirs = new JScrollPane(temp);
         heirs.setLocation(100, row);
-        heirs.setSize(450, 75);
+        heirs.setSize(240, 75);
         row += 95;
 
         //Lands
-        JLabel landsLabel = new JLabel("Lands " + current.getLands());
+        JLabel landsLabel = new JLabel("Lands " + houseNode.getLands());
         landsLabel.setLocation(0, row);
         landsLabel.setSize(labelSize);
 
-        temp = new JTextArea(current.printLandHoldings());
+        temp = new JTextArea(houseNode.printLandHoldings());
         temp.getPreferredSize();
         temp.setEditable(false);
 
@@ -195,11 +240,11 @@ public class Screen extends JFrame {
         landsScroll.setSize(450, 100);
         row += 120;
         //Law
-        JLabel lawLabel = new JLabel("Law " + current.getLaw());
+        JLabel lawLabel = new JLabel("Law " + houseNode.getLaw());
         lawLabel.setLocation(0, row);
         lawLabel.setSize(labelSize);
 
-        temp = new JTextArea(current.printLawHoldings());
+        temp = new JTextArea(houseNode.printLawHoldings());
         temp.getPreferredSize();
         temp.setEditable(false);
 
@@ -209,11 +254,11 @@ public class Screen extends JFrame {
         row += 40;
 
         //population
-        JLabel populationLabel = new JLabel("Population " + current.getPopulation());
+        JLabel populationLabel = new JLabel("Population " + houseNode.getPopulation());
         populationLabel.setLocation(0, row);
         populationLabel.setSize(labelSize);
 
-        temp = new JTextArea(current.printPopulationHoldings());
+        temp = new JTextArea(houseNode.printPopulationHoldings());
         temp.getPreferredSize();
         temp.setEditable(false);
 
@@ -222,12 +267,12 @@ public class Screen extends JFrame {
         populationScroll.setSize(450, 20);
         row += 40;
         //power
-        JLabel powerLabel = new JLabel("Power " + current.getPower());
+        JLabel powerLabel = new JLabel("Power " + houseNode.getPower());
         powerLabel.setLocation(0, row);
         powerLabel.setSize(labelSize);
 
         //display each Banner house as a button that links to a new page for that house
-        temp = new JTextArea(current.printBannerNames());
+        temp = new JTextArea(houseNode.printBannerNames());
         temp.getPreferredSize();
         temp.setEditable(false);
 
@@ -240,11 +285,11 @@ public class Screen extends JFrame {
         powerScroll.setSize(240, 40);
         row += 60;
         //wealth
-        JLabel wealthLabel = new JLabel("Wealth " + current.getWealth());
+        JLabel wealthLabel = new JLabel("Wealth " + houseNode.getWealth());
         wealthLabel.setLocation(0, row);
         wealthLabel.setSize(labelSize);
 
-        temp = new JTextArea(current.printWealthHoldings());
+        temp = new JTextArea(houseNode.printWealthHoldings());
         temp.getPreferredSize();
         temp.setEditable(false);
 
@@ -254,7 +299,7 @@ public class Screen extends JFrame {
 
 
         JPanel statsPanel = new JPanel(null);
-        statsPanel.setPreferredSize(new Dimension(400, yMax));
+        statsPanel.setPreferredSize(new Dimension(400, 600));
 
         statsPanel.add(bannerButton);
         statsPanel.add(wealthLabel);
@@ -267,13 +312,14 @@ public class Screen extends JFrame {
         statsPanel.add(lawScroll);
         statsPanel.add(landsLabel);
         statsPanel.add(landsScroll);
+        statsPanel.add(heirsButton);
         statsPanel.add(heirsLabel);
         statsPanel.add(heirs);
         statsPanel.add(defenseLabel);
         statsPanel.add(defenseHoldings);
 
         JScrollPane statsScroll = new JScrollPane(statsPanel);
-        statsScroll.setSize(new Dimension(600,300));
+        statsScroll.setSize(new Dimension(600,panelHeight - 100));
         statsScroll.setLocation(250,40);
         statsScroll.setWheelScrollingEnabled(true);
         statsScroll.getVerticalScrollBar().setUnitIncrement(16);
@@ -281,6 +327,10 @@ public class Screen extends JFrame {
         //
         JPanel mainPanel = new JPanel(null);
 
+        mainPanel.add(stewardButton);
+        mainPanel.add(stewardLabel);
+        mainPanel.add(historyScroll);
+        mainPanel.add(historyLabel);
         mainPanel.add(statsArea);
         mainPanel.add(houseInfo);
         mainPanel.add(houseArea);
@@ -291,53 +341,70 @@ public class Screen extends JFrame {
         JScrollPane mainScroll = new JScrollPane(mainPanel);
         mainScroll.setViewportView(mainPanel);
         mainScroll.setLocation(50, 50);
-        mainScroll.setSize(xMax - 100, yMax - 200 );
+        mainScroll.setSize(xMax - 100, panelHeight );
         mainScroll.setWheelScrollingEnabled(true);
         mainScroll.getVerticalScrollBar().setUnitIncrement(16);
 
         c = getContentPane();
 
-        if (current.hasLiegeHouse())
+        if (houseNode.hasLiegeHouse())
             c.add(liegeHouse);
+        else
+            c.add(back);
 
         c.setBackground(background);
         c.add(screenName);
         c.add(mainScroll);
         c.add(next);
         c.add(previous);
-        c.add(back);
 
         mainScroll.revalidate();
         repaint();
 
+        heirsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CharacterNode characterNode = houseNode.getHeirs().getCurrent();
+                characterSheet(characterNode, houseNode);
+            }
+        });
+
+        stewardButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                CharacterNode characterNode = new CharacterNode(houseNode.getSteward());
+                characterSheet(characterNode, houseNode);
+            }
+        });
+
         liegeHouse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                houseMenu(baseHouseList);
+                houseMenu(baseHouseList.getCurrent());
             }
         });
 
         bannerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (current.hasBanners())
-                    houseMenu(current.getBanners());
+                if (houseNode.hasBanners())
+                    houseMenu(houseNode.getBanners().getCurrent());
             }
         });
 
         next.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                houseList.moveNext();
-                houseMenu(houseList);
+                if (houseNode.getNext() != null)
+                houseMenu(houseNode.getNext());
             }
         });
 
         previous.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                houseList.movePrev();
-                houseMenu(houseList);
+                if (houseNode.getPrev() != null)
+                    houseMenu(houseNode.getPrev());
             }
         });
 
@@ -347,6 +414,17 @@ public class Screen extends JFrame {
                 mainMenu();
             }
         });
+
+        /*
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+                calculateSize();
+                houseMenu(houseNode);
+            }
+        });
+        */
     }
 
     public void initializeHouseList() {
@@ -421,7 +499,7 @@ public class Screen extends JFrame {
         characterSheet.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Character character = new Character();
+                CharacterNode character = new CharacterNode();
                 character.generateCharacter();
 
                 Armor test = new Armor();
@@ -436,7 +514,7 @@ public class Screen extends JFrame {
                 weapon.randWeapon();
                 character.giveWeapon(weapon);
 
-                characterSheet(character);
+                characterSheet(character, null);
             }
         });
     }
@@ -467,13 +545,18 @@ public class Screen extends JFrame {
         });
     }
 
-    public void characterSheet(Character character) {
+    public void characterSheet(CharacterNode character, HouseNode houseNode) {
         repaint();
         getContentPane().removeAll();
-        if (character == null) {
-            character = new Character();
-            character.generateCharacter();
-        }
+
+        //next button
+        JButton next = new JButton("Next");
+        next.setSize(buttonSize);
+        next.setLocation(xMax - 400, yMax - 100);
+        //previous button
+        JButton previous = new JButton("Previous");
+        previous.setSize(buttonSize);
+        previous.setLocation(xMax - 700, yMax - 100);
 
         Dimension specialtySize = new Dimension(250, 30);
         Dimension fieldSize = new Dimension(75, 30);
@@ -978,11 +1061,9 @@ public class Screen extends JFrame {
         armorPenalty.setEditable(false);
 
 
-
-
         //panel for containing things
         JPanel sheet = new JPanel(null);
-        sheet.setPreferredSize(new Dimension(xMax-100, yMax*3));
+        sheet.setPreferredSize(new Dimension(xMax-100, yMax*2 - 200));
 
 
 
@@ -1110,23 +1191,55 @@ public class Screen extends JFrame {
         scrollPane.setViewportView(sheet);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
-        scrollPane.setSize(xMax-50, yMax - 120);
+        scrollPane.setSize(xMax-50, yMax - 200);
         scrollPane.setLocation(20, 60);
         scrollPane.setWheelScrollingEnabled(true);
         //scrollPane.setPreferredSize(new Dimension(xMax - 100, yMax-100));
 
         c.add(back);
+        c.add(next);
+        c.add(previous);
         c.add(scrollPane);
 
         scrollPane.revalidate();
         repaint();
 
+        next.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (character.getNext() != null)
+                    characterSheet(character.getNext(), houseNode);
+            }
+        });
+
+        previous.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (character.getPrev() != null)
+                    characterSheet(character.getPrev(), houseNode);
+            }
+        });
+
         back.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                characterMenu();
+                if (houseNode == null)
+                    characterMenu();
+                else
+                    houseMenu(houseNode);
             }
         });
+
+        /*
+        this.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+                calculateSize();
+                characterSheet(character, houseNode);
+            }
+        });
+        */
     }
 
     //print text blocks on multiple lines

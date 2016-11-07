@@ -1194,6 +1194,7 @@ Venerable
         this.age = toCopy.age;
         this.experience = toCopy.experience;
 
+        //stats
         this.agility = toCopy.agility;
         this.animalHandling = toCopy.animalHandling;
         this.athletics = toCopy.athletics;
@@ -1212,6 +1213,38 @@ Venerable
         this.thievery = toCopy.thievery;
         this.warfare = toCopy.warfare;
         this.will = toCopy.will;
+        //specialties
+        this.agilitySpecialties = toCopy.agilitySpecialties;
+        this.animalHandlingSpecialties = toCopy.animalHandlingSpecialties;
+        this.athleticsSpecialties = toCopy.athleticsSpecialties;
+        this.awarenessSpecialties = toCopy.awarenessSpecialties;
+        this.cunningSpecialties = toCopy.cunningSpecialties;
+        this.deceptionSpecialties = toCopy.deceptionSpecialties;
+        this.enduranceSpecialties = toCopy.enduranceSpecialties;
+        this.fightingSpecialties = toCopy.fightingSpecialties;
+        this.healingSpecialties = toCopy.healingSpecialties;
+        this.knowledgeSpecialties = toCopy.knowledgeSpecialties;
+        this.marksmanshipSpecialties = toCopy.marksmanshipSpecialties;
+        this.persuasionSpecialties = toCopy.persuasionSpecialties;
+        this.statusSpecialties = toCopy.statusSpecialties;
+        this.stealthSpecialties = toCopy.stealthSpecialties;
+        this.survivalSpecialties = toCopy.survivalSpecialties;
+        this.thieverySpecialties = toCopy.thieverySpecialties;
+        this.warfareSpecialties = toCopy.warfareSpecialties;
+        this.willSpecialties = toCopy.willSpecialties;
+        //gear
+        if (toCopy.weapon1 != null)
+            this.weapon1 = new Weapon(toCopy.weapon1);
+        if (toCopy.weapon2 != null)
+            this.weapon2 = new Weapon(toCopy.weapon2);
+        if (toCopy.weapon3 != null)
+            this.weapon3 = new Weapon(toCopy.weapon3);
+        if (toCopy.offHand != null)
+            this.offHand = new Weapon(toCopy.offHand);
+        if (toCopy.armor != null)
+            this.armor = new Armor(toCopy.armor);
+
+        generateDerivedStats();
     }
 
     public void startingStats() {

@@ -50,7 +50,7 @@ public class History {
         EventNode current = head;
         String toReturn = new String();
         while (current != null) {
-            toReturn = current.print();
+            toReturn = toReturn.concat(current.print() + "\n");
             current = current.getNext();
         }
         return toReturn;

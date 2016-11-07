@@ -3,9 +3,10 @@
  */
 public class CharacterList {
     CharacterNode head;
+    CharacterNode current;
 
     public CharacterList() {
-        head = null;
+        head = current = null;
     }
 
     public CharacterList(CharacterList characters) {
@@ -62,10 +63,11 @@ public class CharacterList {
 
     public void insert(CharacterNode characters) {
         if (head == null)
-            head = new CharacterNode(characters);
+            head = current = new CharacterNode(characters);
         else {
             CharacterNode temp = new CharacterNode(characters);
             temp.setNext(head);
+            head.setPrev(temp);
             head = temp;
         }
     }
@@ -77,20 +79,35 @@ public class CharacterList {
 
     public void copyList(CharacterList toCopy) {
         if (toCopy.head == null)
-            head = null;
+            head = current = null;
         else {
-            head = new CharacterNode(toCopy.head);
-            CharacterNode prevNode = head;
-            CharacterNode thisCurrent;
-            CharacterNode copyCurrent = toCopy.head;
-            copyCurrent = copyCurrent.getNext();
+            head = current = new CharacterNode(toCopy.head);
 
+            CharacterNode copyCurrent = toCopy.head.getNext();
+            CharacterNode prevNode = current;
             while (copyCurrent != null) {
-                thisCurrent = new CharacterNode(copyCurrent);
-                prevNode.setNext(thisCurrent);
-                prevNode = prevNode.getNext();
+                current = new CharacterNode(copyCurrent);
+                current.setPrev(prevNode);
+                prevNode.setNext(current);
+
+                prevNode = current;
                 copyCurrent = copyCurrent.getNext();
             }
+            current = head;
         }
+    }
+
+    public void moveNext(){
+        if (current.getNext() != null)
+            current = current.getNext();
+    }
+
+    public void movePrevious() {
+        if (current.getPrev() != null)
+            current = current.getPrev();
+    }
+
+    public CharacterNode getCurrent() {
+        return current;
     }
 }

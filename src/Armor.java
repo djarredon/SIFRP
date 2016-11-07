@@ -15,9 +15,28 @@ public class Armor extends Item {
         bulk = 0;
     }
 
+    public Armor(Armor toCopy) {
+        super();
+        if (toCopy != null)
+            copyArmor(toCopy);
+        else {
+            armorPenalty = 0;
+            armorRating = 0;
+            bulk = 0;
+        }
+    }
+
     public Armor(String name) {
         super(name);
         setArmor(name);
+    }
+
+    public void copyArmor(Armor toCopy) {
+        if (toCopy != null) {
+            armorRating = toCopy.armorRating;
+            armorPenalty = toCopy.armorPenalty;
+            bulk = toCopy.bulk;
+        }
     }
 
     public void setArmor(String name) {
