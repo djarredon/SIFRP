@@ -34,6 +34,12 @@ public class Domain extends Holding{
         return cost;
     }
 
+    public boolean hasFeature(String toCheck) {
+        if (features == null)
+            return false;
+        return features.hasFeature(toCheck);
+    }
+
     public void setTerrain(Terrain terrain) {
         this.terrain = terrain;
     }
@@ -58,6 +64,10 @@ public class Domain extends Holding{
             toReturn = toReturn.concat(features.printAll());
         toReturn = toReturn.concat("----------\n");
         return toReturn;
+    }
+
+    public String printTerrainName() {
+        return terrain.getName();
     }
 
     public void display() {

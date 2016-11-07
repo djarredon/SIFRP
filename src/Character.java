@@ -375,6 +375,10 @@ public class Character {
             return armor.print();
     }
 
+    public Armor getArmor() {
+        return armor;
+    }
+
     public void displayWeapons() {
         if (weapon1 != null) {
             System.out.print("Weapon 1: ");

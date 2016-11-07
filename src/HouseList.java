@@ -97,10 +97,22 @@ public class HouseList {
             return printList(head);
     }
 
-    public String printList(HouseNode head) {
+    private String printList(HouseNode head) {
         if (head == null)
             return null;
         return head.printAll() + "\n" + printList(head.getNext());
+    }
+
+    public String printNames() {
+        if (head == null)
+            return "No Houses to Display.\n";
+        return printNames(head);
+    }
+
+    private String printNames(HouseNode head) {
+        if (head == null)
+            return "";
+        return head.printName() + "\n" + printNames(head.getNext());
     }
 
     public void display() {

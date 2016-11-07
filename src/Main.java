@@ -16,17 +16,12 @@ public class Main {
         Data data = new Data();
 
         int xmax = 1000;
-        int ymax = 1000;
+        int ymax = 700;
 
         Screen screen = new Screen("SIFRP", xmax, ymax);
         screen.setVisible(true);
         screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
-        //WeaponTest();
-        //CharacterTest();
-        //HouseTest();
-        //HouseListTest();
     }
 
     public static void CharacterTest() {

@@ -48,6 +48,10 @@ public class DefenseHolding extends Holding {
         return benefit;
     }
 
+    public String getName() {
+        return name;
+    }
+
     private void setName(int type) {
         switch (type) {
             case 1: name =  "Superior Castle";

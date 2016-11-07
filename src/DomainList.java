@@ -46,6 +46,32 @@ public class DomainList {
         }
     }
 
+    public boolean hasHolding(String toCheck) {
+        if (head == null)
+            return false;
+        return hasHolding(toCheck, head);
+    }
+
+    private boolean hasHolding(String toCheck, DomainNode head) {
+        if (head == null)
+            return false;
+        if (head.hasFeature(toCheck))
+            return true;
+        return hasHolding(toCheck, head.getNext());
+    }
+
+    public boolean hasTerrain(String toCheck) {
+        return hasTerrain(toCheck, head);
+    }
+
+    private boolean hasTerrain(String toCheck, DomainNode head) {
+        if (head == null)
+            return false;
+        if (head.printTerrainName().equalsIgnoreCase(toCheck))
+            return true;
+        return hasTerrain(toCheck, head.getNext());
+    }
+
     public void copyList(DomainList toCopy) {
         if (toCopy.head == null)
             head = null;

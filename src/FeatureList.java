@@ -67,6 +67,18 @@ public class FeatureList {
         }
     }
 
+    public boolean hasFeature(String toCheck) {
+        return hasFeature(toCheck, head);
+    }
+
+    private boolean hasFeature(String toCheck, FeatureNode head) {
+        if (head == null)
+            return false;
+        if (head.getName().equalsIgnoreCase(toCheck))
+            return true;
+        return hasFeature(toCheck, head.getNext());
+    }
+
     public boolean contains(Feature feature) {
         if (head == null)
             return false;

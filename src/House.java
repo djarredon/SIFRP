@@ -33,15 +33,36 @@ public class House {
 
     //Holdings
     private HouseList banners;
+    private HouseNode liegeHouse;
     private boolean isBanner;
     private DomainList domains;
     private DefenseList castles;
     private CharacterList heirs;
+    private WealthList wealthHoldings;
+    private String lawHoldings;
+    private String populationHoldings;
 
     //+++++GENERAL METHODS+++++
     //default constructor
     public House() {
         die = new Dice();
+        nullAll();
+    }
+
+    //Constructor with House name
+    public House(String name) {
+        die = new Dice();
+        nullAll();
+        this.name = new String(name);
+    }
+
+    //Copy Constructor
+    public House(House toCopy) {
+        die = new Dice();
+        copyHouse(toCopy);
+    }
+
+    private void nullAll() {
         history = null;
         name = null;
         founded = null;
@@ -52,28 +73,10 @@ public class House {
         castles = null;
         steward = null;
         residents = null;
-    }
-
-    //Constructor with House name
-    public House(String name) {
-        die = new Dice();
-        this.name = new String(name);
-        founded = null;
-        foundingEvent = null;
-        realm = null;
-        history = null;
-        banners = null;
-        isBanner = false;
-        domains = null;
-        castles = null;
-        steward = null;
-        residents = null;
-    }
-
-    //Copy Constructor
-    public House(House toCopy) {
-        die = new Dice();
-        copyHouse(toCopy);
+        wealthHoldings = null;
+        lawHoldings = null;
+        populationHoldings = null;
+        liegeHouse = null;
     }
 
     //set's House name
@@ -306,6 +309,8 @@ public class House {
         else
             this.residents = null;
 
+        this.liegeHouse = toCopy.liegeHouse;
+
         //Holdings
         if (toCopy.heirs != null)
             heirs = new CharacterList(toCopy.heirs);
@@ -324,6 +329,18 @@ public class House {
             this.castles = new DefenseList(toCopy.castles);
         else
             castles = null;
+        if (toCopy.wealthHoldings != null)
+            wealthHoldings = new WealthList(toCopy.wealthHoldings);
+        else
+            wealthHoldings = null;
+        if (toCopy.lawHoldings != null)
+            lawHoldings = new String(toCopy.lawHoldings);
+        else
+            lawHoldings = null;
+        if (toCopy.populationHoldings != null)
+            populationHoldings = new String(toCopy.populationHoldings);
+        else
+            populationHoldings = null;
 
         maxStatus = toCopy.maxStatus;
         age = toCopy.age;
@@ -384,6 +401,22 @@ public class House {
         return toReturn;
     }
 
+    public String printName() {
+        return name;
+    }
+
+    public String printRealm() {
+        return realm;
+    }
+
+    public String printFounded() {
+        return founded;
+    }
+
+    public String printFoundingEvent() {
+        return foundingEvent;
+    }
+
     public String printStats() {
         return "Defense: " + defense + "\n" +
                 "Influence: " + influence + "\n" +
@@ -396,18 +429,13 @@ public class House {
     public String printResidents() {
         if (residents == null)
             return "No Residents\n";
-        String toReturn = "Residents\n";
-        toReturn = toReturn.concat(residents.printNames());
-
-        return toReturn;
+        return residents.printNames();
     }
 
     public String printHeirs() {
         if (heirs == null)
             return "No Heirs.\n";
-        String toReturn = "Heirs: \n";
-        toReturn = toReturn.concat(heirs.printNames());
-        return toReturn;
+        return heirs.printNames();
     }
 
     public String printHistory() {
@@ -423,17 +451,99 @@ public class House {
         return domains.printAll();
     }
 
+    public String printLawHoldings() {
+        if (law == 0)
+            return lawHoldings = "House Fortunes -20";
+        else if (law >= 1 && law <= 10)
+            return lawHoldings = "House Fortunes -10";
+        else if (law >= 11 && law <= 20)
+            return lawHoldings = "House Fortunes -5";
+        else if (law >= 21 && law <= 30)
+            return lawHoldings = "House Fortunes -2";
+        else if (law >= 31 && law <= 40)
+            return lawHoldings = "House Fortunes -1";
+        else if (law >= 41 && law <= 50)
+            return lawHoldings = "House Fortunes +0";
+        else if (law >= 51 && law <= 60)
+            return lawHoldings = "House Fortunes +1";
+        else if (law >= 61 && law <= 70)
+            return lawHoldings = "House Fortunes +2";
+        else if (law > 70)
+            return lawHoldings = "House Fortunes +5";
+        else
+            return lawHoldings = "House Fortunes +0";
+    }
+
+    public String printPopulationHoldings() {
+        if (population == 0)
+            return populationHoldings = "House Fortunes -10";
+        else if (population >= 1 && population <= 10)
+            return populationHoldings = "House Fortunes -5";
+        else if (population >= 11 && population <= 20)
+            return populationHoldings = "House Fortunes +0";
+        else if (population >= 21 && population <= 30)
+            return populationHoldings = "House Fortunes +1";
+        else if (population >= 31 && population <= 40)
+            return populationHoldings = "House Fortunes +3";
+        else if (population >= 41 && population <= 50)
+            return populationHoldings = "House Fortunes +1";
+        else if (population >= 51 && population <= 60)
+            return populationHoldings = "House Fortunes +0";
+        else if (population >= 61 && population <= 70)
+            return populationHoldings = "House Fortunes -5";
+        else if (population >= 71)
+            return populationHoldings = "House Fortunes -10";
+        else
+            return populationHoldings = "House Fortunes +0";
+    }
+
     public String printDefenseHoldings() {
         if (castles == null)
             return "No Defense Holdings.\n";
-        return "Defense Holdings: \n" + castles.printAll();
+        return castles.printAll();
+    }
+
+    public String printWealthHoldings() {
+        if (wealthHoldings == null)
+            return "No Wealth Holdings.\n";
+        return wealthHoldings.printAll();
     }
 
     public String printBanner() {
         if (banners == null)
             return "No Banner Houses\n";
-        return "Banners: " + banners.getNum() + "\n" +
+        return banners.getNum() + "Banners \n" +
                 banners.printList();
+    }
+
+    public String printBannerNames() {
+        if (banners == null)
+            return "No Banner Houses\n";
+        return banners.printNames();
+    }
+
+    public HouseList getBanners() {
+        return banners;
+    }
+
+    public boolean hasBanners() {
+        if (banners == null)
+            return false;
+        return true;
+    }
+
+    public HouseNode getLiegeHouse() {
+        return liegeHouse;
+    }
+
+    public void setLiegeHouse(HouseNode liegeHouse) {
+        this.liegeHouse = liegeHouse;
+    }
+
+    public boolean hasLiegeHouse() {
+        if (liegeHouse != null)
+            return true;
+        return false;
     }
 
     //+++++DISPLAY SECTION+++++
@@ -644,6 +754,9 @@ public class House {
         generateLandHoldings();
         generateDefenseHoldings();
         generateHeirs();
+        generateLawHoldings();
+        generatePopulationHoldings();
+        generateWealthHoldings();
     }
 
     //Generates Domains for the House usings this.lands
@@ -720,6 +833,63 @@ public class House {
             domain.setTerrain(terrain);
             this.domains.insert(domain);
         }
+    }
+
+    public void generatePopulationHoldings() {
+        populationHoldings = printPopulationHoldings();
+    }
+
+    public void generateWealthHoldings() {
+        int toSpend = wealth;
+        wealthHoldings = new WealthList();
+
+        int loops = 4;
+        while (toSpend >= 10 && --loops >= 0) {
+            if (toSpend >= 15 && !wealthHoldings.hasHolding("Sept") && castles.hasHolding("Hall")|| castles.hasHolding("Small Castle")
+                    || castles.hasHolding("Castle") || castles.hasHolding("Superior Castle") || domains.hasHolding("Community: Small Town")
+                    || domains.hasHolding("Community: Large Town") || domains.hasHolding("Community: Small City")
+                    || domains.hasHolding("Community: Large City")) {
+                wealthHoldings.insert(new WealthNode("Sept"));
+                toSpend -= 15;
+            }
+            if (toSpend >= 5 && !wealthHoldings.hasHolding("GodsWood") && realm.equalsIgnoreCase("The North")) {
+                wealthHoldings.insert(new WealthNode("GodsWood"));
+                toSpend -= 5;
+            }
+            if (toSpend >= 15 && !wealthHoldings.hasHolding("Guilds") && domains.hasHolding("Community: Small Town")
+                    || domains.hasHolding("Community: Large Town") || domains.hasHolding("Community: Small City")
+                    || domains.hasHolding("Community: Large City")) {
+                wealthHoldings.insert(new WealthNode("Guilds"));
+                toSpend -= 15;
+            }
+            if (toSpend >= 10 && castles.hasHolding("Hall")|| castles.hasHolding("Small Castle")
+                    || castles.hasHolding("Castle") || castles.hasHolding("Superior Castle")) {
+                wealthHoldings.insert(new WealthNode("Artisan"));
+                toSpend -= 10;
+            }
+            if (toSpend >= 10 && !wealthHoldings.hasHolding("Maester") && influence > 20) {
+                wealthHoldings.insert(new WealthNode("Maester"));
+                toSpend -= 10;
+            }
+            if (toSpend >= 10 && !wealthHoldings.hasHolding("Marketplace") && domains.hasHolding("Community: Small Town")
+                    || domains.hasHolding("Community: Large Town") || domains.hasHolding("Community: Small City")
+                    || domains.hasHolding("Community: Large City")) {
+                wealthHoldings.insert(new WealthNode("Marketplace"));
+                toSpend -= 10;
+            }
+            if (toSpend >= 10 && domains.hasTerrain("Hills") || domains.hasTerrain("Mountains")) {
+                wealthHoldings.insert(new WealthNode("Mine"));
+                toSpend -= 10;
+            }
+            if (toSpend >= 10 && !wealthHoldings.hasHolding("Port") && domains.hasTerrain("Coastline")) {
+                wealthHoldings.insert(new WealthNode("Port"));
+                toSpend -= 10;
+            }
+        }
+    }
+
+    public void generateLawHoldings() {
+        lawHoldings = printLawHoldings();
     }
 
     public void generatePowerHoldings() {
@@ -843,6 +1013,7 @@ public class House {
 
         HouseNode temp = new HouseNode();
         temp.generateBannerHouse(realm, age, influence);
+        temp.setLiegeHouse((HouseNode) this);
         banners.insert(temp);
     }
 
@@ -854,6 +1025,9 @@ public class House {
         createHistory(ageMax);
         generateLandHoldings();
         generateDefenseHoldings();
+        generateLawHoldings();
+        generatePopulationHoldings();
+        generateWealthHoldings();
         generateSteward();
         generateHeirs();
     }
@@ -893,5 +1067,21 @@ public class House {
     public String getName() {
         return name;
     }
+
+    public int getDefense() { return defense; }
+
+    public int getAge() { return age; }
+
+    public int getInfluence() { return influence; }
+
+    public int getLands() { return lands; }
+
+    public int getLaw() { return law; }
+
+    public int getPopulation() { return population; }
+
+    public int getPower() { return power; }
+
+    public int getWealth() { return wealth; }
 
 }

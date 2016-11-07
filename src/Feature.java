@@ -91,6 +91,10 @@ public class Feature extends Holding {
         setFeatureType(num);
     }
 
+    public String getName() {
+        return description;
+    }
+
     public void setFeatureType(int featureType) {
         this.featureType = featureType;
         setFeature(this.featureType);

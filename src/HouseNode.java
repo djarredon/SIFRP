@@ -23,6 +23,18 @@ public class HouseNode extends House {
         next = prev =  null;
     }
 
+    public boolean hasNext() {
+        if (next == null)
+            return false;
+        return true;
+    }
+
+    public boolean hasPrev() {
+        if (prev == null)
+            return false;
+        return true;
+    }
+
     public void setPrev(HouseNode prev) {
         this.prev = prev;
     }

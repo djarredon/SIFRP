@@ -48,6 +48,18 @@ public class DefenseList {
         }
     }
 
+    public boolean hasHolding(String toCheck) {
+        return hasHolding(toCheck, head);
+    }
+
+    private boolean hasHolding(String toCheck, DefenseNode head) {
+        if (head == null)
+            return false;
+        if (head.getName().equalsIgnoreCase(toCheck))
+            return true;
+        return hasHolding(toCheck, head.getNext());
+    }
+
     public void copyList(DefenseList toCopy) {
         if (toCopy.head == null)
             head = null;

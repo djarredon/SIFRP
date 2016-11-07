@@ -25,6 +25,10 @@ public class Terrain extends Holding{
         return name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void display() {
         if (name != null)
             System.out.println(name);

@@ -1,3 +1,4 @@
+import com.sun.imageio.plugins.jpeg.JPEG;
 import com.sun.javaws.exceptions.ExitException;
 
 import javax.swing.*;
@@ -21,7 +22,7 @@ public class Screen extends JFrame {
 
     private Container c;
 
-    private HouseList houseList;
+    private HouseList baseHouseList;
 
     public Screen(String title, int xMax, int yMax) {
         super(title);
@@ -65,7 +66,7 @@ public class Screen extends JFrame {
         //exit program
         JButton exit = new JButton("Exit");
         exit.setSize(buttonSize);
-        exit.setLocation(halfX, 210);
+        exit.setLocation(halfX, yMax - 150);
 
         c = getContentPane();
 
@@ -86,7 +87,7 @@ public class Screen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 repaint();
-                houseMenu();
+                houseMenu(baseHouseList);
             }
         });
 
@@ -98,9 +99,7 @@ public class Screen extends JFrame {
         });
     }
 
-    public void houseMenu() {
-        //clear screen
-        //repaint();
+    public void houseMenu(HouseList houseList) {
         getContentPane().removeAll();
 
         //Screen name
@@ -113,36 +112,224 @@ public class Screen extends JFrame {
         //next button
         JButton next = new JButton("Next");
         next.setSize(buttonSize);
-        next.setLocation(700, 575);
+        next.setLocation(xMax - 400, yMax - 100);
         //previous button
         JButton previous = new JButton("Previous");
         previous.setSize(buttonSize);
-        previous.setLocation(300, 575);
+        previous.setLocation(xMax - 700, yMax - 100);
+
+        /*
+            Needs
+                * House information
+                * House Stats
+                * steward
+                * heir(s)
+                * residents
+                * historical events
+                * holdings
+                * Banner house(s)
+         */
+
+        Dimension labelSize = new Dimension(100, 20);
+
+        HouseNode current = houseList.getCurrent();
+        //return to Liege House
+        JButton liegeHouse = new JButton("Liege House");
+        liegeHouse.setSize(buttonSize);
+        liegeHouse.setLocation(xMax/2 - 100, 10);
 
         //displays house information
-        JTextArea textArea = new JTextArea(houseList.printCurrent());
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setLocation(250, 150);
-        scrollPane.setBounds(250, 150, 800, 400);
-        //System.out.println(houseList.printCurrent());
+        JLabel houseArea = new JLabel("House Information");
+        houseArea.setSize(200, 20);
+        houseArea.setLocation(20,20);
+
+        JTextArea houseInfo = new JTextArea(current.printHouseInfo());
+        houseInfo.setLocation(20,40);
+        houseInfo.setSize(200, 100);
+        houseInfo.setEditable(false);
+
+        //stats
+        JLabel statsArea = new JLabel("House Stats");
+        statsArea.setSize(200,20);
+        statsArea.setLocation(250, 20);
+        //Defense, Influence, Lands, Law, Population, Power, Wealth
+        int row = 10;
+        JLabel defenseLabel = new JLabel("Defense " + current.getDefense());
+        defenseLabel.setLocation(0, row);
+        defenseLabel.setSize(labelSize);
+
+        JTextArea temp = new JTextArea(current.printDefenseHoldings());
+        temp.setEditable(false);
+        temp.getPreferredSize();
+
+        JScrollPane defenseHoldings = new JScrollPane(temp);
+        defenseHoldings.setLocation(100, row);
+        defenseHoldings.setSize(450, 100);
+        row += 120;
+
+        //Influence / Heirs
+        JLabel heirsLabel = new JLabel("Influence " + current.getInfluence());
+        heirsLabel.setLocation(0, row);
+        heirsLabel.setSize(labelSize);
+
+        temp = new JTextArea(current.printHeirs());
+        temp.getPreferredSize();
+        temp.setEditable(false);
+
+        JScrollPane heirs = new JScrollPane(temp);
+        heirs.setLocation(100, row);
+        heirs.setSize(450, 75);
+        row += 95;
+
+        //Lands
+        JLabel landsLabel = new JLabel("Lands " + current.getLands());
+        landsLabel.setLocation(0, row);
+        landsLabel.setSize(labelSize);
+
+        temp = new JTextArea(current.printLandHoldings());
+        temp.getPreferredSize();
+        temp.setEditable(false);
+
+        JScrollPane landsScroll = new JScrollPane(temp);
+        landsScroll.setLocation(100, row);
+        landsScroll.setSize(450, 100);
+        row += 120;
+        //Law
+        JLabel lawLabel = new JLabel("Law " + current.getLaw());
+        lawLabel.setLocation(0, row);
+        lawLabel.setSize(labelSize);
+
+        temp = new JTextArea(current.printLawHoldings());
+        temp.getPreferredSize();
+        temp.setEditable(false);
+
+        JScrollPane lawScroll = new JScrollPane(temp);
+        lawScroll.setLocation(100, row);
+        lawScroll.setSize(450, 20);
+        row += 40;
+
+        //population
+        JLabel populationLabel = new JLabel("Population " + current.getPopulation());
+        populationLabel.setLocation(0, row);
+        populationLabel.setSize(labelSize);
+
+        temp = new JTextArea(current.printPopulationHoldings());
+        temp.getPreferredSize();
+        temp.setEditable(false);
+
+        JScrollPane populationScroll = new JScrollPane(temp);
+        populationScroll.setLocation(100, row);
+        populationScroll.setSize(450, 20);
+        row += 40;
+        //power
+        JLabel powerLabel = new JLabel("Power " + current.getPower());
+        powerLabel.setLocation(0, row);
+        powerLabel.setSize(labelSize);
+
+        //display each Banner house as a button that links to a new page for that house
+        temp = new JTextArea(current.printBannerNames());
+        temp.getPreferredSize();
+        temp.setEditable(false);
+
+        JButton bannerButton = new JButton("Banners");
+        bannerButton.setSize(buttonSize);
+        bannerButton.setLocation(350, row);
+
+        JScrollPane powerScroll = new JScrollPane(temp);
+        powerScroll.setLocation(100, row);
+        powerScroll.setSize(240, 40);
+        row += 60;
+        //wealth
+        JLabel wealthLabel = new JLabel("Wealth " + current.getWealth());
+        wealthLabel.setLocation(0, row);
+        wealthLabel.setSize(labelSize);
+
+        temp = new JTextArea(current.printWealthHoldings());
+        temp.getPreferredSize();
+        temp.setEditable(false);
+
+        JScrollPane wealthScroll = new JScrollPane(temp);
+        wealthScroll.setLocation(100, row);
+        wealthScroll.setSize(450, 100);
+
+
+        JPanel statsPanel = new JPanel(null);
+        statsPanel.setPreferredSize(new Dimension(400, yMax));
+
+        statsPanel.add(bannerButton);
+        statsPanel.add(wealthLabel);
+        statsPanel.add(wealthScroll);
+        statsPanel.add(powerLabel);
+        statsPanel.add(powerScroll);
+        statsPanel.add(populationLabel);
+        statsPanel.add(populationScroll);
+        statsPanel.add(lawLabel);
+        statsPanel.add(lawScroll);
+        statsPanel.add(landsLabel);
+        statsPanel.add(landsScroll);
+        statsPanel.add(heirsLabel);
+        statsPanel.add(heirs);
+        statsPanel.add(defenseLabel);
+        statsPanel.add(defenseHoldings);
+
+        JScrollPane statsScroll = new JScrollPane(statsPanel);
+        statsScroll.setSize(new Dimension(600,300));
+        statsScroll.setLocation(250,40);
+        statsScroll.setWheelScrollingEnabled(true);
+        statsScroll.getVerticalScrollBar().setUnitIncrement(16);
+
+        //
+        JPanel mainPanel = new JPanel(null);
+
+        mainPanel.add(statsArea);
+        mainPanel.add(houseInfo);
+        mainPanel.add(houseArea);
+        mainPanel.add(statsScroll);
+
+        statsScroll.revalidate();
+
+        JScrollPane mainScroll = new JScrollPane(mainPanel);
+        mainScroll.setViewportView(mainPanel);
+        mainScroll.setLocation(50, 50);
+        mainScroll.setSize(xMax - 100, yMax - 200 );
+        mainScroll.setWheelScrollingEnabled(true);
+        mainScroll.getVerticalScrollBar().setUnitIncrement(16);
 
         c = getContentPane();
 
+        if (current.hasLiegeHouse())
+            c.add(liegeHouse);
+
         c.setBackground(background);
         c.add(screenName);
-        c.add(scrollPane);
+        c.add(mainScroll);
         c.add(next);
         c.add(previous);
         c.add(back);
 
+        mainScroll.revalidate();
         repaint();
+
+        liegeHouse.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                houseMenu(baseHouseList);
+            }
+        });
+
+        bannerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (current.hasBanners())
+                    houseMenu(current.getBanners());
+            }
+        });
 
         next.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 houseList.moveNext();
-                textArea.setText(houseList.printCurrent());
-                houseMenu();
+                houseMenu(houseList);
             }
         });
 
@@ -150,8 +337,7 @@ public class Screen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 houseList.movePrev();
-                textArea.setText(houseList.printCurrent());
-                houseMenu();
+                houseMenu(houseList);
             }
         });
 
@@ -165,11 +351,11 @@ public class Screen extends JFrame {
 
     public void initializeHouseList() {
         HouseNode temp;
-        houseList = new HouseList();
+        baseHouseList = new HouseList();
         for (int i = 0; i < 10; ++i) {
             temp = new HouseNode();
             temp.generateRandHouse();
-            houseList.insert(temp);
+            baseHouseList.insert(temp);
         }
     }
 
@@ -754,6 +940,43 @@ public class Screen extends JFrame {
         weapon3Damage.setLocation(weaponDamageCol, row + 70);
         weapon3Damage.setSize(specialtySize.width + 50, specialtySize.height);
         weapon3Damage.setEditable(false);
+        row -= 80;
+
+        //Armor
+        Armor armor = character.getArmor();
+
+        JLabel armorLabel = new JLabel("Armor");
+        armorLabel.setLocation(col32, row);
+        armorLabel.setSize(buttonSize);
+        JTextField armorName = new JTextField();
+        if (armor != null)
+            armorName.setText(armor.getName());
+        armorName.setLocation(col32,row + 30);
+        armorName.setSize(buttonSize);
+        armorName.setEditable(false);
+        //armor rating
+        JLabel armorRatingLabel = new JLabel("Armor Rating");
+        armorRatingLabel.setLocation(col32, row +70);
+        armorRatingLabel.setSize(buttonSize);
+
+        JTextField armorRating = new JTextField();
+        if (armor != null)
+            armorRating.setText(armor.getArmorRating() + "");
+        armorRating.setLocation(col32 + 100, row +70);
+        armorRating.setSize(fieldSize);
+        armorRating.setEditable(false);
+        //armor penalty
+        JLabel armorPenaltyLabel = new JLabel("Armor Penalty");
+        armorPenaltyLabel.setLocation(col32, row +110);
+        armorPenaltyLabel.setSize(buttonSize);
+
+        JTextField armorPenalty = new JTextField();
+        if (armor != null)
+            armorPenalty.setText(armor.getArmorPenalty() + "");
+        armorPenalty.setLocation(col32 + 100, row +110);
+        armorPenalty.setSize(fieldSize);
+        armorPenalty.setEditable(false);
+
 
 
 
@@ -765,6 +988,12 @@ public class Screen extends JFrame {
 
         c = getContentPane();
 
+        sheet.add(armorPenaltyLabel);
+        sheet.add(armorRatingLabel);
+        sheet.add(armorName);
+        sheet.add(armorPenalty);
+        sheet.add(armorRating);
+        sheet.add(armorLabel);
         sheet.add(weapon1Name);
         sheet.add(weapon1Dice);
         sheet.add(weapon1Damage);
@@ -879,110 +1108,18 @@ public class Screen extends JFrame {
         //contains the panel for scrolling
         JScrollPane scrollPane = new JScrollPane(sheet);
         scrollPane.setViewportView(sheet);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
         scrollPane.setSize(xMax-50, yMax - 120);
         scrollPane.setLocation(20, 60);
         scrollPane.setWheelScrollingEnabled(true);
-        scrollPane.setPreferredSize(new Dimension(xMax - 100, yMax-100));
-        //scrollPane.revalidate();
-        repaint();
+        //scrollPane.setPreferredSize(new Dimension(xMax - 100, yMax-100));
 
         c.add(back);
         c.add(scrollPane);
-/*
-        c.add(back);
-        c.add(charName);
-        c.add(nameLabel);
-        c.add(charAge);
-        c.add(ageLabel);
-        c.add(charGender);
-        c.add(genderLabel);
-        c.add(charHouse);
-        c.add(houseLabel);
-        //qualities, destiny, intrigue, combat
-        c.add(qualitiesLabel);
-        c.add(qualities);
-        //combat
-        c.add(combatLabel);
-        c.add(combatDefenseLabel);
-        c.add(combatValue);
-        c.add(combatExplanation);
-        c.add(healthLabel);
-        c.add(healthValue);
-        c.add(healthExplanation);
-        //intrigue
-        c.add(intrigueDefenseLabel);
-        c.add(intrigueLabel);
-        c.add(intrigueValue);
-        c.add(intrigueExplanation);
-        c.add(composureLabel);
-        c.add(composureValue);
-        c.add(composureExplanation);
-        //Abilities section
-        c.add(rating);
-        c.add(rating2);
-        c.add(ability);
-        c.add(ability2);
-        c.add(specialties);
-        c.add(specialties2);
-        c.add(agility);
-        c.add(agilityRating);
-        c.add(agilitySpecialties);
-        c.add(animalHandling);
-        c.add(animalHandlingRating);
-        c.add(animalHandlingSpecialties);
-        c.add(athletics);
-        c.add(athleticsRating);
-        c.add(athleticsSpecialties);
-        c.add(awareness);
-        c.add(awarenessRating);
-        c.add(awarenessSpecialties);
-        c.add(cunning);
-        c.add(cunningRating);
-        c.add(cunningSpecialties);
-        c.add(deception);
-        c.add(deceptionRating);
-        c.add(deceptionSpecialties);
-        c.add(endurance);
-        c.add(enduranceRating);
-        c.add(enduranceSpecialties);
-        c.add(fighting);
-        c.add(fightingRating);
-        c.add(fightingSpecialties);
-        c.add(healing);
-        c.add(healingRating);
-        c.add(healingSpecialties);
-        c.add(language);
-        c.add(languageRating);
-        c.add(languageSpecialties);
-        c.add(knowledge);
-        c.add(knowledgeRating);
-        c.add(knowledgeSpecialties);
-        c.add(marksmanship);
-        c.add(marksmanshipRating);
-        c.add(marksmanshipSpecialties);
-        c.add(persuasion);
-        c.add(persuasionRating);
-        c.add(persuasionSpecialties);
-        c.add(status);
-        c.add(statusRating);
-        c.add(statusSpecialties);
-        c.add(stealth);
-        c.add(stealthRating);
-        c.add(stealthSpecialties);
-        c.add(survival);
-        c.add(survivalRating);
-        c.add(survivalSpecialties);
-        c.add(thievery);
-        c.add(thieveryRating);
-        c.add(thieverySpecialties);
-        c.add(warfare);
-        c.add(warfareRating);
-        c.add(warfareSpecialties);
-        c.add(will);
-        c.add(willRating);
-        c.add(willSpecialties);
-        */
+
+        scrollPane.revalidate();
+        repaint();
 
         back.addActionListener(new ActionListener() {
             @Override
