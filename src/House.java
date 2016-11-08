@@ -84,6 +84,10 @@ public class House {
         name = toName;
     }
 
+    public void setRealm(String realm) {
+        this.realm = realm;
+    }
+
     //Modifies stats based on history
     private void historyModifier() {
         if (history == null)
@@ -680,7 +684,7 @@ public class House {
         power = die.roll(7);
         wealth = die.roll(7);
 
-        realmModifier();
+        //realmModifier();
     }
 
     public void setMaxStatus() {
@@ -706,6 +710,15 @@ public class House {
         Data data = new Data();
         age = die.roll(1);
 
+        founded = data.getAge(age);
+        history = new History(data.getHistory(age));
+
+        foundingEvent = history.head.getEvent();
+        historyModifier();
+    }
+
+    public void generateHistory() {
+        Data data = new Data();
         founded = data.getAge(age);
         history = new History(data.getHistory(age));
 
@@ -1081,6 +1094,10 @@ public class House {
     }
 
     public int getDefense() { return defense; }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     public int getAge() { return age; }
 

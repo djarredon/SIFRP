@@ -377,6 +377,34 @@ public class Data {
         }
     }
 
+    public String randRealm() {
+        Dice die = new Dice();
+        String realm;
+        int res = die.roll(3);
+        if (res == 3)
+            realm = "King's Landing";
+        else if (res == 4)
+            realm = "Dragonstone";
+        else if (res == 5 || res == 6)
+            realm = "The North";
+        else if (res == 7)
+            realm = "The Iron Islands";
+        else if (res == 8 || res == 9)
+            realm = "The Riverlands";
+        else if (res == 10 || res == 11)
+            realm = "The Mountains of the Moon";
+        else if (res == 12 || res == 13)
+            realm = "The Westerlands";
+        else if (res == 14 || res == 15)
+            realm = "The Reach";
+        else if (res == 16 || res == 17)
+            realm = "The Stormlands";
+        else
+            realm = "Dorne";
+
+        return realm;
+    }
+
     public String randBackground() {
         Dice die = new Dice();
         int num = die.roll(2);
@@ -473,4 +501,115 @@ public class Data {
         }
     }
 
+    public int getRealmDefenseModifier(String realm) {
+        switch (realm) {
+            case "King's Landing": return 5;
+            case "Dragonstone": return 20;
+            case "The North": return 5;
+            case "The Iron Islands": return 10;
+            case "The Riverlands": return -5;
+            case "Mountains of the Moon": return 20;
+            case "The Westerlands": return -5;
+            case "The Reach": return -5;
+            case "The Stormlands": return 5;
+            case "Dorne": return 0;
+            default: return 0;
+        }
+    }
+
+    public int getRealmInfluenceModifier(String realm) {
+        switch (realm) {
+            case "King's Landing": return -5;
+            case "Dragonstone": return -5;
+            case "The North": return 10;
+            case "The Iron Islands": return -5;
+            case "The Riverlands": return -5;
+            case "Mountains of the Moon": return 10;
+            case "The Westerlands": return 10;
+            case "The Reach": return 10;
+            case "The Stormlands": return 0;
+            case "Dorne": return -5;
+            default: return 0;
+        }
+    }
+
+    public int getRealmLandsModifier(String realm) {
+        switch (realm) {
+            case "King's Landing": return -5;
+            case "Dragonstone": return -5;
+            case "The North": return 20;
+            case "The Iron Islands": return -5;
+            case "The Riverlands": return 5;
+            case "Mountains of the Moon": return -5;
+            case "The Westerlands": return -5;
+            case "The Reach": return 0;
+            case "The Stormlands": return -5;
+            case "Dorne": return 10;
+            default: return 0;
+        }
+    }
+
+    public int getRealmLawModifier(String realm) {
+        switch (realm) {
+            case "King's Landing":          return 20;
+            case "Dragonstone":             return 5;
+            case "The North":               return -10;
+            case "The Iron Islands":        return 0;
+            case "The Riverlands":          return 0;
+            case "Mountains of the Moon":   return -10;
+            case "The Westerlands":         return -5;
+            case "The Reach":               return -5;
+            case "The Stormlands":          return 10;
+            case "Dorne":                   return -5;
+            default: return 0;
+        }
+    }
+
+    public int getRealmPopulationModifier(String realm) {
+        switch (realm) {
+            case "King's Landing":          return 5;
+            case "Dragonstone":             return 0;
+            case "The North":               return -5;
+            case "The Iron Islands":        return 0;
+            case "The Riverlands":          return 10;
+            case "Mountains of the Moon":   return -5;
+            case "The Westerlands":         return -5;
+            case "The Reach":               return 5;
+            case "The Stormlands":          return -5;
+            case "Dorne":                   return 0;
+            default: return 0;
+        }
+    }
+
+    public int getRealmPowerModifier(String realm) {
+        switch (realm) {
+            case "King's Landing":          return 5;
+            case "Dragonstone":             return 0;
+            case "The North":               return -5;
+            case "The Iron Islands":        return 10;
+            case "The Riverlands":          return 0;
+            case "Mountains of the Moon":   return 0;
+            case "The Westerlands":         return 0;
+            case "The Reach":               return 0;
+            case "The Stormlands":          return 5;
+            case "Dorne":                   return 10;
+            default: return 0;
+        }
+    }
+
+    public int getRealmWealthModifier(String realm) {
+        switch (realm) {
+            case "King's Landing":          return -5;
+            case "Dragonstone":             return -5;
+            case "The North":               return -5;
+            case "The Iron Islands":        return 0;
+            case "The Riverlands":          return 5;
+            case "Mountains of the Moon":   return 0;
+            case "The Westerlands":         return 20;
+            case "The Reach":               return 5;
+            case "The Stormlands":          return 0;
+            case "Dorne":                   return 0;
+            default: return 0;
+        }
+    }
 }

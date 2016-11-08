@@ -2,11 +2,9 @@ import com.sun.imageio.plugins.jpeg.JPEG;
 import com.sun.javaws.exceptions.ExitException;
 
 import javax.swing.*;
+import javax.swing.event.ListDataListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import java.awt.event.*;
 import java.util.Scanner;
 
 /**
@@ -56,7 +54,7 @@ public class Screen extends JFrame {
         halfX = xMax/2 - 100;
     }
 
-    public void mainMenu() {
+    private void mainMenu() {
         repaint();
         getContentPane().removeAll();
 
@@ -93,7 +91,7 @@ public class Screen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 repaint();
-                houseMenu(baseHouseList.getCurrent());
+                houseMenu();
             }
         });
 
@@ -127,7 +125,7 @@ public class Screen extends JFrame {
         * holdings              - done
         * Banner house(s)       - done
  */
-    public void houseMenu(HouseNode houseNode) {
+    private void viewHouse(HouseNode houseNode) {
         repaint();
         getContentPane().removeAll();
 
@@ -380,7 +378,7 @@ public class Screen extends JFrame {
         liegeHouse.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                houseMenu(baseHouseList.getCurrent());
+                viewHouse(baseHouseList.getCurrent());
             }
         });
 
@@ -388,7 +386,7 @@ public class Screen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (houseNode.hasBanners())
-                    houseMenu(houseNode.getBanners().getCurrent());
+                    viewHouse(houseNode.getBanners().getCurrent());
             }
         });
 
@@ -396,7 +394,7 @@ public class Screen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (houseNode.getNext() != null)
-                houseMenu(houseNode.getNext());
+                    viewHouse(houseNode.getNext());
             }
         });
 
@@ -404,7 +402,7 @@ public class Screen extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (houseNode.getPrev() != null)
-                    houseMenu(houseNode.getPrev());
+                    viewHouse(houseNode.getPrev());
             }
         });
 
@@ -427,7 +425,55 @@ public class Screen extends JFrame {
         */
     }
 
-    public void initializeHouseList() {
+    private void houseMenu() {
+        repaint();
+        getContentPane().removeAll();
+
+        JButton back = new JButton("Back");
+        back.setSize(buttonSize);
+        back.setLocation(20,10);
+
+        //create new house
+        JButton createHouse = new JButton("Create New House");
+        createHouse.setSize(buttonSize);
+        createHouse.setLocation(halfX, 200);
+        //view sample
+        JButton viewSample = new JButton("View Sample");
+        viewSample.setLocation(halfX, 250);
+        viewSample.setSize(buttonSize);
+        //choose from list
+
+
+        c = getContentPane();
+
+        c.add(createHouse);
+        c.add(viewSample);
+        c.add(back);
+
+
+        createHouse.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createHouse();
+            }
+        });
+
+        viewSample.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                viewHouse(baseHouseList.getCurrent());
+            }
+        });
+
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                mainMenu();
+            }
+        });
+    }
+
+    private void initializeHouseList() {
         HouseNode temp;
         baseHouseList = new HouseList();
         for (int i = 0; i < 10; ++i) {
@@ -444,7 +490,7 @@ public class Screen extends JFrame {
             4. Edit Character
             5. Delete Character
      */
-    public void characterMenu() {
+    private void characterMenu() {
         repaint();
         getContentPane().removeAll();
 
@@ -519,7 +565,49 @@ public class Screen extends JFrame {
         });
     }
 
-    public void characterCreation() {
+    /*
+        Character Creation
+            1. Choose House
+                a. from list
+                b. Create
+                c. Random
+            2. Concept
+                Pick or roll age.
+                pick or roll status (up to house max)
+                //determine role
+                pick or roll background
+                pick or roll goal
+                pick or roll motivation
+                pick or roll at least one virtue
+                pick or roll at least one vice
+            3. Assign Abilities
+                determine starting experience from age
+                allocate experience between abilities
+            4. Assign specialties
+                determine starting experience from age
+                allocate experience between specialties
+            5. Destiny Points and Benefits
+                determine Destiny points from age
+                invest Destiny points into benefits up to maximum
+                    allowed by age
+            6. Drawbacks
+                Determine required drawbacks by age
+                select drawbacks that match concept (vice)
+            7. Starting Possessions
+                Roll Status test for starting coin
+                Spend at least half your starting coin on possessions
+            8. Derived stats
+                calculate derived stats
+     */
+    private void characterCreation() {
+        chooseHouse();
+    }
+
+    private void createCharacter(House house) {
+
+    }
+
+    private void chooseHouse() {
         repaint();
         getContentPane().removeAll();
 
@@ -527,15 +615,40 @@ public class Screen extends JFrame {
         back.setSize(buttonSize);
         back.setLocation(20,10);
 
-        JTextField charName = new JTextField();
-        charName.setSize(buttonSize);
-        charName.setLocation(200, 100);
+
+        //JList
+        DefaultListModel listModel = new DefaultListModel();
+        JList list = new JList(listModel);
+        list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane scrollPane = new JScrollPane(list);
+        scrollPane.setSize(200, 200);
+        scrollPane.setLocation(halfX - 100, yMax/2 - 100);
+        //Choose/create house
+        baseHouseList.resetCurrent();
+        for (int i = 0; i < baseHouseList.getNum(); ++i) {
+            listModel.addElement(baseHouseList.getCurrent());
+            baseHouseList.moveNext();
+        }
+
+        //Create House
+        JButton createHouse = new JButton("Create House");
+        createHouse.setSize(buttonSize);
+        createHouse.setLocation(halfX + 150, yMax/2 -100);
+
+
 
         c = getContentPane();
 
         c.add(back);
-        c.add(charName);
+        c.add(createHouse);
+        c.add(scrollPane);
 
+        createHouse.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createHouse();
+            }
+        });
 
         back.addActionListener(new ActionListener() {
             @Override
@@ -543,9 +656,712 @@ public class Screen extends JFrame {
                 characterMenu();
             }
         });
+
+        MouseListener mouseListener = new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    int index = list.locationToIndex(e.getPoint());
+                }
+            }
+        };
+        list.addMouseListener(mouseListener);
     }
 
-    public void characterSheet(CharacterNode character, HouseNode houseNode) {
+    /*
+        create House
+            1. Realm
+            2. roll resources
+            3. History
+                age
+                events
+            4. Holdings
+            5. Motto and Arms // will do later
+            6. The HouseHold
+                PCs
+                Lord/Lady
+                Heirs
+                Retainers, Servants, Household Knights
+     */
+    private void createHouse() {
+        repaint();
+        getContentPane().removeAll();
+
+        int col1 = halfX-200, col2 = halfX + 50;
+        int rowStart = yMax/2 - 240;
+        int row = rowStart;
+
+        JButton back = new JButton("Back");
+        back.setLocation(20,10);
+        back.setSize(buttonSize);
+
+        JLabel label = new JLabel("Choose Realm");
+        label.setLocation(halfX, 40);
+        label.setSize(200,30);
+
+
+        JButton king = new JButton("King's Landing");
+        king.setSize(buttonSize);
+        king.setLocation(col1, row);
+
+        JButton dragon = new JButton("Dragonstone");
+        dragon.setSize(buttonSize);
+        dragon.setLocation(col1, row += 40);
+
+        JButton north = new JButton("The North");
+        north.setSize(buttonSize);
+        north.setLocation(col1, row += 40);
+
+        JButton iron = new JButton("The Iron Islands");
+        iron.setSize(buttonSize);
+        iron.setLocation(col1, row += 40);
+
+        JButton river = new JButton("The Riverlands");
+        river.setSize(buttonSize);
+        river.setLocation(col1, row);
+
+        JButton mountain = new JButton("The Mountains of the Moon");
+        mountain.setSize(buttonSize);
+        mountain.setLocation(col2, row = rowStart);
+
+        JButton west = new JButton("The Westerlands");
+        west.setSize(buttonSize);
+        west.setLocation(col2, row += 40);
+
+        JButton reach = new JButton("The Reach");
+        reach.setSize(buttonSize);
+        reach.setLocation(col2, row += 40);
+
+        JButton storm = new JButton("The Stormlands");
+        storm.setSize(buttonSize);
+        storm.setLocation(col2, row += 40);
+
+        JButton dorne = new JButton("Dorne");
+        dorne.setSize(buttonSize);
+        dorne.setLocation(col2, row += 40);
+
+
+        JButton rollRealm = new JButton("Roll for Realm");
+        rollRealm.setSize(buttonSize);
+        rollRealm.setLocation( (col1 + col2)/2, row+= 60 );
+
+
+        c = getContentPane();
+        c.add(back);
+        c.add(rollRealm);
+        c.add(label);
+        c.add(king);
+        c.add(dragon);
+        c.add(north);
+        c.add(iron);
+        c.add(river);
+        c.add(mountain);
+        c.add(west);
+        c.add(reach);
+        c.add(storm);
+        c.add(dorne);
+
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                chooseHouse();
+            }
+        });
+
+        dorne.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                House house = new House();
+                house.setRealm("Dorne");
+                houseCreationScreen2(house);
+            }
+        });
+
+        storm.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                House house = new House();
+                house.setRealm("The Stormlands");
+                houseCreationScreen2(house);
+            }
+        });
+
+        reach.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                House house = new House();
+                house.setRealm("The Reach");
+                houseCreationScreen2(house);
+            }
+        });
+
+        king.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                House house = new House();
+                house.setRealm("King's Landing");
+                houseCreationScreen2(house);
+            }
+        });
+
+        dragon.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                House house = new House();
+                house.setRealm("Dragonstone");
+                houseCreationScreen2(house);
+            }
+        });
+
+        north.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                House house = new House();
+                house.setRealm("The North");
+                houseCreationScreen2(house);
+            }
+        });
+
+        iron.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                House house = new House();
+                house.setRealm("The Iron Islands");
+                houseCreationScreen2(house);
+            }
+        });
+
+        river.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                House house = new House();
+                house.setRealm("The Riverlands");
+                houseCreationScreen2(house);
+            }
+        });
+
+        mountain.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                House house = new House();
+                house.setRealm("Mountains of the Moon");
+                houseCreationScreen2(house);
+            }
+        });
+
+        west.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                House house = new House();
+                house.setRealm("The Westerlands");
+                houseCreationScreen2(house);
+            }
+        });
+
+        rollRealm.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Data data = new Data();
+                House house = new House();
+                house.setRealm(data.randRealm());
+                houseCreationScreen2(house);
+            }
+        });
+    }
+
+    private void houseCreationScreen2(House house) {
+        repaint();
+        getContentPane().removeAll();
+
+        JButton back = new JButton("Back");
+        back.setSize(buttonSize);
+        back.setLocation(20,10);
+
+        //verify that user wants this realm, then either proceed or return to chooseHouse
+        String realm = house.printRealm();
+        Data data = new Data();
+
+        //column of stat names, column of roll results, column of realm modifier, column of total
+        int colNames = 20, colRoll = 120, colRealm = 220, colTotal = 320;
+        Dimension fieldSize = new Dimension(80, 40);
+        int rowStart = 100;
+        int row = rowStart;
+        int rowInc = 50;
+
+        //colors commented out in case of future use
+        JTextArea statName = new JTextArea("Stat Name");
+        //statName.setBackground(new Color(40,120,120));
+        statName.setSize(fieldSize);
+        statName.setLocation(colNames, row);
+        JTextArea rollResult = new JTextArea("Roll\nResult");
+        //rollResult.setBackground(new Color(40,120,120));
+        rollResult.setLocation(colRoll, row);
+        rollResult.setSize(fieldSize);
+        JTextArea realmModifier = new JTextArea("Realm\nModifier");
+        //realmModifier.setBackground(new Color(40,120,120));
+        realmModifier.setSize(fieldSize);
+        realmModifier.setLocation(colRealm, row);
+        JTextArea totalCol = new JTextArea("Total");
+        //totalCol.setBackground(new Color(40,120,120));
+        totalCol.setSize(fieldSize);
+        totalCol.setLocation(colTotal, row);
+        row += rowInc;
+
+        //defense
+        JTextArea defenseName = new JTextArea("Defense");
+        //defenseName.setBackground(new Color(40,120,120));
+        defenseName.setSize(fieldSize);
+        defenseName.setLocation(colNames, row);
+        JTextArea defenseResult = new JTextArea(house.getDefense() + "");
+        //defenseResult.setBackground(new Color(40,120,120));
+        defenseResult.setLocation(colRoll, row);
+        defenseResult.setSize(fieldSize);
+        JTextArea defenseModifier = new JTextArea(data.getRealmDefenseModifier(realm) + "");
+        //defenseModifier.setBackground(new Color(40,120,120));
+        defenseModifier.setSize(fieldSize);
+        defenseModifier.setLocation(colRealm, row);
+        JTextArea defenseTotal = new JTextArea("" + (house.getDefense() + data.getRealmDefenseModifier(realm)));
+        //defenseCol.setBackground(new Color(40,120,120));
+        defenseTotal.setSize(fieldSize);
+        defenseTotal.setLocation(colTotal, row);
+        row += rowInc;
+
+        //influence
+        JTextArea influenceName = new JTextArea("influence");
+        //influenceName.setBackground(new Color(40,120,120));
+        influenceName.setSize(fieldSize);
+        influenceName.setLocation(colNames, row);
+        JTextArea influenceResult = new JTextArea(house.getInfluence() + "");
+        //influenceResult.setBackground(new Color(40,120,120));
+        influenceResult.setLocation(colRoll, row);
+        influenceResult.setSize(fieldSize);
+        JTextArea influenceModifier = new JTextArea(data.getRealmInfluenceModifier(realm) + "");
+        //influenceModifier.setBackground(new Color(40,120,120));
+        influenceModifier.setSize(fieldSize);
+        influenceModifier.setLocation(colRealm, row);
+        JTextArea influenceTotal = new JTextArea("" + (house.getInfluence() + data.getRealmInfluenceModifier(realm)));
+        //influenceCol.setBackground(new Color(40,120,120));
+        influenceTotal.setSize(fieldSize);
+        influenceTotal.setLocation(colTotal, row);
+        row += rowInc;
+
+        //Lands
+        JTextArea landsName = new JTextArea("Lands");
+        //landsName.setBackground(new Color(40,120,120));
+        landsName.setSize(fieldSize);
+        landsName.setLocation(colNames, row);
+        JTextArea landsResult = new JTextArea(house.getLands() + "");
+        //landsResult.setBackground(new Color(40,120,120));
+        landsResult.setLocation(colRoll, row);
+        landsResult.setSize(fieldSize);
+        JTextArea landsModifier = new JTextArea(data.getRealmLandsModifier(realm) + "");
+        //landsModifier.setBackground(new Color(40,120,120));
+        landsModifier.setSize(fieldSize);
+        landsModifier.setLocation(colRealm, row);
+        JTextArea landsTotal = new JTextArea("" + (house.getLands() + data.getRealmLandsModifier(realm)));
+        //landsCol.setBackground(new Color(40,120,120));
+        landsTotal.setSize(fieldSize);
+        landsTotal.setLocation(colTotal, row);
+        row += rowInc;
+        //Law
+        JTextArea lawName = new JTextArea("Law");
+        //lawName.setBackground(new Color(40,120,120));
+        lawName.setSize(fieldSize);
+        lawName.setLocation(colNames, row);
+        JTextArea lawResult = new JTextArea(house.getLaw() + "");
+        //lawResult.setBackground(new Color(40,120,120));
+        lawResult.setLocation(colRoll, row);
+        lawResult.setSize(fieldSize);
+        JTextArea lawModifier = new JTextArea(data.getRealmLawModifier(realm) + "");
+        //lawModifier.setBackground(new Color(40,120,120));
+        lawModifier.setSize(fieldSize);
+        lawModifier.setLocation(colRealm, row);
+        JTextArea lawTotal = new JTextArea("" + (house.getLaw() + data.getRealmLawModifier(realm)));
+        //lawCol.setBackground(new Color(40,120,120));
+        lawTotal.setSize(fieldSize);
+        lawTotal.setLocation(colTotal, row);
+        row += rowInc;
+        //Population
+        JTextArea populationName = new JTextArea("Population");
+        //populationName.setBackground(new Color(40,120,120));
+        populationName.setSize(fieldSize);
+        populationName.setLocation(colNames, row);
+        JTextArea populationResult = new JTextArea(house.getPopulation() + "");
+        //populationResult.setBackground(new Color(40,120,120));
+        populationResult.setLocation(colRoll, row);
+        populationResult.setSize(fieldSize);
+        JTextArea populationModifier = new JTextArea(data.getRealmPopulationModifier(realm) + "");
+        //populationModifier.setBackground(new Color(40,120,120));
+        populationModifier.setSize(fieldSize);
+        populationModifier.setLocation(colRealm, row);
+        JTextArea populationTotal = new JTextArea("" + (house.getPopulation() + data.getRealmPopulationModifier(realm)));
+        //populationCol.setBackground(new Color(40,120,120));
+        populationTotal.setSize(fieldSize);
+        populationTotal.setLocation(colTotal, row);
+        row += rowInc;
+        //Power
+        JTextArea powerName = new JTextArea("Power");
+        //powerName.setBackground(new Color(40,120,120));
+        powerName.setSize(fieldSize);
+        powerName.setLocation(colNames, row);
+        JTextArea powerResult = new JTextArea(house.getPower() + "");
+        //powerResult.setBackground(new Color(40,120,120));
+        powerResult.setLocation(colRoll, row);
+        powerResult.setSize(fieldSize);
+        JTextArea powerModifier = new JTextArea(data.getRealmPowerModifier(realm) + "");
+        //powerModifier.setBackground(new Color(40,120,120));
+        powerModifier.setSize(fieldSize);
+        powerModifier.setLocation(colRealm, row);
+        JTextArea powerTotal = new JTextArea("" + (house.getPower() + data.getRealmPowerModifier(realm)));
+        //powerCol.setBackground(new Color(40,120,120));
+        powerTotal.setSize(fieldSize);
+        powerTotal.setLocation(colTotal, row);
+        row += rowInc;
+        //Wealth
+        JTextArea wealthName = new JTextArea("Wealth");
+        //wealthName.setBackground(new Color(40,120,120));
+        wealthName.setSize(fieldSize);
+        wealthName.setLocation(colNames, row);
+        JTextArea wealthResult = new JTextArea(house.getWealth() + "");
+        //wealthResult.setBackground(new Color(40,120,120));
+        wealthResult.setLocation(colRoll, row);
+        wealthResult.setSize(fieldSize);
+        JTextArea wealthModifier = new JTextArea(data.getRealmWealthModifier(realm) + "");
+        //wealthModifier.setBackground(new Color(40,120,120));
+        wealthModifier.setSize(fieldSize);
+        wealthModifier.setLocation(colRealm, row);
+        JTextArea wealthTotal = new JTextArea("" + (house.getWealth() + data.getRealmWealthModifier(realm)));
+        //wealthCol.setBackground(new Color(40,120,120));
+        wealthTotal.setSize(fieldSize);
+        wealthTotal.setLocation(colTotal, row);
+        row += rowInc;
+
+        JButton rollDice = new JButton("Roll Dice (7D6 per stat)");
+        rollDice.setSize(buttonSize);
+        rollDice.setLocation(600, (yMax/2)-50);
+
+        JButton createHistory = new JButton("Create History");
+        createHistory.setSize(buttonSize);
+        createHistory.setLocation(600, yMax/2 - 50);
+
+        c.add(back);
+        if (house.getDefense() == 0)
+            c.add(rollDice);
+        else
+            c.add(createHistory);
+
+        c.add(statName);
+        c.add(rollResult);
+        c.add(realmModifier);
+        c.add(totalCol);
+        c.add(defenseName);
+        c.add(defenseModifier);
+        c.add(defenseResult);
+        c.add(defenseTotal);
+        c.add(influenceName);
+        c.add(influenceModifier);
+        c.add(influenceResult);
+        c.add(influenceTotal);
+        c.add(landsName);
+        c.add(landsModifier);
+        c.add(landsResult);
+        c.add(landsTotal);
+        c.add(lawName);
+        c.add(lawModifier);
+        c.add(lawResult);
+        c.add(lawTotal);
+        c.add(populationName);
+        c.add(populationModifier);
+        c.add(populationResult);
+        c.add(populationTotal);
+        c.add(powerName);
+        c.add(powerModifier);
+        c.add(powerResult);
+        c.add(powerTotal);
+        c.add(wealthName);
+        c.add(wealthModifier);
+        c.add(wealthResult);
+        c.add(wealthTotal);
+
+        createHistory.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createHouseHistory(house);
+            }
+        });
+
+        rollDice.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                house.randStats();
+                houseCreationScreen2(house);
+            }
+        });
+
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createHouse();
+            }
+        });
+    }
+
+    private void createHouseHistory(House house) {
+        createHouseHistory(house, false);
+    }
+
+    private void createHouseHistory(House house, boolean done) {
+        repaint();
+        getContentPane().removeAll();
+
+        JButton back = new JButton("Back");
+        back.setSize(buttonSize);
+        back.setLocation(20,10);
+
+        Data data = new Data();
+        //age
+        JButton rollAge = new JButton("Roll 1D6 for Age");
+        rollAge.setSize(buttonSize);
+        rollAge.setLocation(20, 100);
+
+        //events
+        JButton rollHistory = new JButton("Generate History");
+        rollHistory.setSize(buttonSize);
+        rollHistory.setLocation(20,100);
+        //Text area for House history
+        JTextArea historyArea = new JTextArea(house.printHistory());
+        historyArea.setEditable(false);
+        historyArea.getPreferredSize();
+        //Text field for age of house
+        JTextField houseAge = new JTextField("House Age: " + data.getAge(house.getAge()));
+        houseAge.setEditable(false);
+        houseAge.setSize(buttonSize);
+        houseAge.setLocation(300, 100);
+        //Scroll panel for house history text
+        JScrollPane scrollPane = new JScrollPane(historyArea);
+        scrollPane.setLocation(300, 140);
+        scrollPane.setSize(200, 150);
+
+        //Move to next phase of house creation
+        JButton next = new JButton("Holdings");
+        next.setSize(buttonSize);
+        next.setLocation(20,100);
+
+
+        c = getContentPane();
+
+        if (!done && house.getAge() == 0)
+            c.add(rollAge);
+        if (!done && house.getAge() != 0 && house.printHistory() != null)
+            c.add(rollHistory);
+        if (done)
+            c.add(next);
+
+        c.add(houseAge);
+        c.add(scrollPane);
+        c.add(back);
+
+        scrollPane.revalidate();
+
+        next.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createHouseHoldings(house);
+            }
+        });
+
+        rollHistory.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                house.generateHistory();
+                scrollPane.revalidate();
+                createHouseHistory(house, true);
+            }
+        });
+
+        rollAge.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Dice die = new Dice();
+                house.setAge(die.roll());
+                createHouseHistory(house, false);
+            }
+        });
+
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                createHouse();
+            }
+        });
+    }
+
+    private void createHouseHoldings(House house) {
+        repaint();
+        getContentPane().removeAll();
+
+        //next button
+        JButton back = new JButton("Next");
+        back.setSize(buttonSize);
+        back.setLocation(20, 20);
+
+        //column of stat names, column of roll results, column of realm modifier, column of total
+        int colNames = 20, colRoll = 120, colRealm = 220, colTotal = 320;
+        Dimension fieldSize = new Dimension(80, 40);
+        int rowStart = 100;
+        int row = rowStart;
+        int rowInc = 50;
+
+        //colors commented out in case of future use
+        JTextArea statName = new JTextArea("Stat Name");
+        //statName.setBackground(new Color(40,120,120));
+        statName.setSize(fieldSize);
+        statName.setLocation(colNames, row);
+        JTextArea total = new JTextArea("Total");
+        //rollResult.setBackground(new Color(40,120,120));
+        total.setLocation(colRoll, row);
+        total.setSize(fieldSize);
+        JTextArea invested = new JTextArea("Invested");
+        //realmModifier.setBackground(new Color(40,120,120));
+        invested.setSize(fieldSize);
+        invested.setLocation(colRealm, row);
+        JTextArea remaining = new JTextArea("Remaining");
+        //totalCol.setBackground(new Color(40,120,120));
+        remaining.setSize(fieldSize);
+        remaining.setLocation(colTotal, row);
+        row += rowInc;
+/*
+        //defense
+        JTextArea defenseName = new JTextArea("Defense");
+        //defenseName.setBackground(new Color(40,120,120));
+        defenseName.setSize(fieldSize);
+        defenseName.setLocation(colNames, row);
+        JTextArea defenseResult = new JTextArea(house.getDefense() + "");
+        //defenseResult.setBackground(new Color(40,120,120));
+        defenseResult.setLocation(colRoll, row);
+        defenseResult.setSize(fieldSize);
+        JTextArea defenseModifier = new JTextArea(data.getRealmDefenseModifier(realm) + "");
+        //defenseModifier.setBackground(new Color(40,120,120));
+        defenseModifier.setSize(fieldSize);
+        defenseModifier.setLocation(colRealm, row);
+        JTextArea defenseTotal = new JTextArea("" + (house.getDefense() + data.getRealmDefenseModifier(realm)));
+        //defenseCol.setBackground(new Color(40,120,120));
+        defenseTotal.setSize(fieldSize);
+        defenseTotal.setLocation(colTotal, row);
+        row += rowInc;
+
+        //influence
+        JTextArea influenceName = new JTextArea("influence");
+        //influenceName.setBackground(new Color(40,120,120));
+        influenceName.setSize(fieldSize);
+        influenceName.setLocation(colNames, row);
+        JTextArea influenceResult = new JTextArea(house.getInfluence() + "");
+        //influenceResult.setBackground(new Color(40,120,120));
+        influenceResult.setLocation(colRoll, row);
+        influenceResult.setSize(fieldSize);
+        JTextArea influenceModifier = new JTextArea(data.getRealmInfluenceModifier(realm) + "");
+        //influenceModifier.setBackground(new Color(40,120,120));
+        influenceModifier.setSize(fieldSize);
+        influenceModifier.setLocation(colRealm, row);
+        JTextArea influenceTotal = new JTextArea("" + (house.getInfluence() + data.getRealmInfluenceModifier(realm)));
+        //influenceCol.setBackground(new Color(40,120,120));
+        influenceTotal.setSize(fieldSize);
+        influenceTotal.setLocation(colTotal, row);
+        row += rowInc;
+
+        //Lands
+        JTextArea landsName = new JTextArea("Lands");
+        //landsName.setBackground(new Color(40,120,120));
+        landsName.setSize(fieldSize);
+        landsName.setLocation(colNames, row);
+        JTextArea landsResult = new JTextArea(house.getLands() + "");
+        //landsResult.setBackground(new Color(40,120,120));
+        landsResult.setLocation(colRoll, row);
+        landsResult.setSize(fieldSize);
+        JTextArea landsModifier = new JTextArea(data.getRealmLandsModifier(realm) + "");
+        //landsModifier.setBackground(new Color(40,120,120));
+        landsModifier.setSize(fieldSize);
+        landsModifier.setLocation(colRealm, row);
+        JTextArea landsTotal = new JTextArea("" + (house.getLands() + data.getRealmLandsModifier(realm)));
+        //landsCol.setBackground(new Color(40,120,120));
+        landsTotal.setSize(fieldSize);
+        landsTotal.setLocation(colTotal, row);
+        row += rowInc;
+        //Law
+        JTextArea lawName = new JTextArea("Law");
+        //lawName.setBackground(new Color(40,120,120));
+        lawName.setSize(fieldSize);
+        lawName.setLocation(colNames, row);
+        JTextArea lawResult = new JTextArea(house.getLaw() + "");
+        //lawResult.setBackground(new Color(40,120,120));
+        lawResult.setLocation(colRoll, row);
+        lawResult.setSize(fieldSize);
+        JTextArea lawModifier = new JTextArea(data.getRealmLawModifier(realm) + "");
+        //lawModifier.setBackground(new Color(40,120,120));
+        lawModifier.setSize(fieldSize);
+        lawModifier.setLocation(colRealm, row);
+        JTextArea lawTotal = new JTextArea("" + (house.getLaw() + data.getRealmLawModifier(realm)));
+        //lawCol.setBackground(new Color(40,120,120));
+        lawTotal.setSize(fieldSize);
+        lawTotal.setLocation(colTotal, row);
+        row += rowInc;
+        //Population
+        JTextArea populationName = new JTextArea("Population");
+        //populationName.setBackground(new Color(40,120,120));
+        populationName.setSize(fieldSize);
+        populationName.setLocation(colNames, row);
+        JTextArea populationResult = new JTextArea(house.getPopulation() + "");
+        //populationResult.setBackground(new Color(40,120,120));
+        populationResult.setLocation(colRoll, row);
+        populationResult.setSize(fieldSize);
+        JTextArea populationModifier = new JTextArea(data.getRealmPopulationModifier(realm) + "");
+        //populationModifier.setBackground(new Color(40,120,120));
+        populationModifier.setSize(fieldSize);
+        populationModifier.setLocation(colRealm, row);
+        JTextArea populationTotal = new JTextArea("" + (house.getPopulation() + data.getRealmPopulationModifier(realm)));
+        //populationCol.setBackground(new Color(40,120,120));
+        populationTotal.setSize(fieldSize);
+        populationTotal.setLocation(colTotal, row);
+        row += rowInc;
+        //Power
+        JTextArea powerName = new JTextArea("Power");
+        //powerName.setBackground(new Color(40,120,120));
+        powerName.setSize(fieldSize);
+        powerName.setLocation(colNames, row);
+        JTextArea powerResult = new JTextArea(house.getPower() + "");
+        //powerResult.setBackground(new Color(40,120,120));
+        powerResult.setLocation(colRoll, row);
+        powerResult.setSize(fieldSize);
+        JTextArea powerModifier = new JTextArea(data.getRealmPowerModifier(realm) + "");
+        //powerModifier.setBackground(new Color(40,120,120));
+        powerModifier.setSize(fieldSize);
+        powerModifier.setLocation(colRealm, row);
+        JTextArea powerTotal = new JTextArea("" + (house.getPower() + data.getRealmPowerModifier(realm)));
+        //powerCol.setBackground(new Color(40,120,120));
+        powerTotal.setSize(fieldSize);
+        powerTotal.setLocation(colTotal, row);
+        row += rowInc;
+        //Wealth
+        JTextArea wealthName = new JTextArea("Wealth");
+        //wealthName.setBackground(new Color(40,120,120));
+        wealthName.setSize(fieldSize);
+        wealthName.setLocation(colNames, row);
+        JTextArea wealthResult = new JTextArea(house.getWealth() + "");
+        //wealthResult.setBackground(new Color(40,120,120));
+        wealthResult.setLocation(colRoll, row);
+        wealthResult.setSize(fieldSize);
+        JTextArea wealthModifier = new JTextArea(data.getRealmWealthModifier(realm) + "");
+        //wealthModifier.setBackground(new Color(40,120,120));
+        wealthModifier.setSize(fieldSize);
+        wealthModifier.setLocation(colRealm, row);
+        JTextArea wealthTotal = new JTextArea("" + (house.getWealth() + data.getRealmWealthModifier(realm)));
+        //wealthCol.setBackground(new Color(40,120,120));
+        wealthTotal.setSize(fieldSize);
+        wealthTotal.setLocation(colTotal, row);
+        row += rowInc;
+        */
+    }
+
+    private void characterSheet(CharacterNode character, HouseNode houseNode) {
         repaint();
         getContentPane().removeAll();
 
@@ -1226,7 +2042,7 @@ public class Screen extends JFrame {
                 if (houseNode == null)
                     characterMenu();
                 else
-                    houseMenu(houseNode);
+                    viewHouse(houseNode);
             }
         });
 
@@ -1243,7 +2059,7 @@ public class Screen extends JFrame {
     }
 
     //print text blocks on multiple lines
-    public void drawString(Graphics g, String text, int x, int y) {
+    private void drawString(Graphics g, String text, int x, int y) {
         for (String line: text.split("\n"))
             g.drawString(line, x, y += g.getFontMetrics().getHeight());
     }

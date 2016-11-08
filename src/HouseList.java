@@ -21,6 +21,10 @@ public class HouseList {
             copyList(toCopy);
     }
 
+    public void resetCurrent() {
+        current = head;
+    }
+
     public String printCurrent() {
         if (current != null)
             return current.printAll();
