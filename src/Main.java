@@ -16,7 +16,7 @@ public class Main {
         Data data = new Data();
 
         int xmax = 1000;
-        int ymax = 700;
+        int ymax = 1000;
 
         Screen screen = new Screen("SIFRP", xmax, ymax);
         screen.setVisible(true);

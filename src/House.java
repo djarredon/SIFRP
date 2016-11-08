@@ -1095,6 +1095,16 @@ public class House {
 
     public int getDefense() { return defense; }
 
+    public int getDefenseInvested() {
+        if (castles != null)
+            return castles.getCost();
+        return 0;
+    }
+
+    public int getDefenseRemaining() {
+        return defense - getDefenseInvested();
+    }
+
     public void setAge(int age) {
         this.age = age;
     }
@@ -1103,7 +1113,44 @@ public class House {
 
     public int getInfluence() { return influence; }
 
+    public int getInfluenceInvested() {
+        int toReturn = 0;
+        if (heirs != null) {
+            int num = heirs.getCount();
+            if (num % 20 == 0) {
+                num -= 20;
+                toReturn += 20;
+            }
+            if (num % 10 == 0) {
+                num -= 10;
+                toReturn += 10;
+            }
+            while (num > 0 && num % 5 == 0) {
+                num -= 5;
+                toReturn += 5;
+            }
+            return toReturn;
+        }
+        else
+            return toReturn;
+    }
+
+    public int getInfluenceRemaining() {
+        return influence - getInfluenceInvested();
+    }
+
     public int getLands() { return lands; }
+
+    public int getLandsInvested() {
+        if (domains != null)
+            return domains.getCost();
+        else
+            return 0;
+    }
+
+    public int getLandsRemaining() {
+        return lands - getLandsInvested();
+    }
 
     public int getLaw() { return law; }
 
@@ -1111,6 +1158,39 @@ public class House {
 
     public int getPower() { return power; }
 
+    public int getPowerInvested() {
+        int toReturn = 0;
+        //add up banners
+        if (banners!= null) {
+            int num = banners.getNum();
+            while (num-- > 0) {
+                if (num == 1)
+                    toReturn += 20;
+                if (num == 2)
+                    toReturn += 10;
+                if (num >= 3)
+                    toReturn += 5;
+            }
+        }
+        //add up units
+
+        return toReturn;
+    }
+
+    public int getPowerRemaining() {
+        return power - getPowerInvested();
+    }
+
     public int getWealth() { return wealth; }
+
+    public int getWealthInvested() {
+        if (wealthHoldings != null)
+            return wealthHoldings.getCost();
+        return 0;
+    }
+
+    public int getWealthRemaining() {
+        return wealth - getWealthInvested();
+    }
 
 }

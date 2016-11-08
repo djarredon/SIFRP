@@ -37,6 +37,18 @@ public class CharacterList {
         return  toReturn;
     }
 
+    public int getCount() {
+        int toReturn = 0;
+        if (head == null)
+            return toReturn;
+        CharacterNode temp = head;
+        while (temp != null) {
+            ++toReturn;
+            temp = temp.getNext();
+        }
+        return toReturn;
+    }
+
     public void displayNames() {
         if (head == null)
             System.out.println("No Characters");

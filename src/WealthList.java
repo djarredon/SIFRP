@@ -34,6 +34,20 @@ public class WealthList {
         }
     }
 
+    public int getCost() {
+        int toReturn = 0;
+        if (head == null)
+            return toReturn;
+        else {
+            WealthNode temp = head;
+            while (temp != null) {
+                toReturn += temp.getCost();
+                temp = temp.getNext();
+            }
+            return toReturn;
+        }
+    }
+
     public String printAll() {
         return printAll(head);
     }

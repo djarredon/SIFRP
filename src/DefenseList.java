@@ -26,6 +26,20 @@ public class DefenseList {
         return toReturn;
     }
 
+    public int getCost() {
+        int toReturn = 0;
+        if (head == null)
+            return toReturn;
+        else {
+            DefenseNode current = head;
+            while (current != null) {
+                toReturn += current.getCost();
+                current = current.getNext();
+            }
+            return toReturn;
+        }
+    }
+
     public void display() {
         if (head == null)
             System.out.println("No Defense Holdings");

@@ -36,6 +36,20 @@ public class DomainList {
         }
     }
 
+    public int getCost() {
+        int toReturn = 0;
+        if (head == null)
+            return toReturn;
+        else {
+            DomainNode current = head;
+            while (current != null) {
+                toReturn += current.getCost();
+                current = current.getNext();
+            }
+            return toReturn;
+        }
+    }
+
     public void insert(Domain domain) {
         if (head == null)
             head = new DomainNode(domain);
