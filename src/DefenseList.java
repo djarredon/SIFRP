@@ -36,6 +36,7 @@ public class DefenseList {
                 toReturn += current.getCost();
                 current = current.getNext();
             }
+            //System.out.println("Defense list cost: " + toReturn);
             return toReturn;
         }
     }

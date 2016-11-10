@@ -1494,9 +1494,311 @@ public class Screen extends JFrame {
         back.setSize(buttonSize);
         back.setLocation(20, 20);
 
+        Dimension fieldSize = new Dimension(80, 100);
+        Dimension longField = new Dimension(250, 100);
+
+        //text in red if cost is above budget
+        //holding name, cost, description, benefit, purchase button
+        int colName = 20, colCost = colName+90, colDesc = colCost+50,
+                colBenefit = colDesc+longField.width + 10, colButton = colBenefit+longField.width + 10;
+        int row = 80, rowInc = fieldSize.height + 10;
+        //Column headers
+        JTextArea holdingName = new JTextArea("Name");
+        holdingName.setEditable(false);
+        holdingName.setSize(80, 30);
+        holdingName.setLocation(colName, row);
+        JTextArea holdingCost = new JTextArea("Cost");
+        holdingCost.setEditable(false);
+        holdingCost.setSize(40,30);
+        holdingCost.setLocation(colCost, row);
+        JTextArea holdingDescription = new JTextArea("Description");
+        holdingDescription.setEditable(false);
+        holdingDescription.setSize(longField.width, 30);
+        holdingDescription.setLocation(colDesc, row);
+        JTextArea holdingBenefit = new JTextArea("Benefit");
+        holdingBenefit.setEditable(false);
+        holdingBenefit.setSize(longField.width, 30);
+        holdingBenefit.setLocation(colBenefit,row);
+
+        //Show points remaining
+        JTextArea pointsRemaining = new JTextArea(house.getDefenseRemaining() + "");
+        pointsRemaining.setEditable(false);
+        pointsRemaining.setSize(buttonSize);
+        pointsRemaining.setLocation(colButton, row);
+
+        row += 40;
+
+        //superior castle
+        boolean canAfford;
+        if (house.getDefenseRemaining() < 50)
+            canAfford = false;
+        else
+            canAfford = true;
+        JTextArea superiorCastleName = new JTextArea("Superior \nCastle");
+        superiorCastleName.setEditable(false);
+        superiorCastleName.setSize(fieldSize);
+        superiorCastleName.setLocation(colName, row);
+        JTextArea superiorCastleCost = new JTextArea("50");
+        superiorCastleCost.setEditable(false);
+        superiorCastleCost.setSize(40,fieldSize.height);
+        superiorCastleCost.setLocation(colCost, row);
+        JTextArea superiorCastleDescription = new JTextArea("A superior castle is a massive stronghold in" +
+                "the vein of Harrenhal, the Eyrie, Storm’s End," +
+                "Dragonstone, and Winterfell. A superior castle" +
+                "has several towers, structures, and smaller" +
+                "buildings, all surrounded by a steep curtain" +
+                "wall and likely a moat as well.");
+        superiorCastleDescription.setLineWrap(true);
+        superiorCastleDescription.setWrapStyleWord(true);
+        superiorCastleDescription.setEditable(false);
+        superiorCastleDescription.setSize(longField);
+        superiorCastleDescription.setLocation(colDesc, row);
+        JTextArea superiorCastleBenefit = new JTextArea("Units defending a superior castle gain a +12" +
+                "bonus to their Defense.");
+        superiorCastleBenefit.setLineWrap(true);
+        superiorCastleBenefit.setWrapStyleWord(true);
+        superiorCastleBenefit.setEditable(false);
+        superiorCastleBenefit.setSize(longField);
+        superiorCastleBenefit.setLocation(colBenefit,row);
+        JButton superiorCastleButton = new JButton("Purchase");
+        if (!canAfford)
+            superiorCastleButton.setForeground(Color.red);
+        superiorCastleButton.setSize(buttonSize);
+        superiorCastleButton.setLocation(colButton, row);
+        row += rowInc;
+
+        //castle
+        if (house.getDefenseRemaining() < 40)
+            canAfford = false;
+        else
+            canAfford = true;
+        JTextArea castleName = new JTextArea("Castle");
+        castleName.setEditable(false);
+        castleName.setSize(fieldSize);
+        castleName.setLocation(colName, row);
+        JTextArea castleCost = new JTextArea("40");
+        castleCost.setEditable(false);
+        castleCost.setSize(40,fieldSize.height);
+        castleCost.setLocation(colCost, row);
+        JTextArea castleDescription = new JTextArea("Castles are impressive fortified strongholds but are not as large or as" +
+                "imposing as a superior castle. Most castles incorporate at least one" +
+                "central keep and several towers connected by walls and surrounded" +
+                "by a moat. Example castles include Deepwood Motte, the Twins, and" +
+                "Riverrun.");
+        castleDescription.setLineWrap(true);
+        castleDescription.setWrapStyleWord(true);
+        castleDescription.setEditable(false);
+        castleDescription.setSize(longField);
+        castleDescription.setLocation(colDesc, row);
+        JTextArea castleBenefit = new JTextArea("Units defending a superior castle gain a +8" +
+                "bonus to their Defense.");
+        castleBenefit.setLineWrap(true);
+        castleBenefit.setWrapStyleWord(true);
+        castleBenefit.setEditable(false);
+        castleBenefit.setSize(longField);
+        castleBenefit.setLocation(colBenefit,row);
+        JButton castleButton = new JButton("Purchase");
+        if (!canAfford)
+            castleButton.setForeground(Color.red);
+        castleButton.setSize(buttonSize);
+        castleButton.setLocation(colButton, row);
+        row += rowInc;
+
+        //small castle
+        if (house.getDefenseRemaining() < 30)
+            canAfford = false;
+        else
+            canAfford = true;
+        JTextArea smallCastleName = new JTextArea("Small \nCastle");
+        smallCastleName.setEditable(false);
+        smallCastleName.setSize(fieldSize);
+        smallCastleName.setLocation(colName, row);
+        JTextArea smallCastleCost = new JTextArea("30");
+        smallCastleCost.setEditable(false);
+        smallCastleCost.setSize(40,fieldSize.height);
+        smallCastleCost.setLocation(colCost, row);
+        JTextArea smallCastleDescription = new JTextArea("A small castle is simply a smaller version of a standard castle. It usually" +
+                "has no more than a single keep, perhaps two towers and a wall. Examples" +
+                "of small castles include Bronzegate, Honeyholt, and Yronwood.");
+        smallCastleDescription.setLineWrap(true);
+        smallCastleDescription.setWrapStyleWord(true);
+        smallCastleDescription.setEditable(false);
+        smallCastleDescription.setSize(longField);
+        smallCastleDescription.setLocation(colDesc, row);
+        JTextArea smallCastleBenefit = new JTextArea("Units defending a superior castle gain a +6" +
+                "bonus to their Defense.");
+        smallCastleBenefit.setLineWrap(true);
+        smallCastleBenefit.setWrapStyleWord(true);
+        smallCastleBenefit.setEditable(false);
+        smallCastleBenefit.setSize(longField);
+        smallCastleBenefit.setLocation(colBenefit,row);
+        JButton smallCastleButton = new JButton("Purchase");
+        if (!canAfford)
+            smallCastleButton.setForeground(Color.red);
+        smallCastleButton.setSize(buttonSize);
+        smallCastleButton.setLocation(colButton, row);
+        row += rowInc;
+
+        //Hall, Keep
+        if (house.getDefenseRemaining() < 20)
+            canAfford = false;
+        else
+            canAfford = true;
+        JTextArea hallName = new JTextArea("Hall");
+        hallName.setEditable(false);
+        hallName.setSize(fieldSize);
+        hallName.setLocation(colName, row);
+        JTextArea hallCost = new JTextArea("20");
+        hallCost.setEditable(false);
+        hallCost.setSize(40,fieldSize.height);
+        hallCost.setLocation(colCost, row);
+        JTextArea hallDescription = new JTextArea("A hall (or keep) is usually a small, fortified building. It may or may not" +
+                "be surrounded by a wall, and it could have a tower, though it’s unlikely." +
+                "Examples of halls include Acorn Hall, Cider Hall, and Longbow Hall.");
+        hallDescription.setLineWrap(true);
+        hallDescription.setWrapStyleWord(true);
+        hallDescription.setEditable(false);
+        hallDescription.setSize(longField);
+        hallDescription.setLocation(colDesc, row);
+        JTextArea hallBenefit = new JTextArea("Units defending a superior castle gain a +4" +
+                "bonus to their Defense.");
+        hallBenefit.setLineWrap(true);
+        hallBenefit.setWrapStyleWord(true);
+        hallBenefit.setEditable(false);
+        hallBenefit.setSize(longField);
+        hallBenefit.setLocation(colBenefit,row);
+        JButton hallButton = new JButton("Purchase");
+        if (!canAfford)
+            hallButton.setForeground(Color.red);
+        hallButton.setSize(buttonSize);
+        hallButton.setLocation(colButton, row);
+        row += rowInc;
+
+        //Hall, Keep
+        if (house.getDefenseRemaining() < 10)
+            canAfford = false;
+        else
+            canAfford = true;
+        JTextArea towerName = new JTextArea("Hall");
+        towerName.setEditable(false);
+        towerName.setSize(fieldSize);
+        towerName.setLocation(colName, row);
+        JTextArea towerCost = new JTextArea("10");
+        towerCost.setEditable(false);
+        towerCost.setSize(40,fieldSize.height);
+        towerCost.setLocation(colCost, row);
+        JTextArea towerDescription = new JTextArea("Towers are single free-standing stone or timber structures that thrust" +
+                "up from the ground. If they have any outbuildings, they are small and" +
+                "unprotected. Petyr Baelish’s holdings in the Fingers included a single" +
+                "tower.");
+        towerDescription.setLineWrap(true);
+        towerDescription.setWrapStyleWord(true);
+        towerDescription.setEditable(false);
+        towerDescription.setSize(longField);
+        towerDescription.setLocation(colDesc, row);
+        JTextArea towerBenefit = new JTextArea("Units defending a superior castle gain a +3" +
+                "bonus to their Defense.");
+        towerBenefit.setLineWrap(true);
+        towerBenefit.setWrapStyleWord(true);
+        towerBenefit.setEditable(false);
+        towerBenefit.setSize(longField);
+        towerBenefit.setLocation(colBenefit,row);
+        JButton towerButton = new JButton("Purchase");
+        if (!canAfford)
+            towerButton.setForeground(Color.red);
+        towerButton.setSize(buttonSize);
+        towerButton.setLocation(colButton, row);
+        row += (rowInc + rowInc);
+
+        //Holdings owned
+        JTextArea ownedLabel = new JTextArea("Defense Holdings Owned");
+        ownedLabel.setEditable(false);
+        ownedLabel.setSize(buttonSize);
+        ownedLabel.setLocation(colDesc, row);
+        JTextArea ownedArea = new JTextArea(house.printDefenseHoldings());
+        ownedArea.setEditable(false);
+        ownedArea.setLineWrap(true);
+        ownedArea.setWrapStyleWord(true);
+        ownedArea.setSize(longField);
+        JScrollPane ownedScroll = new JScrollPane(ownedArea);
+        ownedScroll.setSize(longField);
+        ownedScroll.setLocation(colDesc, row += 40);
+
 
         c.add(back);
+        c.add(towerName);
+        c.add(towerCost);
+        c.add(towerDescription);
+        c.add(towerBenefit);
+        c.add(towerButton);
+        c.add(hallName);
+        c.add(hallCost);
+        c.add(hallDescription);
+        c.add(hallBenefit);
+        c.add(hallButton);
+        c.add(smallCastleName);
+        c.add(smallCastleCost);
+        c.add(smallCastleDescription);
+        c.add(smallCastleBenefit);
+        c.add(smallCastleButton);
+        c.add(castleName);
+        c.add(castleBenefit);
+        c.add(castleButton);
+        c.add(castleCost);
+        c.add(castleDescription);
+        c.add(superiorCastleName);
+        c.add(superiorCastleBenefit);
+        c.add(superiorCastleButton);
+        c.add(superiorCastleCost);
+        c.add(superiorCastleDescription);
+        c.add(holdingName);
+        c.add(holdingBenefit);
+        c.add(holdingCost);
+        c.add(holdingDescription);
+        c.add(pointsRemaining);
+        c.add(ownedScroll);
+        c.add(ownedLabel);
 
+
+        superiorCastleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                house.buyDefenseHolding("Superior Castle");
+                purchaseDefenseHoldings(house);
+            }
+        });
+
+        castleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                house.buyDefenseHolding("Castle");
+                purchaseDefenseHoldings(house);
+            }
+        });
+
+        smallCastleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                house.buyDefenseHolding("Small Castle");
+                purchaseDefenseHoldings(house);
+            }
+        });
+
+        hallButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                house.buyDefenseHolding("Hall");
+                purchaseDefenseHoldings(house);
+            }
+        });
+
+        towerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                house.buyDefenseHolding("Tower");
+                purchaseDefenseHoldings(house);
+            }
+        });
 
         back.addActionListener(new ActionListener() {
             @Override
@@ -1579,9 +1881,320 @@ public class Screen extends JFrame {
         back.setSize(buttonSize);
         back.setLocation(20, 20);
 
+        Dimension fieldSize = new Dimension(80, 100);
+        Dimension longField = new Dimension(250, 100);
+
+        //text in red if cost is above budget
+        //holding name, cost, description, benefit, purchase button
+        int colName = 20, colCost = colName+90, colDesc = colCost+50,
+                colBenefit = colDesc+longField.width + 10, colButton = colBenefit+longField.width + 10;
+        int row = 60, rowInc = fieldSize.height + 10;
+        //Column headers
+        JTextArea holdingName = new JTextArea("Name");
+        holdingName.setEditable(false);
+        holdingName.setSize(80, 30);
+        holdingName.setLocation(colName + 20, row);
+        JTextArea holdingCost = new JTextArea("Cost");
+        holdingCost.setEditable(false);
+        holdingCost.setSize(40,30);
+        holdingCost.setLocation(colCost + 20, row);
+        JTextArea holdingDescription = new JTextArea("Description");
+        holdingDescription.setEditable(false);
+        holdingDescription.setSize(longField.width, 30);
+        holdingDescription.setLocation(colDesc + 20, row);
+        JTextArea holdingBenefit = new JTextArea("Benefit");
+        holdingBenefit.setEditable(false);
+        holdingBenefit.setSize(longField.width, 30);
+        holdingBenefit.setLocation(colBenefit + 20,row);
+
+        //Show points remaining
+        JTextArea pointsRemaining = new JTextArea(house.getWealthRemaining() + "");
+        pointsRemaining.setEditable(false);
+        pointsRemaining.setSize(buttonSize);
+        pointsRemaining.setLocation(colButton + 20, row);
+
+        row = 10;
+
+        //Artisan
+        boolean canAffordArtisan;
+        if (house.getWealthRemaining() < 10 && !house.hasWealthRequirements("Artisan"))
+            canAffordArtisan = false;
+        else
+            canAffordArtisan = true;
+        JTextArea artisanName = new JTextArea("Artisan");
+        artisanName.setEditable(false);
+        artisanName.setSize(fieldSize);
+        artisanName.setLocation(colName, row);
+        JTextArea artisanCost = new JTextArea("10");
+        artisanCost.setEditable(false);
+        artisanCost.setSize(40,fieldSize.height);
+        artisanCost.setLocation(colCost, row);
+        JTextArea artisanDescription = new JTextArea("Your house acquires the service of a master artisan.");
+        artisanDescription.setLineWrap(true);
+        artisanDescription.setWrapStyleWord(true);
+        artisanDescription.setEditable(false);
+        artisanDescription.setSize(longField);
+        artisanDescription.setLocation(colDesc, row);
+        JTextArea artisanBenefitText = new JTextArea("Choose one of the following benefits each time you invest in this holding.\n" +
+                "* All weapons forged in your house count as castle-forged.\n" +
+                "* Cover benefits from fortifications increase the Defense by +1.\n" +
+                "* Add +1 to the results of your House Fortunes rolls.\n" +
+                "* Other benefits may be available at the Narrator’s discretion.");
+        artisanBenefitText.setLineWrap(true);
+        artisanBenefitText.setWrapStyleWord(true);
+        artisanBenefitText.setEditable(false);
+        artisanBenefitText.setSize(longField);
+        JScrollPane artisanBenefit = new JScrollPane(artisanBenefitText);
+        artisanBenefit.setSize(longField);
+        artisanBenefit.setLocation(colBenefit,row);
+        JButton artisanButton = new JButton("Purchase");
+        if (!canAffordArtisan)
+            artisanButton.setForeground(Color.red);
+        artisanButton.setSize(buttonSize);
+        artisanButton.setLocation(colButton, row);
+        row += rowInc;
+
+        //GodsWood
+        boolean canAffordGodsWood;
+        if (house.getWealthRemaining() < 5 && !house.hasWealthRequirements("GodsWood"))
+            canAffordGodsWood = false;
+        else
+            canAffordGodsWood = true;
+        JTextArea godsWoodName = new JTextArea("GodsWood");
+        godsWoodName.setEditable(false);
+        godsWoodName.setSize(fieldSize);
+        godsWoodName.setLocation(colName, row);
+        JTextArea godsWoodCost = new JTextArea("5");
+        godsWoodCost.setEditable(false);
+        godsWoodCost.setSize(40,fieldSize.height);
+        godsWoodCost.setLocation(colCost, row);
+        JTextArea godsWoodDescription = new JTextArea("Your home has a godswood, a place sacred to the old gods.");
+        godsWoodDescription.setLineWrap(true);
+        godsWoodDescription.setWrapStyleWord(true);
+        godsWoodDescription.setEditable(false);
+        godsWoodDescription.setSize(longField);
+        godsWoodDescription.setLocation(colDesc, row);
+        JTextArea godsWoodBenefit = new JTextArea("Having a godswood allows you to add 2d6–6 to the result when rolling " +
+                "House Fortunes.");
+        godsWoodBenefit.setLineWrap(true);
+        godsWoodBenefit.setWrapStyleWord(true);
+        godsWoodBenefit.setEditable(false);
+        godsWoodBenefit.setSize(longField);
+        godsWoodBenefit.setLocation(colBenefit,row);
+        JButton godsWoodButton = new JButton("Purchase");
+        if (!canAffordGodsWood)
+            godsWoodButton.setForeground(Color.red);
+        godsWoodButton.setSize(buttonSize);
+        godsWoodButton.setLocation(colButton, row);
+        row += rowInc;
+
+        //Guilds
+        boolean canAffordGuilds;
+        if (house.getWealthRemaining() < 15 && !house.hasWealthRequirements("Guilds"))
+            canAffordGuilds = false;
+        else
+            canAffordGuilds = true;
+        JTextArea guildsName = new JTextArea("Guilds");
+        guildsName.setEditable(false);
+        guildsName.setSize(fieldSize);
+        guildsName.setLocation(colName, row);
+        JTextArea guildsCost = new JTextArea("15");
+        guildsCost.setEditable(false);
+        guildsCost.setSize(40,fieldSize.height);
+        guildsCost.setLocation(colCost, row);
+        JTextArea guildsDescription = new JTextArea("A Guild controls manufacturing and pricing of commodities.");
+        guildsDescription.setLineWrap(true);
+        guildsDescription.setWrapStyleWord(true);
+        guildsDescription.setEditable(false);
+        guildsDescription.setSize(longField);
+        guildsDescription.setLocation(colDesc, row);
+        JTextArea guildsBenefit = new JTextArea("All members of the household gain a 10% discount on any goods purchased " +
+                "in their own lands.");
+        guildsBenefit.setLineWrap(true);
+        guildsBenefit.setWrapStyleWord(true);
+        guildsBenefit.setEditable(false);
+        guildsBenefit.setSize(longField);
+        guildsBenefit.setLocation(colBenefit,row);
+        JButton guildsButton = new JButton("Purchase");
+        if (!canAffordGuilds)
+            guildsButton.setForeground(Color.red);
+        guildsButton.setSize(buttonSize);
+        guildsButton.setLocation(colButton, row);
+        row += rowInc;
+
+        //Maester
+        boolean canAffordMaester;
+        if (house.getWealthRemaining() < 10 && !house.hasWealthRequirements("Maester"))
+            canAffordMaester = false;
+        else
+            canAffordMaester = true;
+        JTextArea maesterName = new JTextArea("Maester");
+        maesterName.setEditable(false);
+        maesterName.setSize(fieldSize);
+        maesterName.setLocation(colName, row);
+        JTextArea maesterCost = new JTextArea("10");
+        maesterCost.setEditable(false);
+        maesterCost.setSize(40,fieldSize.height);
+        maesterCost.setLocation(colCost, row);
+        JTextArea maesterDescription = new JTextArea("All houses can benefit from the wisdom and learning of a maester.");
+        maesterDescription.setLineWrap(true);
+        maesterDescription.setWrapStyleWord(true);
+        maesterDescription.setEditable(false);
+        maesterDescription.setSize(longField);
+        maesterDescription.setLocation(colDesc, row);
+        JTextArea maesterBenefit = new JTextArea("Gain a +3 bonus on House Fortunes rolls. In addition, your family acquires " +
+                "the service of a maester. This character can be a player character " +
+                "or a Narrator character.");
+        maesterBenefit.setLineWrap(true);
+        maesterBenefit.setWrapStyleWord(true);
+        maesterBenefit.setEditable(false);
+        maesterBenefit.setSize(longField);
+        maesterBenefit.setLocation(colBenefit,row);
+        JButton maesterButton = new JButton("Purchase");
+        if (!canAffordMaester)
+            maesterButton.setForeground(Color.red);
+        maesterButton.setSize(buttonSize);
+        maesterButton.setLocation(colButton, row);
+        row += rowInc;
+
+        //Marketplace
+        boolean canAffordMartketplace;
+        if (house.getWealthRemaining() < 10 && !house.hasWealthRequirements("Marketplace"))
+            canAffordMartketplace = false;
+        else
+            canAffordMartketplace = true;
+        JTextArea marketplaceName = new JTextArea("Marketplace");
+        marketplaceName.setEditable(false);
+        marketplaceName.setSize(fieldSize);
+        marketplaceName.setLocation(colName, row);
+        JTextArea marketplaceCost = new JTextArea("10");
+        marketplaceCost.setEditable(false);
+        marketplaceCost.setSize(40,fieldSize.height);
+        marketplaceCost.setLocation(colCost, row);
+        JTextArea marketplaceDescription = new JTextArea("A Marketplace facilitates trade and draws merchants from abroad.");
+        marketplaceDescription.setLineWrap(true);
+        marketplaceDescription.setWrapStyleWord(true);
+        marketplaceDescription.setEditable(false);
+        marketplaceDescription.setSize(longField);
+        marketplaceDescription.setLocation(colDesc, row);
+        JTextArea marketplaceBenefit = new JTextArea("Each month, whenever your House Fortune would increase your " +
+                "Wealth resource, the Marketplace increases it further by +1.");
+        marketplaceBenefit.setLineWrap(true);
+        marketplaceBenefit.setWrapStyleWord(true);
+        marketplaceBenefit.setEditable(false);
+        marketplaceBenefit.setSize(longField);
+        marketplaceBenefit.setLocation(colBenefit,row);
+        JButton marketplaceButton = new JButton("Purchase");
+        if (!canAffordMartketplace)
+            marketplaceButton.setForeground(Color.red);
+        marketplaceButton.setSize(buttonSize);
+        marketplaceButton.setLocation(colButton, row);
+        row += (rowInc + rowInc);
+
+        //Holdings owned
+        JTextArea ownedLabel = new JTextArea("Wealth Holdings Owned");
+        ownedLabel.setEditable(false);
+        ownedLabel.setSize(buttonSize);
+        ownedLabel.setLocation(colDesc, yMax-200);
+        JTextArea ownedArea = new JTextArea(house.printWealthHoldings());
+        ownedArea.setEditable(false);
+        ownedArea.setLineWrap(true);
+        ownedArea.setWrapStyleWord(true);
+        ownedArea.setSize(longField);
+        JScrollPane ownedScroll = new JScrollPane(ownedArea);
+        ownedScroll.setSize(longField);
+        ownedScroll.setLocation(colDesc, yMax-160);
+
+
+        JPanel panel = new JPanel(null);
+        panel.setSize(colButton + longField.width + 10, yMax*2);
+        panel.getPreferredSize();
+
+        panel.add(marketplaceName);
+        panel.add(marketplaceCost);
+        panel.add(marketplaceDescription);
+        panel.add(marketplaceBenefit);
+        panel.add(marketplaceButton);
+        panel.add(maesterName);
+        panel.add(maesterCost);
+        panel.add(maesterDescription);
+        panel.add(maesterBenefit);
+        panel.add(maesterButton);
+        panel.add(godsWoodName);
+        panel.add(godsWoodCost);
+        panel.add(godsWoodDescription);
+        panel.add(godsWoodBenefit);
+        panel.add(godsWoodButton);
+        panel.add(guildsName);
+        panel.add(guildsBenefit);
+        panel.add(guildsButton);
+        panel.add(guildsCost);
+        panel.add(guildsDescription);
+        panel.add(artisanName);
+        panel.add(artisanBenefit);
+        panel.add(artisanButton);
+        panel.add(artisanCost);
+        panel.add(artisanDescription);
+
+        JScrollPane scrollPanel = new JScrollPane(panel);
+        scrollPanel.setSize(colButton + longField.width + 10, yMax-300);
+        scrollPanel.setLocation(20, 100);
+
 
         c.add(back);
+        c.add(scrollPanel);
+        c.add(holdingName);
+        c.add(holdingBenefit);
+        c.add(holdingCost);
+        c.add(holdingDescription);
+        c.add(pointsRemaining);
+        c.add(ownedScroll);
+        c.add(ownedLabel);
 
+        artisanButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (canAffordArtisan)
+                    house.buyWealthHolding("Artisan");
+                purchaseWealthHoldings(house);
+            }
+        });
+
+        godsWoodButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (canAffordGodsWood)
+                    house.buyWealthHolding("GodsWood");
+                purchaseWealthHoldings(house);
+            }
+        });
+
+        guildsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (canAffordGuilds)
+                    house.buyWealthHolding("Guilds");
+                purchaseWealthHoldings(house);
+            }
+        });
+
+        maesterButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (canAffordMaester)
+                    house.buyWealthHolding("Maester");
+                purchaseWealthHoldings(house);
+            }
+        });
+
+        marketplaceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (canAffordMartketplace)
+                    house.buyWealthHolding("Marketplace");
+                purchaseWealthHoldings(house);
+            }
+        });
 
         back.addActionListener(new ActionListener() {
             @Override
@@ -1589,6 +2202,7 @@ public class Screen extends JFrame {
                 createHouseHoldings(house);
             }
         });
+
 
     }
 

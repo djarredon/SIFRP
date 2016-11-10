@@ -852,53 +852,111 @@ public class House {
         populationHoldings = printPopulationHoldings();
     }
 
+    public boolean hasWealthRequirements(Wealth wealth) {
+        if (wealthHoldings == null)
+            wealthHoldings = new WealthList();
+
+        switch (wealth.getName()) {
+            case "Sept":
+                if (castles == null){
+                    if (domains == null)
+                        return false;
+                    return domains.hasHolding("Community: Small Town")
+                            || domains.hasHolding("Community: Large Town") || domains.hasHolding("Community: Small City")
+                            || domains.hasHolding("Community: Large City");
+                }
+                else {
+                    if (domains != null)
+                        return !wealthHoldings.hasHolding("Sept") && castles.hasHolding("Hall")|| castles.hasHolding("Small Castle")
+                                || castles.hasHolding("Castle") || castles.hasHolding("Superior Castle") || domains.hasHolding("Community: Small Town")
+                                || domains.hasHolding("Community: Large Town") || domains.hasHolding("Community: Small City")
+                                || domains.hasHolding("Community: Large City");
+                    else
+                        return !wealthHoldings.hasHolding("Sept") && castles.hasHolding("Hall")|| castles.hasHolding("Small Castle")
+                                || castles.hasHolding("Castle") || castles.hasHolding("Superior Castle");
+                }
+            case "GodsWood":
+                return !wealthHoldings.hasHolding("GodsWood") && realm.equalsIgnoreCase("The North");
+            case "Guilds":
+                if (domains == null)
+                    return false;
+                return !wealthHoldings.hasHolding("Guilds") && domains.hasHolding("Community: Small Town")
+                        || domains.hasHolding("Community: Large Town") || domains.hasHolding("Community: Small City")
+                        || domains.hasHolding("Community: Large City");
+            case "Artisan":
+                if (castles == null)
+                    return false;
+                return castles.hasHolding("Hall")|| castles.hasHolding("Small Castle")
+                        || castles.hasHolding("Castle") || castles.hasHolding("Superior Castle");
+            case "Maester":
+                return !wealthHoldings.hasHolding("Maester") && influence > 20;
+            case "Marketplace":
+                if (domains == null)
+                    return false;
+                return !wealthHoldings.hasHolding("Marketplace") && domains.hasHolding("Community: Small Town")
+                        || domains.hasHolding("Community: Large Town") || domains.hasHolding("Community: Small City")
+                        || domains.hasHolding("Community: Large City");
+            case "Mine":
+                if (domains == null)
+                    return false;
+                return domains.hasTerrain("Hills") || domains.hasTerrain("Mountains");
+            case "Port":
+                if (domains == null)
+                    return false;
+                return !wealthHoldings.hasHolding("Port") && domains.hasTerrain("Coastline");
+        }
+        return false;
+    }
+
+    public boolean hasWealthRequirements(String wealth) {
+        return hasWealthRequirements(new Wealth(wealth));
+    }
+
     public void generateWealthHoldings() {
         int toSpend = wealth;
         wealthHoldings = new WealthList();
 
         int loops = 4;
         while (toSpend >= 10 && --loops >= 0) {
-            if (toSpend >= 15 && !wealthHoldings.hasHolding("Sept") && castles.hasHolding("Hall")|| castles.hasHolding("Small Castle")
-                    || castles.hasHolding("Castle") || castles.hasHolding("Superior Castle") || domains.hasHolding("Community: Small Town")
-                    || domains.hasHolding("Community: Large Town") || domains.hasHolding("Community: Small City")
-                    || domains.hasHolding("Community: Large City")) {
+            if (toSpend >= 15 && hasWealthRequirements("Sept")) {
                 wealthHoldings.insert(new WealthNode("Sept"));
                 toSpend -= 15;
             }
-            if (toSpend >= 5 && !wealthHoldings.hasHolding("GodsWood") && realm.equalsIgnoreCase("The North")) {
+            if (toSpend >= 5 && hasWealthRequirements("GodsWood")) {
                 wealthHoldings.insert(new WealthNode("GodsWood"));
                 toSpend -= 5;
             }
-            if (toSpend >= 15 && !wealthHoldings.hasHolding("Guilds") && domains.hasHolding("Community: Small Town")
-                    || domains.hasHolding("Community: Large Town") || domains.hasHolding("Community: Small City")
-                    || domains.hasHolding("Community: Large City")) {
+            if (toSpend >= 15 && hasWealthRequirements("Guilds")) {
                 wealthHoldings.insert(new WealthNode("Guilds"));
                 toSpend -= 15;
             }
-            if (toSpend >= 10 && castles.hasHolding("Hall")|| castles.hasHolding("Small Castle")
-                    || castles.hasHolding("Castle") || castles.hasHolding("Superior Castle")) {
+            if (toSpend >= 10 && hasWealthRequirements("Artisan")) {
                 wealthHoldings.insert(new WealthNode("Artisan"));
                 toSpend -= 10;
             }
-            if (toSpend >= 10 && !wealthHoldings.hasHolding("Maester") && influence > 20) {
+            if (toSpend >= 10 && hasWealthRequirements("Maester")) {
                 wealthHoldings.insert(new WealthNode("Maester"));
                 toSpend -= 10;
             }
-            if (toSpend >= 10 && !wealthHoldings.hasHolding("Marketplace") && domains.hasHolding("Community: Small Town")
-                    || domains.hasHolding("Community: Large Town") || domains.hasHolding("Community: Small City")
-                    || domains.hasHolding("Community: Large City")) {
+            if (toSpend >= 10 && hasWealthRequirements("Marketplace")) {
                 wealthHoldings.insert(new WealthNode("Marketplace"));
                 toSpend -= 10;
             }
-            if (toSpend >= 10 && domains.hasTerrain("Hills") || domains.hasTerrain("Mountains")) {
+            if (toSpend >= 10 && hasWealthRequirements("Mine")) {
                 wealthHoldings.insert(new WealthNode("Mine"));
                 toSpend -= 10;
             }
-            if (toSpend >= 10 && !wealthHoldings.hasHolding("Port") && domains.hasTerrain("Coastline")) {
+            if (toSpend >= 10 && hasWealthRequirements("Port")) {
                 wealthHoldings.insert(new WealthNode("Port"));
                 toSpend -= 10;
             }
         }
+    }
+
+    public void buyWealthHolding(String toBuy) {
+        if (wealthHoldings == null)
+            wealthHoldings = new WealthList();
+        wealthHoldings.insert(new WealthNode(toBuy));
     }
 
     public void generateLawHoldings() {
@@ -970,6 +1028,12 @@ public class House {
                 castles.insert(temp);
             }
         }
+    }
+
+    public void buyDefenseHolding(String toBuy) {
+        if (castles == null)
+            castles = new DefenseList();
+        castles.insert(new DefenseNode(toBuy));
     }
 
     public void generateHeirs() {
@@ -1093,7 +1157,9 @@ public class House {
         return residents;
     }
 
-    public int getDefense() { return defense; }
+    public int getDefense() {
+        return defense;
+    }
 
     public int getDefenseInvested() {
         if (castles != null)

@@ -9,6 +9,11 @@ public class DefenseNode extends DefenseHolding{
         next = null;
     }
 
+    public DefenseNode(String toBe) {
+        super(toBe);
+        next = null;
+    }
+
     public DefenseNode(DefenseNode toCopy) {
         super(toCopy);
         next = null;
