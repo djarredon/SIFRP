@@ -449,56 +449,78 @@ public class House {
         return toReturn + "\n";
     }
 
+    public String printHoldings() {
+        String toReturn = "";
+
+        toReturn = toReturn.concat(printDefenseHoldings());
+        toReturn = toReturn.concat(printInfluenceHoldings());
+        toReturn = toReturn.concat(printLandHoldings());
+        toReturn = toReturn.concat(printLawHoldings());
+        toReturn = toReturn.concat(printPopulationHoldings());
+        toReturn = toReturn.concat(printPowerHoldings());
+        toReturn = toReturn.concat(printWealthHoldings());
+
+        return toReturn;
+    }
+
     public String printLandHoldings() {
         if (domains == null)
             return "No Domains\n";
         return domains.printAll();
     }
 
+    public String printInfluenceHoldings() {
+        return printHeirs();
+    }
+
+    public String printPowerHoldings() {
+        return printBannerNames();
+    }
+
     public String printLawHoldings() {
         if (law == 0)
-            return lawHoldings = "House Fortunes -20";
+            return lawHoldings = "House Fortunes -20\n";
         else if (law >= 1 && law <= 10)
-            return lawHoldings = "House Fortunes -10";
+            return lawHoldings = "House Fortunes -10\n";
         else if (law >= 11 && law <= 20)
-            return lawHoldings = "House Fortunes -5";
+            return lawHoldings = "House Fortunes -5\n";
         else if (law >= 21 && law <= 30)
-            return lawHoldings = "House Fortunes -2";
+            return lawHoldings = "House Fortunes -2\n";
         else if (law >= 31 && law <= 40)
-            return lawHoldings = "House Fortunes -1";
+            return lawHoldings = "House Fortunes -1\n";
         else if (law >= 41 && law <= 50)
-            return lawHoldings = "House Fortunes +0";
+            return lawHoldings = "House Fortunes +0\n";
         else if (law >= 51 && law <= 60)
-            return lawHoldings = "House Fortunes +1";
+            return lawHoldings = "House Fortunes +1\n";
         else if (law >= 61 && law <= 70)
-            return lawHoldings = "House Fortunes +2";
+            return lawHoldings = "House Fortunes +2\n";
         else if (law > 70)
-            return lawHoldings = "House Fortunes +5";
+            return lawHoldings = "House Fortunes +5\n";
         else
-            return lawHoldings = "House Fortunes +0";
+            return lawHoldings = "House Fortunes +0\n";
     }
 
     public String printPopulationHoldings() {
         if (population == 0)
-            return populationHoldings = "House Fortunes -10";
+            return populationHoldings = "House Fortunes -10\n";
         else if (population >= 1 && population <= 10)
-            return populationHoldings = "House Fortunes -5";
+            return populationHoldings = "House Fortunes -5\n";
         else if (population >= 11 && population <= 20)
-            return populationHoldings = "House Fortunes +0";
+            return populationHoldings = "House Fortunes +0\n";
         else if (population >= 21 && population <= 30)
-            return populationHoldings = "House Fortunes +1";
+            return populationHoldings = "House Fortunes +1\n";
         else if (population >= 31 && population <= 40)
-            return populationHoldings = "House Fortunes +3";
+            return populationHoldings = "House Fortunes +3\n";
         else if (population >= 41 && population <= 50)
-            return populationHoldings = "House Fortunes +1";
+            return populationHoldings = "House Fortunes +1\n";
         else if (population >= 51 && population <= 60)
-            return populationHoldings = "House Fortunes +0";
+            return populationHoldings = "House Fortunes +0\n";
         else if (population >= 61 && population <= 70)
-            return populationHoldings = "House Fortunes -5";
+            return populationHoldings = "House Fortunes -5\n";
         else if (population >= 71)
-            return populationHoldings = "House Fortunes -10";
+            return populationHoldings = "House Fortunes -10\n";
         else
-            return populationHoldings = "House Fortunes +0";
+            return populationHoldings = "House Fortunes +0\n";
     }
 
     public String printDefenseHoldings() {

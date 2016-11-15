@@ -70,6 +70,23 @@ public class HouseList {
         }
     }
 
+    public House find(String toFind) {
+        if (head == null)
+            return null;
+        else {
+            HouseNode temp = head;
+            while (temp.getPrev() != null)
+                temp = temp.getPrev();
+
+            while (temp != null) {
+                if (temp.getName().equalsIgnoreCase(toFind))
+                    return temp;
+                temp = temp.getNext();
+            }
+            return null;
+        }
+    }
+
     public void insert(HouseNode toAdd) {
         if (head == null) {
             head = new HouseNode(toAdd);
