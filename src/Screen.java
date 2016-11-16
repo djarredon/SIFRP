@@ -603,28 +603,292 @@ public class Screen extends JFrame {
         chooseHouse();
     }
 
-    private void createCharacter(House house) {
+    private void createCharacter(House house, Character character) {
         repaint();
         getContentPane().removeAll();
 
         JButton back = new JButton("Back");
         back.setSize(buttonSize);
         back.setLocation(20,10);
+        
+        Dimension fieldSize = new Dimension(150, 30);
+        Dimension nameSize = new Dimension(75, 30);
 
         //display House information
         JTextArea houseArea = new JTextArea(house.printAll());
         houseArea.getPreferredSize();
         JScrollPane houseScroll = new JScrollPane(houseArea);
         houseScroll.setSize(250, 500);
-        houseScroll.setLocation(50,50);
+        houseScroll.setLocation(20,50);
+        /*
+        2. Concept
+                Pick or roll age.
+                pick or roll status (up to house max)
+                //determine role
+                pick or roll background
+                pick or roll goal
+                pick or roll motivation
+                pick or roll at least one virtue
+                pick or roll at least one vice
+          Need
+                label
+                roll button
+                textfield for input
+                textfield for display
+         */
 
+        int row = 20, rowInc = 40;
+        int colLabel = 10, colDisplay = colLabel + nameSize.width,
+                colInput = colDisplay + fieldSize.width,
+                colButton = colInput + fieldSize.width;
+
+        //column titles
+        JLabel label = new JLabel("Concept");
+        label.setLocation(colLabel, row);
+        label.setSize(nameSize);
+        JLabel display = new JLabel("Current");
+        display.setSize(fieldSize);
+        display.setLocation(colDisplay, row);
+        JLabel input = new JLabel("Input");
+        input.setLocation(colInput, row);
+        input.setSize(fieldSize);
+        JLabel roll = new JLabel("Roll");
+        roll.setSize(fieldSize);
+        roll.setLocation(colButton, row);
+        row += rowInc;
+
+        //age
+        JLabel ageLabel = new JLabel("Age");
+        ageLabel.setSize(nameSize);
+        ageLabel.setLocation(colLabel, row);
+
+        JTextField ageDisplay = new JTextField(character.getAge());
+        ageDisplay.setEditable(false);
+        ageDisplay.setLocation(colDisplay, row);
+        ageDisplay.setSize(fieldSize);
+
+        JTextField ageInput = new JTextField();
+        ageInput.setFocusable(true);
+        ageInput.setLocation(colInput, row);
+        ageInput.setSize(fieldSize);
+
+        JButton ageButton = new JButton("Roll for Age");
+        ageButton.setSize(buttonSize);
+        ageButton.setLocation(colButton, row);
+        row += rowInc;
+
+        //status
+        JLabel statusLabel = new JLabel("Status");
+        statusLabel.setSize(nameSize);
+        statusLabel.setLocation(colLabel, row);
+
+        JTextField statusDisplay = new JTextField(character.getStatus()
+                + "   (Max " + house.getMaxStatus() + ")");
+        statusDisplay.setEditable(false);
+        statusDisplay.setLocation(colDisplay, row);
+        statusDisplay.setSize(fieldSize);
+
+        JTextField statusInput = new JTextField();
+        statusInput.setFocusable(true);
+        statusInput.setLocation(colInput, row);
+        statusInput.setSize(fieldSize);
+
+        JButton statusButton = new JButton("Roll for Status");
+        statusButton.setSize(buttonSize);
+        statusButton.setLocation(colButton, row);
+        row += rowInc;
+
+        //background
+        JLabel backgroundLabel = new JLabel("Background");
+        backgroundLabel.setSize(nameSize);
+        backgroundLabel.setLocation(colLabel, row);
+
+        JTextField backgroundDisplay = new JTextField(character.getBackground());
+        backgroundDisplay.setEditable(false);
+        backgroundDisplay.setLocation(colDisplay, row);
+        backgroundDisplay.setSize(fieldSize);
+
+        JTextField backgroundInput = new JTextField();
+        backgroundInput.setFocusable(true);
+        backgroundInput.setLocation(colInput, row);
+        backgroundInput.setSize(fieldSize);
+
+        JButton backgroundButton = new JButton("Roll for Background");
+        backgroundButton.setSize(buttonSize);
+        backgroundButton.setLocation(colButton, row);
+        row += rowInc;
+
+        //goal
+        JLabel goalLabel = new JLabel("Goal");
+        goalLabel.setSize(fieldSize);
+        goalLabel.setLocation(colLabel, row);
+
+        JTextField goalDisplay = new JTextField(character.getGoal());
+        goalDisplay.setEditable(false);
+        goalDisplay.setLocation(colDisplay, row);
+        goalDisplay.setSize(fieldSize);
+
+        JTextField goalInput = new JTextField();
+        goalInput.setFocusable(true);
+        goalInput.setLocation(colInput, row);
+        goalInput.setSize(fieldSize);
+
+        JButton goalButton = new JButton("Roll for Goal");
+        goalButton.setSize(buttonSize);
+        goalButton.setLocation(colButton, row);
+        row += rowInc;
+
+        //motivation
+        JLabel motivationLabel = new JLabel("Motivation");
+        motivationLabel.setSize(fieldSize);
+        motivationLabel.setLocation(colLabel, row);
+
+        JTextField motivationDisplay = new JTextField(character.getMotivation());
+        motivationDisplay.setEditable(false);
+        motivationDisplay.setLocation(colDisplay, row);
+        motivationDisplay.setSize(fieldSize);
+
+        JTextField motivationInput = new JTextField();
+        motivationInput.setFocusable(true);
+        motivationInput.setLocation(colInput, row);
+        motivationInput.setSize(fieldSize);
+
+        JButton motivationButton = new JButton("Roll for Motivation");
+        motivationButton.setSize(buttonSize);
+        motivationButton.setLocation(colButton, row);
+        row += rowInc;
+
+        //virtue(s)
+        JLabel virtueLabel = new JLabel("Virtue(s)");
+        virtueLabel.setSize(fieldSize);
+        virtueLabel.setLocation(colLabel, row);
+
+        JTextField virtueDisplay = new JTextField(character.getVirtue());
+        virtueDisplay.setEditable(false);
+        virtueDisplay.setLocation(colDisplay, row);
+        virtueDisplay.setSize(fieldSize);
+
+        JTextField virtueInput = new JTextField();
+        virtueInput.setFocusable(true);
+        virtueInput.setLocation(colInput, row);
+        virtueInput.setSize(fieldSize);
+
+        JButton virtueButton = new JButton("Roll for Virtue");
+        virtueButton.setSize(buttonSize);
+        virtueButton.setLocation(colButton, row);
+        row += rowInc;
+
+        //vice(s)
+        JLabel viceLabel = new JLabel("Vice");
+        viceLabel.setSize(fieldSize);
+        viceLabel.setLocation(colLabel, row);
+
+        JTextField viceDisplay = new JTextField(character.getVice());
+        viceDisplay.setEditable(false);
+        viceDisplay.setLocation(colDisplay, row);
+        viceDisplay.setSize(fieldSize);
+
+        JTextField viceInput = new JTextField();
+        viceInput.setFocusable(true);
+        viceInput.setLocation(colInput, row);
+        viceInput.setSize(fieldSize);
+
+        JButton viceButton = new JButton("Roll for Vice");
+        viceButton.setSize(buttonSize);
+        viceButton.setLocation(colButton, row);
+        row += rowInc;
+
+        JButton submit = new JButton("Submit");
+        submit.setLocation(colInput, row);
+        submit.setSize(buttonSize);
+
+        JPanel panel = new JPanel(null);
+        panel.setSize(xMax - 400, yMax);
+
+        panel.add(label);
+        panel.add(display);
+        panel.add(input);
+        panel.add(roll);
+        panel.add(ageLabel);
+        panel.add(ageDisplay);
+        panel.add(ageInput);
+        panel.add(ageButton);
+        panel.add(statusLabel);
+        panel.add(statusDisplay);
+        panel.add(statusInput);
+        panel.add(statusButton);
+        panel.add(backgroundLabel);
+        panel.add(backgroundDisplay);
+        panel.add(backgroundInput);
+        panel.add(backgroundButton);
+        panel.add(goalLabel);
+        panel.add(goalDisplay);
+        panel.add(goalInput);
+        panel.add(goalButton);
+        panel.add(motivationLabel);
+        panel.add(motivationDisplay);
+        panel.add(motivationInput);
+        panel.add(motivationButton);
+        panel.add(virtueLabel);
+        panel.add(virtueDisplay);
+        panel.add(virtueInput);
+        panel.add(virtueButton);
+        panel.add(viceLabel);
+        panel.add(viceDisplay);
+        panel.add(viceInput);
+        panel.add(viceButton);
+        panel.add(submit);
+
+        JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane.setSize(xMax - 400, yMax - 200);
+        scrollPane.setLocation(320, 50);
 
 
         c = getContentPane();
         c.add(back);
         c.add(houseScroll);
+        c.add(scrollPane);
 
         houseScroll.revalidate();
+        scrollPane.revalidate();
+
+        submit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (ageInput.getText() != null && ageInput.getText().length() > 0
+                        && ageInput.getText().charAt(0) != '-')
+                    character.setAge(ageInput.getText());
+
+                if (statusInput.getText() != null && statusInput.getText().length() > 0) {
+                    try {
+                        int num = Integer.parseInt(statusInput.getText());
+
+                        if (num > 0 && num <= house.getMaxStatus())
+                            character.setStatus(num);
+                    }
+                    catch (NumberFormatException exception) {
+                        //do nothing
+                    }
+                }
+
+                if (backgroundInput.getText() != null && backgroundInput.getText().length() > 0)
+                    character.setBackground(backgroundInput.getText());
+
+                if (goalInput.getText() != null && goalInput.getText().length() > 0)
+                    character.setGoal(goalInput.getText());
+
+                if (motivationInput.getText() != null && motivationInput.getText().length() > 0)
+                    character.setMotivation(motivationInput.getText());
+
+                if (virtueInput.getText() != null && virtueInput.getText().length() > 0)
+                    character.setVirtue(virtueInput.getText());
+
+                if (viceInput.getText() != null && viceInput.getText().length() > 0)
+                    character.setVice(viceInput.getText());
+
+                createCharacter(house, character);
+            }
+        });
 
         back.addActionListener(new ActionListener() {
             @Override
@@ -1387,7 +1651,7 @@ public class Screen extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
                     int index = list.locationToIndex(e.getPoint());
-                    createCharacter(baseHouseList.find((String) listModel.elementAt(index)));
+                    createCharacter(baseHouseList.find((String) listModel.elementAt(index)), new Character());
                 }
             }
         };
@@ -2955,4 +3219,5 @@ public class Screen extends JFrame {
         for (String line: text.split("\n"))
             g.drawString(line, x, y += g.getFontMetrics().getHeight());
     }
+
 }

@@ -538,7 +538,7 @@ public class House {
     public String printBanner() {
         if (banners == null)
             return "No Banner Houses\n";
-        return banners.getNum() + "Banners \n" +
+        return banners.getNum() + " Banners \n" +
                 banners.printList();
     }
 
@@ -1165,6 +1165,10 @@ public class House {
     //SETTERS AND GETTERS
     public String getName() {
         return name;
+    }
+
+    public int getMaxStatus() {
+        return maxStatus;
     }
 
     public Character getSteward() {

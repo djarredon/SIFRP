@@ -316,6 +316,26 @@ public class Character {
                 "Vice: " + vice + "\n";
     }
 
+    public String getBackground() {
+        return background;
+    }
+
+    public String getGoal() {
+        return goal;
+    }
+
+    public String getMotivation() {
+        return motivation;
+    }
+
+    public String getVirtue() {
+        return virtue;
+    }
+
+    public String getVice() {
+        return vice;
+    }
+
     public void displayGear() {
         System.out.println("Gear: ");
         displayWeapons();
@@ -599,7 +619,6 @@ public class Character {
             return toReturn;
         }
     }
-
 
     public void generateCharacter() {
         randAge();
@@ -1292,8 +1311,20 @@ Venerable
         return temp;
     }
 
+    public void setAge(String age) {
+        this.age = age;
+    }
+
     public String getAge() {
         return age;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getStatus() {
+        return status;
     }
 
     public String getHouseName() {
@@ -1306,6 +1337,26 @@ Venerable
 
     public String getGender() {
         return gender;
+    }
+
+    public void setBackground(String background) {
+        this.background = background;
+    }
+
+    public void setGoal(String goal) {
+        this.goal = goal;
+    }
+
+    public void setMotivation(String motivation) {
+        this.motivation = motivation;
+    }
+
+    public void setVirtue(String virtue) {
+        this.virtue = virtue;
+    }
+
+    public void setVice(String vice) {
+        this.vice = vice;
     }
 
     public void giveWeapon(Weapon toGive) {
