@@ -19,9 +19,25 @@ public class Character {
     private String houseName;
     private String realm;
     //stats
-    private int agility, animalHandling, athletics, awareness, cunning, deception, endurance, fighting,
-                healing, knowledge, marksmanship, persuasion, status, stealth, survival,
-                thievery, warfare, will;
+    private int agility;
+    private int animalHandling;
+    private int athletics;
+    private int awareness;
+    private int cunning;
+    private int deception;
+    private int endurance;
+    private int fighting;
+    private int healing;
+    private int knowledge;
+    private int marksmanship;
+    private int persuasion;
+    private int status;
+    private int stealth;
+    private int survival;
+    private int thievery;
+    private int warfare;
+
+    private int will;
     private int language;   //this eventually should be translated into a list of known languages.
     private int moveSpeed; //movement speed of character
     //Destiny and qualities
@@ -29,7 +45,6 @@ public class Character {
     private int maximumBenefits;
     private int requiredDrawbacks;
     //specialties
-    private int specialtyExperience;
     private int[] agilitySpecialties, animalHandlingSpecialties, athleticsSpecialties,
             awarenessSpecialties, cunningSpecialties, deceptionSpecialties, enduranceSpecialties,
             fightingSpecialties, healingSpecialties, knowledgeSpecialties, marksmanshipSpecialties,
@@ -43,6 +58,9 @@ public class Character {
     private Armor armor;
 
     private int experience;
+    private int specialtyExperience;    //for character creation
+    private int abilityLimit;   //maximum starting rank
+
 
     public Character() {
         nullAll();
@@ -693,85 +711,62 @@ public class Character {
         Dice die = new Dice();
         int num = die.roll(3);
         switch (num) {
-            case 3: age = "Youth";
-                experience = 120;
-                specialtyExperience = 40;
-                destinyPoints = 7;
-                maximumBenefits = 3;
-                requiredDrawbacks = 0;
+            case 3: setAge("Youth");
                 break;
-            case 4: age = "Adolescent";
-                specialtyExperience = 40;
-                destinyPoints = 6;
-                experience = 150;
-                maximumBenefits = 3;
-                requiredDrawbacks = 0;
+            case 4: setAge("Adolescent");
                 break;
             case 5:
-            case 6: age = "Young Adult";
-                experience = 180;
-                specialtyExperience = 60;
-                destinyPoints = 5;
-                maximumBenefits = 3;
-                requiredDrawbacks = 0;
+            case 6: setAge("Young Adult");
                 break;
             case 7:
             case 8:
             case 9:
             case 10:
-            case 11: age = "Adult";
-                experience = 210;
-                specialtyExperience = 80;
-                destinyPoints = 4;
-                maximumBenefits = 3;
-                requiredDrawbacks = 1;
+            case 11: setAge("Adult");
                 break;
             case 12:
             case 13:
             case 14:
-            case 15: age = "Middle Age";
-                experience = 240;
-                specialtyExperience = 100;
-                destinyPoints = maximumBenefits = 3;
-                requiredDrawbacks = 2;
+            case 15: setAge("MiddleAge");
                 break;
-            case 16: age = "Old";
-                specialtyExperience = 160;
-                experience = 270;
-                destinyPoints = maximumBenefits = 2;
-                requiredDrawbacks = 3;
+            case 16: setAge("Old");
                 break;
-            case 17: age = "Very Old";
-                specialtyExperience = 200;
-                experience = 330;
-                destinyPoints = maximumBenefits = 1;
-                requiredDrawbacks = 4;
+            case 17: setAge("Very Old");
                 break;
-            case 18: age = "Venerable";
-                specialtyExperience = 240;
-                experience = 360;
-                destinyPoints = maximumBenefits = 0;
-                requiredDrawbacks = 5;
+            case 18: setAge("Venerable");
+                break;
         }
     }
 
     public void calculateExperience() {
         switch (age) {
             case "Youth": experience = 120;
+                specialtyExperience = 40;
                 break;
             case "Adolescent": experience = 150;
+                specialtyExperience = 40;
                 break;
             case "Young Adult": experience = 180;
+                specialtyExperience = 60;
                 break;
             case "Adult": experience = 210;
+                specialtyExperience = 80;
                 break;
             case "Middle Age": experience = 240;
+                specialtyExperience = 100;
                 break;
             case "Old": experience = 270;
+                specialtyExperience = 160;
                 break;
             case "Very Old": experience = 330;
+                specialtyExperience = 200;
                 break;
             case "Venerable": experience = 360;
+                specialtyExperience = 240;
+                break;
+            default: age = "Adult";
+                experience = 210;
+                specialtyExperience = 80;
         }
         if (status == 3)
             experience -= 10;
@@ -1312,7 +1307,70 @@ Venerable
     }
 
     public void setAge(String age) {
-        this.age = age;
+        switch (age) {
+            case "Youth": this.age = "Youth";
+                experience = 120;
+                specialtyExperience = 40;
+                abilityLimit = 4;
+                destinyPoints = 7;
+                maximumBenefits = 3;
+                requiredDrawbacks = 0;
+                break;
+            case "Adolescent": this.age = "Adolescent";
+                specialtyExperience = 40;
+                abilityLimit = 4;
+                destinyPoints = 6;
+                experience = 150;
+                maximumBenefits = 3;
+                requiredDrawbacks = 0;
+                break;
+            case "Young Adult": this.age = "Young Adult";
+                experience = 180;
+                specialtyExperience = 60;
+                abilityLimit = 5;
+                destinyPoints = 5;
+                maximumBenefits = 3;
+                requiredDrawbacks = 0;
+                break;
+            case "Adult": this.age = "Adult";
+                experience = 210;
+                specialtyExperience = 80;
+                abilityLimit = 7;
+                destinyPoints = 4;
+                maximumBenefits = 3;
+                requiredDrawbacks = 1;
+                break;
+            case "Middle Age": this.age = "Middle Age";
+                experience = 240;
+                specialtyExperience = 100;
+                abilityLimit = 6;
+                destinyPoints = maximumBenefits = 3;
+                requiredDrawbacks = 2;
+                break;
+            case "Old": this.age = "Old";
+                specialtyExperience = 160;
+                experience = 270;
+                abilityLimit = 5;
+                destinyPoints = maximumBenefits = 2;
+                requiredDrawbacks = 3;
+                break;
+            case "Very Old": this.age = "Very Old";
+                specialtyExperience = 200;
+                experience = 330;
+                abilityLimit = 5;
+                destinyPoints = maximumBenefits = 1;
+                requiredDrawbacks = 4;
+                break;
+            case "Venerable": this.age = "Venerable";
+                specialtyExperience = 240;
+                experience = 360;
+                abilityLimit = 5;
+                destinyPoints = maximumBenefits = 0;
+                requiredDrawbacks = 5;
+                break;
+            default:
+                setAge("Adult");
+        }
     }
 
     public String getAge() {
@@ -1325,6 +1383,22 @@ Venerable
 
     public int getStatus() {
         return status;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public void setExperience(int experience) {
+        this.experience = experience;
+    }
+
+    public int getSpecialtyExperience() {
+        return specialtyExperience;
+    }
+
+    public void setSpecialtyExperience(int experience) {
+        this.specialtyExperience = experience;
     }
 
     public String getHouseName() {
@@ -2172,4 +2246,429 @@ Venerable
         return toReturn;
     }
 
+
+
+    public void setHouseName(String houseName) {
+        this.houseName = houseName;
+    }
+
+    public String getRealm() {
+        return realm;
+    }
+
+    public void setRealm(String realm) {
+        this.realm = realm;
+    }
+
+    public int getAgility() {
+        return agility;
+    }
+
+    public void setAgility(int agility) {
+        this.agility = agility;
+    }
+
+    public int getAnimalHandling() {
+        return animalHandling;
+    }
+
+    public void setAnimalHandling(int animalHandling) {
+        this.animalHandling = animalHandling;
+    }
+
+    public int getAthletics() {
+        return athletics;
+    }
+
+    public void setAthletics(int athletics) {
+        this.athletics = athletics;
+    }
+
+    public int getAwareness() {
+        return awareness;
+    }
+
+    public void setAwareness(int awareness) {
+        this.awareness = awareness;
+    }
+
+    public int getCunning() {
+        return cunning;
+    }
+
+    public void setCunning(int cunning) {
+        this.cunning = cunning;
+    }
+
+    public int getDeception() {
+        return deception;
+    }
+
+    public void setDeception(int deception) {
+        this.deception = deception;
+    }
+
+    public int getEndurance() {
+        return endurance;
+    }
+
+    public void setEndurance(int endurance) {
+        this.endurance = endurance;
+    }
+
+    public int getFighting() {
+        return fighting;
+    }
+
+    public void setFighting(int fighting) {
+        this.fighting = fighting;
+    }
+
+    public int getHealing() {
+        return healing;
+    }
+
+    public void setHealing(int healing) {
+        this.healing = healing;
+    }
+
+    public int getKnowledge() {
+        return knowledge;
+    }
+
+    public void setKnowledge(int knowledge) {
+        this.knowledge = knowledge;
+    }
+
+    public int getMarksmanship() {
+        return marksmanship;
+    }
+
+    public void setMarksmanship(int marksmanship) {
+        this.marksmanship = marksmanship;
+    }
+
+    public int getPersuasion() {
+        return persuasion;
+    }
+
+    public void setPersuasion(int persuasion) {
+        this.persuasion = persuasion;
+    }
+
+    public int getStealth() {
+        return stealth;
+    }
+
+    public void setStealth(int stealth) {
+        this.stealth = stealth;
+    }
+
+    public int getSurvival() {
+        return survival;
+    }
+
+    public void setSurvival(int survival) {
+        this.survival = survival;
+    }
+
+    public int getThievery() {
+        return thievery;
+    }
+
+    public void setThievery(int thievery) {
+        this.thievery = thievery;
+    }
+
+    public int getWarfare() {
+        return warfare;
+    }
+
+    public void setWarfare(int warfare) {
+        this.warfare = warfare;
+    }
+
+    public int getWill() {
+        return will;
+    }
+
+    public void setWill(int will) {
+        this.will = will;
+    }
+
+    public int getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(int language) {
+        this.language = language;
+    }
+
+    public int getMoveSpeed() {
+        return moveSpeed;
+    }
+
+    public void setMoveSpeed(int moveSpeed) {
+        this.moveSpeed = moveSpeed;
+    }
+
+    public int getDestinyPoints() {
+        return destinyPoints;
+    }
+
+    public void setDestinyPoints(int destinyPoints) {
+        this.destinyPoints = destinyPoints;
+    }
+
+    public int getMaximumBenefits() {
+        return maximumBenefits;
+    }
+
+    public void setMaximumBenefits(int maximumBenefits) {
+        this.maximumBenefits = maximumBenefits;
+    }
+
+    public int getRequiredDrawbacks() {
+        return requiredDrawbacks;
+    }
+
+    public void setRequiredDrawbacks(int requiredDrawbacks) {
+        this.requiredDrawbacks = requiredDrawbacks;
+    }
+
+    public int[] getAgilitySpecialties() {
+        return agilitySpecialties;
+    }
+
+    public void setAgilitySpecialties(int[] agilitySpecialties) {
+        this.agilitySpecialties = agilitySpecialties;
+    }
+
+    public int[] getAnimalHandlingSpecialties() {
+        return animalHandlingSpecialties;
+    }
+
+    public void setAnimalHandlingSpecialties(int[] animalHandlingSpecialties) {
+        this.animalHandlingSpecialties = animalHandlingSpecialties;
+    }
+
+    public int[] getAthleticsSpecialties() {
+        return athleticsSpecialties;
+    }
+
+    public void setAthleticsSpecialties(int[] athleticsSpecialties) {
+        this.athleticsSpecialties = athleticsSpecialties;
+    }
+
+    public int[] getAwarenessSpecialties() {
+        return awarenessSpecialties;
+    }
+
+    public void setAwarenessSpecialties(int[] awarenessSpecialties) {
+        this.awarenessSpecialties = awarenessSpecialties;
+    }
+
+    public int[] getCunningSpecialties() {
+        return cunningSpecialties;
+    }
+
+    public void setCunningSpecialties(int[] cunningSpecialties) {
+        this.cunningSpecialties = cunningSpecialties;
+    }
+
+    public int[] getDeceptionSpecialties() {
+        return deceptionSpecialties;
+    }
+
+    public void setDeceptionSpecialties(int[] deceptionSpecialties) {
+        this.deceptionSpecialties = deceptionSpecialties;
+    }
+
+    public int[] getEnduranceSpecialties() {
+        return enduranceSpecialties;
+    }
+
+    public void setEnduranceSpecialties(int[] enduranceSpecialties) {
+        this.enduranceSpecialties = enduranceSpecialties;
+    }
+
+    public int[] getFightingSpecialties() {
+        return fightingSpecialties;
+    }
+
+    public void setFightingSpecialties(int[] fightingSpecialties) {
+        this.fightingSpecialties = fightingSpecialties;
+    }
+
+    public int[] getHealingSpecialties() {
+        return healingSpecialties;
+    }
+
+    public void setHealingSpecialties(int[] healingSpecialties) {
+        this.healingSpecialties = healingSpecialties;
+    }
+
+    public int[] getKnowledgeSpecialties() {
+        return knowledgeSpecialties;
+    }
+
+    public void setKnowledgeSpecialties(int[] knowledgeSpecialties) {
+        this.knowledgeSpecialties = knowledgeSpecialties;
+    }
+
+    public int[] getMarksmanshipSpecialties() {
+        return marksmanshipSpecialties;
+    }
+
+    public void setMarksmanshipSpecialties(int[] marksmanshipSpecialties) {
+        this.marksmanshipSpecialties = marksmanshipSpecialties;
+    }
+
+    public int[] getPersuasionSpecialties() {
+        return persuasionSpecialties;
+    }
+
+    public void setPersuasionSpecialties(int[] persuasionSpecialties) {
+        this.persuasionSpecialties = persuasionSpecialties;
+    }
+
+    public int[] getStatusSpecialties() {
+        return statusSpecialties;
+    }
+
+    public void setStatusSpecialties(int[] statusSpecialties) {
+        this.statusSpecialties = statusSpecialties;
+    }
+
+    public int[] getStealthSpecialties() {
+        return stealthSpecialties;
+    }
+
+    public void setStealthSpecialties(int[] stealthSpecialties) {
+        this.stealthSpecialties = stealthSpecialties;
+    }
+
+    public int[] getSurvivalSpecialties() {
+        return survivalSpecialties;
+    }
+
+    public void setSurvivalSpecialties(int[] survivalSpecialties) {
+        this.survivalSpecialties = survivalSpecialties;
+    }
+
+    public int[] getThieverySpecialties() {
+        return thieverySpecialties;
+    }
+
+    public void setThieverySpecialties(int[] thieverySpecialties) {
+        this.thieverySpecialties = thieverySpecialties;
+    }
+
+    public int[] getWarfareSpecialties() {
+        return warfareSpecialties;
+    }
+
+    public void setWarfareSpecialties(int[] warfareSpecialties) {
+        this.warfareSpecialties = warfareSpecialties;
+    }
+
+    public int[] getWillSpecialties() {
+        return willSpecialties;
+    }
+
+    public void setWillSpecialties(int[] willSpecialties) {
+        this.willSpecialties = willSpecialties;
+    }
+
+    public int getCombatDefense() {
+        return combatDefense;
+    }
+
+    public void setCombatDefense(int combatDefense) {
+        this.combatDefense = combatDefense;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getIntrigueDefense() {
+        return intrigueDefense;
+    }
+
+    public void setIntrigueDefense(int intrigueDefense) {
+        this.intrigueDefense = intrigueDefense;
+    }
+
+    public int getComposure() {
+        return composure;
+    }
+
+    public void setComposure(int composure) {
+        this.composure = composure;
+    }
+
+    public int getDefensiveBonus() {
+        return defensiveBonus;
+    }
+
+    public void setDefensiveBonus(int defensiveBonus) {
+        this.defensiveBonus = defensiveBonus;
+    }
+
+    public int getArmorPenalty() {
+        return armorPenalty;
+    }
+
+    public void setArmorPenalty(int armorPenalty) {
+        this.armorPenalty = armorPenalty;
+    }
+
+    public Weapon getWeapon1() {
+        return weapon1;
+    }
+
+    public void setWeapon1(Weapon weapon1) {
+        this.weapon1 = weapon1;
+    }
+
+    public Weapon getWeapon2() {
+        return weapon2;
+    }
+
+    public void setWeapon2(Weapon weapon2) {
+        this.weapon2 = weapon2;
+    }
+
+    public Weapon getWeapon3() {
+        return weapon3;
+    }
+
+    public void setWeapon3(Weapon weapon3) {
+        this.weapon3 = weapon3;
+    }
+
+    public Weapon getOffHand() {
+        return offHand;
+    }
+
+    public void setOffHand(Weapon offHand) {
+        this.offHand = offHand;
+    }
+
+    public void setArmor(Armor armor) {
+        this.armor = armor;
+    }
+
+    public int getAbilityLimit() {
+        return abilityLimit;
+    }
+
+    public void setAbilityLimit(int abilityLimit) {
+        this.abilityLimit = abilityLimit;
+    }
 }
