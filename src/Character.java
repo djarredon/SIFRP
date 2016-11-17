@@ -1282,6 +1282,590 @@ Venerable
         will = 2;
     }
 
+    //++++++++++Increasing Abilities++++++++++
+    /*
+    int value = character.getAgility() + 1;
+                if (value > 0 && value < character.getAbilityLimit()) {
+                    if (value == 2)
+                        character.setExperience(character.getExperience() - 50);
+                    else if (value  == 3)
+                        character.setExperience(character.getExperience() - 10);
+                    else if (value  >= 3)
+                        character.setExperience(character.getExperience() - 30);
+
+                    characterAbilityAssignment(house, character);
+                }
+     */
+    public void increaseAgility() {
+        int value = agility + 1;
+        if (value > 0 && value < abilityLimit) {
+            if (value == 2 && experience >= 50)
+                experience -= 50;
+            else if (value == 3 && experience >= 10)
+                experience -= 10;
+            else if (value >= 3 && experience >= 30)
+                experience -= 30;
+            else
+                return;
+
+            ++agility;
+        }
+    }
+
+    public void decreaseAgility() {
+        int value = agility - 1;
+        if (value > 0) {
+            if (value == 1)
+                experience += 50;
+            else if (value == 2)
+                experience += 10;
+            else if (value >= 3)
+                experience += 30;
+
+            --agility;
+        }
+    }
+
+    public void increaseAnimalHandling() {
+        int value = animalHandling + 1;
+        if (value > 0 && value < abilityLimit) {
+            if (value == 2 && experience >= 50)
+                experience -= 50;
+            else if (value == 3 && experience >= 10)
+                experience -= 10;
+            else if (value >= 3 && experience >= 30)
+                experience -= 30;
+            else
+                return;
+
+            ++animalHandling;
+        }
+    }
+
+    public void decreaseAnimalHandling() {
+        int value = animalHandling - 1;
+        if (value > 0) {
+            if (value == 1)
+                experience += 50;
+            else if (value == 2)
+                experience += 10;
+            else if (value >= 3)
+                experience += 30;
+
+            --animalHandling;
+        }
+    }
+
+    public void increaseAthletics() {
+        int value = athletics + 1;
+        if (value > 0 && value < abilityLimit) {
+            if (value == 2 && experience >= 50)
+                experience -= 50;
+            else if (value == 3 && experience >= 10)
+                experience -= 10;
+            else if (value >= 3 && experience >= 30)
+                experience -= 30;
+            else
+                return;
+
+            ++athletics;
+        }
+    }
+
+    public void decreaseAthletics() {
+        int value = athletics - 1;
+        if (value > 0) {
+            if (value == 1)
+                experience += 50;
+            else if (value == 2)
+                experience += 10;
+            else if (value >= 3)
+                experience += 30;
+
+            --athletics;
+        }
+    }
+
+    public void increaseAwareness() {
+        int value = awareness + 1;
+        if (value > 0 && value < abilityLimit) {
+            if (value == 2 && experience >= 50)
+                experience -= 50;
+            else if (value == 3 && experience >= 10)
+                experience -= 10;
+            else if (value >= 3 && experience >= 30)
+                experience -= 30;
+            else
+                return;
+
+            ++awareness;
+        }
+    }
+
+    public void decreaseAwareness() {
+        int value = awareness - 1;
+        if (value > 0) {
+            if (value == 1)
+                experience += 50;
+            else if (value == 2)
+                experience += 10;
+            else if (value >= 3)
+                experience += 30;
+
+            --awareness;
+        }
+    }
+
+    public void increaseCunning() {
+        int value = cunning + 1;
+        if (value > 0 && value < abilityLimit) {
+            if (value == 2 && experience >= 50)
+                experience -= 50;
+            else if (value == 3 && experience >= 10)
+                experience -= 10;
+            else if (value >= 3 && experience >= 30)
+                experience -= 30;
+            else
+                return;
+
+            ++cunning;
+        }
+    }
+
+    public void decreaseCunning() {
+        int value = cunning - 1;
+        if (value > 0) {
+            if (value == 1)
+                experience += 50;
+            else if (value == 2)
+                experience += 10;
+            else if (value >= 3)
+                experience += 30;
+
+            --cunning;
+        }
+    }
+
+    public void increaseDeception() {
+        int value = deception + 1;
+        if (value > 0 && value < abilityLimit) {
+            if (value == 2 && experience >= 50)
+                experience -= 50;
+            else if (value == 3 && experience >= 10)
+                experience -= 10;
+            else if (value >= 3 && experience >= 30)
+                experience -= 30;
+            else
+                return;
+
+            ++deception;
+        }
+    }
+
+    public void decreaseDeception() {
+        int value = deception - 1;
+        if (value > 0) {
+            if (value == 1)
+                experience += 50;
+            else if (value == 2)
+                experience += 10;
+            else if (value >= 3)
+                experience += 30;
+
+            --deception;
+        }
+    }
+
+    public void increaseEndurance() {
+        int value = endurance + 1;
+        if (value > 0 && value < abilityLimit) {
+            if (value == 2 && experience >= 50)
+                experience -= 50;
+            else if (value == 3 && experience >= 10)
+                experience -= 10;
+            else if (value >= 3 && experience >= 30)
+                experience -= 30;
+            else
+                return;
+
+            ++endurance;
+        }
+    }
+
+    public void decreaseEndurance() {
+        int value = endurance - 1;
+        if (value > 0) {
+            if (value == 1)
+                experience += 50;
+            else if (value == 2)
+                experience += 10;
+            else if (value >= 3)
+                experience += 30;
+
+            --endurance;
+        }
+    }
+
+    public void increaseFighting() {
+        int value = fighting + 1;
+        if (value > 0 && value < abilityLimit) {
+            if (value == 2 && experience >= 50)
+                experience -= 50;
+            else if (value == 3 && experience >= 10)
+                experience -= 10;
+            else if (value >= 3 && experience >= 30)
+                experience -= 30;
+            else
+                return;
+
+            ++fighting;
+        }
+    }
+
+    public void decreaseFighting() {
+        int value = fighting - 1;
+        if (value > 0) {
+            if (value == 1)
+                experience += 50;
+            else if (value == 2)
+                experience += 10;
+            else if (value >= 3)
+                experience += 30;
+
+            --fighting;
+        }
+    }
+
+    public void increaseHealing() {
+        int value = healing + 1;
+        if (value > 0 && value < abilityLimit) {
+            if (value == 2 && experience >= 50)
+                experience -= 50;
+            else if (value == 3 && experience >= 10)
+                experience -= 10;
+            else if (value >= 3 && experience >= 30)
+                experience -= 30;
+            else
+                return;
+
+            ++healing;
+        }
+    }
+
+    public void decreaseHealing() {
+        int value = healing - 1;
+        if (value > 0) {
+            if (value == 1)
+                experience += 50;
+            else if (value == 2)
+                experience += 10;
+            else if (value >= 3)
+                experience += 30;
+
+            --healing;
+        }
+    }
+
+    public void increaseKnowledge() {
+        int value = knowledge + 1;
+        if (value > 0 && value < abilityLimit) {
+            if (value == 2 && experience >= 50)
+                experience -= 50;
+            else if (value == 3 && experience >= 10)
+                experience -= 10;
+            else if (value >= 3 && experience >= 30)
+                experience -= 30;
+            else
+                return;
+
+            ++knowledge;
+        }
+    }
+
+    public void decreaseKnowledge() {
+        int value = knowledge - 1;
+        if (value > 0) {
+            if (value == 1)
+                experience += 50;
+            else if (value == 2)
+                experience += 10;
+            else if (value >= 3)
+                experience += 30;
+
+            --knowledge;
+        }
+    }
+
+    public void increaseLanguage() {
+        int value = language + 1;
+        if (value > 0 && value < abilityLimit) {
+            if (value == 2 && experience >= 50)
+                experience -= 50;
+            else if (value == 3 && experience >= 10)
+                experience -= 10;
+            else if (value >= 3 && experience >= 30)
+                experience -= 30;
+            else
+                return;
+
+            ++language;
+        }
+    }
+
+    public void decreaseLanguage() {
+        int value = language - 1;
+        if (value > 0) {
+            if (value == 1)
+                experience += 50;
+            else if (value == 2)
+                experience += 10;
+            else if (value >= 3)
+                experience += 30;
+
+            --language;
+        }
+    }
+
+    public void increaseMarksmanship() {
+        int value = marksmanship + 1;
+        if (value > 0 && value < abilityLimit) {
+            if (value == 2 && experience >= 50)
+                experience -= 50;
+            else if (value == 3 && experience >= 10)
+                experience -= 10;
+            else if (value >= 3 && experience >= 30)
+                experience -= 30;
+            else
+                return;
+
+            ++marksmanship;
+        }
+    }
+
+    public void decreaseMarksmanship() {
+        int value = marksmanship - 1;
+        if (value > 0) {
+            if (value == 1)
+                experience += 50;
+            else if (value == 2)
+                experience += 10;
+            else if (value >= 3)
+                experience += 30;
+
+            --marksmanship;
+        }
+    }
+
+    public void increasePersuasion() {
+        int value = persuasion + 1;
+        if (value > 0 && value < abilityLimit) {
+            if (value == 2 && experience >= 50)
+                experience -= 50;
+            else if (value == 3 && experience >= 10)
+                experience -= 10;
+            else if (value >= 3 && experience >= 30)
+                experience -= 30;
+            else
+                return;
+
+            ++persuasion;
+        }
+    }
+
+    public void decreasePersuasion() {
+        int value = persuasion - 1;
+        if (value > 0) {
+            if (value == 1)
+                experience += 50;
+            else if (value == 2)
+                experience += 10;
+            else if (value >= 3)
+                experience += 30;
+
+            --persuasion;
+        }
+    }
+
+    public void increaseStatus() {
+        int value = status + 1;
+        if (value > 0 && value < abilityLimit) {
+            if (value == 2 && experience >= 50)
+                experience -= 50;
+            else if (value == 3 && experience >= 10)
+                experience -= 10;
+            else if (value >= 3 && experience >= 30)
+                experience -= 30;
+            else
+                return;
+
+            ++status;
+        }
+    }
+
+    public void decreaseStatus() {
+        int value = status - 1;
+        if (value > 0) {
+            if (value == 1)
+                experience += 50;
+            else if (value == 2)
+                experience += 10;
+            else if (value >= 3)
+                experience += 30;
+
+            --status;
+        }
+    }
+
+    public void increaseStealth() {
+        int value = stealth + 1;
+        if (value > 0 && value < abilityLimit) {
+            if (value == 2 && experience >= 50)
+                experience -= 50;
+            else if (value == 3 && experience >= 10)
+                experience -= 10;
+            else if (value >= 3 && experience >= 30)
+                experience -= 30;
+            else
+                return;
+
+            ++stealth;
+        }
+    }
+
+    public void decreaseStealth() {
+        int value = stealth - 1;
+        if (value > 0) {
+            if (value == 1)
+                experience += 50;
+            else if (value == 2)
+                experience += 10;
+            else if (value >= 3)
+                experience += 30;
+
+            --stealth;
+        }
+    }
+
+    public void increaseSurvival() {
+        int value = survival + 1;
+        if (value > 0 && value < abilityLimit) {
+            if (value == 2 && experience >= 50)
+                experience -= 50;
+            else if (value == 3 && experience >= 10)
+                experience -= 10;
+            else if (value >= 3 && experience >= 30)
+                experience -= 30;
+            else
+                return;
+
+            ++survival;
+        }
+    }
+
+    public void decreaseSurvival() {
+        int value = survival - 1;
+        if (value > 0) {
+            if (value == 1)
+                experience += 50;
+            else if (value == 2)
+                experience += 10;
+            else if (value >= 3)
+                experience += 30;
+
+            --survival;
+        }
+    }
+
+    public void increaseThievery() {
+        int value = thievery + 1;
+        if (value > 0 && value < abilityLimit) {
+            if (value == 2 && experience >= 50)
+                experience -= 50;
+            else if (value == 3 && experience >= 10)
+                experience -= 10;
+            else if (value >= 3 && experience >= 30)
+                experience -= 30;
+            else
+                return;
+
+            ++thievery;
+        }
+    }
+
+    public void decreaseThievery() {
+        int value = thievery - 1;
+        if (value > 0) {
+            if (value == 1)
+                experience += 50;
+            else if (value == 2)
+                experience += 10;
+            else if (value >= 3)
+                experience += 30;
+
+            --thievery;
+        }
+    }
+
+    public void increaseWarfare() {
+        int value = warfare + 1;
+        if (value > 0 && value < abilityLimit) {
+            if (value == 2 && experience >= 50)
+                experience -= 50;
+            else if (value == 3 && experience >= 10)
+                experience -= 10;
+            else if (value >= 3 && experience >= 30)
+                experience -= 30;
+            else
+                return;
+
+            ++warfare;
+        }
+    }
+
+    public void decreaseWarfare() {
+        int value = warfare - 1;
+        if (value > 0) {
+            if (value == 1)
+                experience += 50;
+            else if (value == 2)
+                experience += 10;
+            else if (value >= 3)
+                experience += 30;
+
+            --warfare;
+        }
+    }
+
+    public void increaseWill() {
+        int value = will + 1;
+        if (value > 0 && value < abilityLimit) {
+            if (value == 2 && experience >= 50)
+                experience -= 50;
+            else if (value == 3 && experience >= 10)
+                experience -= 10;
+            else if (value >= 3 && experience >= 30)
+                experience -= 30;
+            else
+                return;
+
+            ++will;
+        }
+    }
+
+    public void decreaseWill() {
+        int value = will - 1;
+        if (value > 0) {
+            if (value == 1)
+                experience += 50;
+            else if (value == 2)
+                experience += 10;
+            else if (value >= 3)
+                experience += 30;
+
+            --will;
+        }
+    }
+
     //++++++++++Setters and Getters++++++++++
     public void setTitle(String title) {
         this.title = title;

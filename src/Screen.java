@@ -968,6 +968,11 @@ public class Screen extends JFrame {
         back.setSize(buttonSize);
         back.setLocation(20,10);
 
+        //on to Specialty Assignment
+        JButton next = new JButton("Specialty Assignemnt");
+        next.setSize(buttonSize);
+        next.setLocation(buttonSize.width + 40, 10);
+
         //experience
         JTextField experiencField = new JTextField("Experience remaining: " + character.getExperience());
         experiencField.setEditable(false);
@@ -986,6 +991,7 @@ public class Screen extends JFrame {
 
         //Agility
         JTextField agilityValue = new JTextField("Agility: " + character.getAgility());
+        agilityValue.setEditable(false);
         agilityValue.setSize(fieldSize);
         agilityValue.setLocation(colValue1, row);
 
@@ -1000,6 +1006,7 @@ public class Screen extends JFrame {
 
         //Animal Handling
         JTextField animalHandlingValue = new JTextField("Animal Handling: " + character.getAnimalHandling());
+        animalHandlingValue.setEditable(false);
         animalHandlingValue.setSize(fieldSize);
         animalHandlingValue.setLocation(colValue1, row);
 
@@ -1014,6 +1021,7 @@ public class Screen extends JFrame {
 
         //Athletics
         JTextField athleticsValue = new JTextField("Athletics: " + character.getAthletics());
+        athleticsValue.setEditable(false);
         athleticsValue.setSize(fieldSize);
         athleticsValue.setLocation(colValue1, row);
 
@@ -1028,6 +1036,7 @@ public class Screen extends JFrame {
 
         //Awareness
         JTextField awarenessValue = new JTextField("Awareness: " + character.getAwareness());
+        awarenessValue.setEditable(false);
         awarenessValue.setSize(fieldSize);
         awarenessValue.setLocation(colValue1, row);
 
@@ -1042,6 +1051,7 @@ public class Screen extends JFrame {
 
         //Cunning
         JTextField cunningValue = new JTextField("Cunning: " + character.getCunning());
+        cunningValue.setEditable(false);
         cunningValue.setSize(fieldSize);
         cunningValue.setLocation(colValue1, row);
 
@@ -1056,6 +1066,7 @@ public class Screen extends JFrame {
 
         //Deception
         JTextField deceptionValue = new JTextField("Deception: " + character.getDeception());
+        deceptionValue.setEditable(false);
         deceptionValue.setSize(fieldSize);
         deceptionValue.setLocation(colValue1, row);
 
@@ -1070,6 +1081,7 @@ public class Screen extends JFrame {
 
         //Endurance
         JTextField enduranceValue = new JTextField("Endurance: " + character.getEndurance());
+        enduranceValue.setEditable(false);
         enduranceValue.setSize(fieldSize);
         enduranceValue.setLocation(colValue1, row);
 
@@ -1084,6 +1096,7 @@ public class Screen extends JFrame {
 
         //Fighting
         JTextField fightingValue = new JTextField("Fighting: " + character.getFighting());
+        fightingValue.setEditable(false);
         fightingValue.setSize(fieldSize);
         fightingValue.setLocation(colValue1, row);
 
@@ -1098,6 +1111,7 @@ public class Screen extends JFrame {
 
         //Healing
         JTextField healingValue = new JTextField("Healing: " + character.getHealing());
+        healingValue.setEditable(false);
         healingValue.setSize(fieldSize);
         healingValue.setLocation(colValue1, row);
 
@@ -1112,6 +1126,7 @@ public class Screen extends JFrame {
 
         //Knowledge
         JTextField knowledgeValue = new JTextField("Knowledge: " + character.getKnowledge());
+        knowledgeValue.setEditable(false);
         knowledgeValue.setSize(fieldSize);
         knowledgeValue.setLocation(colValue1, row);
 
@@ -1126,6 +1141,7 @@ public class Screen extends JFrame {
 
         //Language
         JTextField languageValue = new JTextField("Language: " + character.getLanguage());
+        languageValue.setEditable(false);
         languageValue.setSize(fieldSize);
         languageValue.setLocation(colValue2, row);
 
@@ -1140,6 +1156,7 @@ public class Screen extends JFrame {
 
         //Marksmanship
         JTextField marksmanshipValue = new JTextField("Marksmanship: " + character.getMarksmanship());
+        marksmanshipValue.setEditable(false);
         marksmanshipValue.setSize(fieldSize);
         marksmanshipValue.setLocation(colValue2, row);
 
@@ -1154,6 +1171,7 @@ public class Screen extends JFrame {
 
         //Persuasion
         JTextField persuasionValue = new JTextField("Persuasion: " + character.getPersuasion());
+        persuasionValue.setEditable(false);
         persuasionValue.setSize(fieldSize);
         persuasionValue.setLocation(colValue2, row);
 
@@ -1168,6 +1186,7 @@ public class Screen extends JFrame {
 
         //Status
         JTextField statusValue = new JTextField("Status: " + character.getStatus());
+        statusValue.setEditable(false);
         statusValue.setSize(fieldSize);
         statusValue.setLocation(colValue2, row);
 
@@ -1182,6 +1201,7 @@ public class Screen extends JFrame {
 
         //Stealth
         JTextField stealthValue = new JTextField("Stealth: " + character.getStealth());
+        stealthValue.setEditable(false);
         stealthValue.setSize(fieldSize);
         stealthValue.setLocation(colValue2, row);
 
@@ -1196,6 +1216,7 @@ public class Screen extends JFrame {
 
         //Survival
         JTextField survivalValue = new JTextField("Survival: " + character.getSurvival());
+        survivalValue.setEditable(false);
         survivalValue.setSize(fieldSize);
         survivalValue.setLocation(colValue2, row);
 
@@ -1210,6 +1231,7 @@ public class Screen extends JFrame {
 
         //Thievery
         JTextField thieveryValue = new JTextField("Thievery: " + character.getThievery());
+        thieveryValue.setEditable(false);
         thieveryValue.setSize(fieldSize);
         thieveryValue.setLocation(colValue2, row);
 
@@ -1224,6 +1246,7 @@ public class Screen extends JFrame {
 
         //Warfare
         JTextField warfareValue = new JTextField("Warfare: " + character.getWarfare());
+        warfareValue.setEditable(false);
         warfareValue.setSize(fieldSize);
         warfareValue.setLocation(colValue2, row);
 
@@ -1238,6 +1261,7 @@ public class Screen extends JFrame {
 
         //Will
         JTextField willValue = new JTextField("Will: " + character.getWill());
+        willValue.setEditable(false);
         willValue.setSize(fieldSize);
         willValue.setLocation(colValue2, row);
 
@@ -1294,8 +1318,8 @@ public class Screen extends JFrame {
         panel.add(persuasionMinus);
         panel.add(persuasionPlus);
         panel.add(statusValue);
-        panel.add(statusMinus);
-        panel.add(statusPlus);
+        //panel.add(statusMinus);
+        //panel.add(statusPlus);
         panel.add(stealthValue);
         panel.add(stealthMinus);
         panel.add(stealthPlus);
@@ -1322,40 +1346,319 @@ public class Screen extends JFrame {
         c.add(back);
         c.add(scrollPane);
         c.add(experiencField);
+        if (character.getExperience() == 0)
+            c.add(next);
 
         scrollPane.revalidate();
 
         agilityMinus.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int value = character.getAgility() - 1;
-                if (value > 0) {
-                    if (value == 1)
-                        character.setExperience(character.getExperience() + 50);
-                    else if (value == 2)
-                        character.setExperience(character.getExperience() + 10);
-                    else if (value >= 3)
-                        character.setExperience(character.getExperience() + 30);
-
-                    characterAbilityAssignment(house, character);
-                }
+                character.decreaseAgility();
+                characterAbilityAssignment(house, character);
             }
         });
 
         agilityPlus.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int value = character.getAgility() + 1;
-                if (value > 0 && value < character.getAbilityLimit()) {
-                    if (value == 2)
-                        character.setExperience(character.getExperience() - 50);
-                    else if (value  == 3)
-                        character.setExperience(character.getExperience() - 10);
-                    else if (value  >= 3)
-                        character.setExperience(character.getExperience() - 30);
+                character.increaseAgility();
+                characterAbilityAssignment(house, character);
+            }
+        });
 
-                    characterAbilityAssignment(house, character);
-                }
+        animalHandlingMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseAnimalHandling();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        animalHandlingPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseAnimalHandling();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        athleticsMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseAthletics();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        athleticsPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseAthletics();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        awarenessMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseAwareness();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        awarenessPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseAwareness();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        cunningMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseCunning();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        cunningPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseCunning();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        deceptionMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseDeception();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        deceptionPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseDeception();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        enduranceMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseEndurance();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        endurancePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseEndurance();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        fightingMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseFighting();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        fightingPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseFighting();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        healingMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseHealing();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        healingPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseHealing();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        knowledgeMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseKnowledge();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        knowledgePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseKnowledge();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        languageMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseLanguage();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        languagePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseLanguage();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        marksmanshipMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseMarksmanship();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        marksmanshipPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseMarksmanship();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        persuasionMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreasePersuasion();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        persuasionPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increasePersuasion();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        statusMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseStatus();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        statusPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseStatus();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        stealthMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseStealth();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        stealthPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseStealth();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        survivalMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseSurvival();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        survivalPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseSurvival();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        thieveryMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseThievery();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        thieveryPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseThievery();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        warfareMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseWarfare();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        warfarePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseWarfare();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        willMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseWill();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        willPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseWill();
+                characterAbilityAssignment(house, character);
+            }
+        });
+
+        next.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                characterSpecialtyAssignment(house, character);
             }
         });
 
@@ -1365,6 +1668,392 @@ public class Screen extends JFrame {
                 characterConcept(house, character);
             }
         });
+    }
+
+    private void characterSpecialtyAssignment(House house, Character character) {
+        repaint();
+        getContentPane().removeAll();
+
+        //back to Ability Assignment
+        JButton back = new JButton("Back");
+        back.setSize(buttonSize);
+        back.setLocation(20,10);
+
+        //on to
+        JButton next = new JButton("Next");
+        next.setSize(buttonSize);
+        next.setLocation(buttonSize.width + 40, 10);
+
+        //experience
+        JTextField experiencField = new JTextField("Experience remaining: " + character.getSpecialtyExperience());
+        experiencField.setEditable(false);
+        experiencField.setLocation(20, 50);
+        experiencField.setSize(buttonSize);
+
+        Dimension fieldSize = new Dimension(150, 30);
+        Dimension smallButton = new Dimension(50, 30);
+
+        int row = 10, rowInc = 40;
+        int colValue1 = 20;
+        int colButtonStart = fieldSize.width + 40;
+        int colButton = colButtonStart, colButtonInc = fieldSize.width + 10;
+
+        int[] temp; //stores specialty arrays
+
+        //Agility
+        JTextField agilityValue = new JTextField("Agility: " + character.getAgility());
+        agilityValue.setEditable(false);
+        agilityValue.setSize(fieldSize);
+        agilityValue.setLocation(colValue1, row);
+
+        temp = character.getAgilitySpecialties();
+        JButton acrobaticsPlus = new JButton("Acrobatics " + temp[0]);
+        acrobaticsPlus.setSize(fieldSize);
+        acrobaticsPlus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton acrobaticsMinus = new JButton("-");
+        acrobaticsMinus.setSize(smallButton);
+        acrobaticsMinus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton balancePlus = new JButton("Balance " + temp[1]);
+        balancePlus.setSize(fieldSize);
+        balancePlus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton balanceMinus = new JButton("-");
+        balanceMinus.setSize(smallButton);
+        balanceMinus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton contortionsPlus = new JButton("Contortions " + temp[2]);
+        contortionsPlus.setSize(fieldSize);
+        contortionsPlus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton contortionsMinus = new JButton("-");
+        contortionsMinus.setSize(smallButton);
+        contortionsMinus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton dodgePlus = new JButton("Dodge " + temp[3]);
+        dodgePlus.setSize(fieldSize);
+        dodgePlus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton dodgeMinus = new JButton("-");
+        dodgeMinus.setSize(smallButton);
+        dodgeMinus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton quicknessPlus = new JButton("Quickness " + temp[4]);
+        quicknessPlus.setSize(fieldSize);
+        quicknessPlus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton quicknessMinus = new JButton("-");
+        quicknessMinus.setSize(smallButton);
+        quicknessMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
+        row += rowInc;
+
+        //Animal Handling
+        JTextField animalHandlingValue = new JTextField("Animal Handling: " + character.getAnimalHandling());
+        animalHandlingValue.setEditable(false);
+        animalHandlingValue.setSize(fieldSize);
+        animalHandlingValue.setLocation(colValue1, row);
+
+        temp = character.getAnimalHandlingSpecialties();
+        JButton charmPlus = new JButton("Charm " + temp[0]);
+        charmPlus.setSize(fieldSize);
+        charmPlus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton charmMinus = new JButton("-");
+        charmMinus.setSize(smallButton);
+        charmMinus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton drivePlus = new JButton("Drive " + temp[1]);
+        drivePlus.setSize(fieldSize);
+        drivePlus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton driveMinus = new JButton("-");
+        driveMinus.setSize(smallButton);
+        driveMinus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton ridePlus = new JButton("Ride " + temp[2]);
+        ridePlus.setSize(fieldSize);
+        ridePlus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton rideMinus = new JButton("-");
+        rideMinus.setSize(smallButton);
+        rideMinus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton trainPlus = new JButton("Train " + temp[3]);
+        trainPlus.setSize(fieldSize);
+        trainPlus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton trainMinus = new JButton("-");
+        trainMinus.setSize(smallButton);
+        trainMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
+        row += rowInc;
+
+        //Athletics
+        JTextField athleticsValue = new JTextField("Athletics: " + character.getAthletics());
+        athleticsValue.setEditable(false);
+        athleticsValue.setSize(fieldSize);
+        athleticsValue.setLocation(colValue1, row);
+
+        temp = character.getAthleticsSpecialties();
+        JButton climbPlus = new JButton("Climb " + temp[0]);
+        climbPlus.setSize(fieldSize);
+        climbPlus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton climbMinus = new JButton("-");
+        climbMinus.setSize(smallButton);
+        climbMinus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton jumpPlus = new JButton("Jump " + temp[1]);
+        jumpPlus.setSize(fieldSize);
+        jumpPlus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton jumpMinus = new JButton("-");
+        jumpMinus.setSize(smallButton);
+        jumpMinus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton runPlus = new JButton("Run " + temp[2]);
+        runPlus.setSize(fieldSize);
+        runPlus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton runMinus = new JButton("-");
+        runMinus.setSize(smallButton);
+        runMinus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton strengthPlus = new JButton("Strength " + temp[3]);
+        strengthPlus.setSize(fieldSize);
+        strengthPlus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton strengthMinus = new JButton("-");
+        strengthMinus.setSize(smallButton);
+        strengthMinus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton swimPlus = new JButton("Swim " + temp[4]);
+        swimPlus.setSize(fieldSize);
+        swimPlus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton swimMinus = new JButton("-");
+        swimMinus.setSize(smallButton);
+        swimMinus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton throwPlus = new JButton("Throw " + temp[5]);
+        throwPlus.setSize(fieldSize);
+        throwPlus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton throwMinus = new JButton("-");
+        throwMinus.setSize(smallButton);
+        throwMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
+        row += rowInc;
+
+        //Awareness
+        JTextField awarenessValue = new JTextField("Awareness: " + character.getAwareness());
+        awarenessValue.setEditable(false);
+        awarenessValue.setSize(fieldSize);
+        awarenessValue.setLocation(colValue1, row);
+
+        temp = character.getAwarenessSpecialties();
+        JButton empathyPlus = new JButton("Empathy " + temp[0]);
+        empathyPlus.setSize(fieldSize);
+        empathyPlus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton empathyMinus = new JButton("-");
+        empathyMinus.setSize(smallButton);
+        empathyMinus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton noticePlus = new JButton("Notice " + temp[1]);
+        noticePlus.setSize(fieldSize);
+        noticePlus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton noticeMinus = new JButton("-");
+        noticeMinus.setSize(smallButton);
+        noticeMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
+        row += rowInc;
+
+        //Cunning
+        JTextField cunningValue = new JTextField("Cunning: " + character.getCunning());
+        cunningValue.setEditable(false);
+        cunningValue.setSize(fieldSize);
+        cunningValue.setLocation(colValue1, row);
+        row += rowInc;
+
+        //Deception
+        JTextField deceptionValue = new JTextField("Deception: " + character.getDeception());
+        deceptionValue.setEditable(false);
+        deceptionValue.setSize(fieldSize);
+        deceptionValue.setLocation(colValue1, row);
+        row += rowInc;
+
+        //Endurance
+        JTextField enduranceValue = new JTextField("Endurance: " + character.getEndurance());
+        enduranceValue.setEditable(false);
+        enduranceValue.setSize(fieldSize);
+        enduranceValue.setLocation(colValue1, row);
+        row += rowInc;
+
+        //Fighting
+        JTextField fightingValue = new JTextField("Fighting: " + character.getFighting());
+        fightingValue.setEditable(false);
+        fightingValue.setSize(fieldSize);
+        fightingValue.setLocation(colValue1, row);
+        row += rowInc;
+
+        //Healing
+        JTextField healingValue = new JTextField("Healing: " + character.getHealing());
+        healingValue.setEditable(false);
+        healingValue.setSize(fieldSize);
+        healingValue.setLocation(colValue1, row);
+        row += rowInc;
+
+        //Knowledge
+        JTextField knowledgeValue = new JTextField("Knowledge: " + character.getKnowledge());
+        knowledgeValue.setEditable(false);
+        knowledgeValue.setSize(fieldSize);
+        knowledgeValue.setLocation(colValue1, row);
+        row += rowInc;
+
+        //Language
+        JTextField languageValue = new JTextField("Language: " + character.getLanguage());
+        languageValue.setEditable(false);
+        languageValue.setSize(fieldSize);
+        languageValue.setLocation(colValue1, row);
+        row += rowInc;
+
+        //Marksmanship
+        JTextField marksmanshipValue = new JTextField("Marksmanship: " + character.getMarksmanship());
+        marksmanshipValue.setEditable(false);
+        marksmanshipValue.setSize(fieldSize);
+        marksmanshipValue.setLocation(colValue1, row);
+        row += rowInc;
+
+        //Persuasion
+        JTextField persuasionValue = new JTextField("Persuasion: " + character.getPersuasion());
+        persuasionValue.setEditable(false);
+        persuasionValue.setSize(fieldSize);
+        persuasionValue.setLocation(colValue1, row);
+        row += rowInc;
+
+        //Status
+        JTextField statusValue = new JTextField("Status: " + character.getStatus());
+        statusValue.setEditable(false);
+        statusValue.setSize(fieldSize);
+        statusValue.setLocation(colValue1, row);
+        row += rowInc;
+
+        //Stealth
+        JTextField stealthValue = new JTextField("Stealth: " + character.getStealth());
+        stealthValue.setEditable(false);
+        stealthValue.setSize(fieldSize);
+        stealthValue.setLocation(colValue1, row);
+        row += rowInc;
+
+        //Survival
+        JTextField survivalValue = new JTextField("Survival: " + character.getSurvival());
+        survivalValue.setEditable(false);
+        survivalValue.setSize(fieldSize);
+        survivalValue.setLocation(colValue1, row);
+        row += rowInc;
+
+        //Thievery
+        JTextField thieveryValue = new JTextField("Thievery: " + character.getThievery());
+        thieveryValue.setEditable(false);
+        thieveryValue.setSize(fieldSize);
+        thieveryValue.setLocation(colValue1, row);
+        row += rowInc;
+
+        //Warfare
+        JTextField warfareValue = new JTextField("Warfare: " + character.getWarfare());
+        warfareValue.setEditable(false);
+        warfareValue.setSize(fieldSize);
+        warfareValue.setLocation(colValue1, row);
+        row += rowInc;
+
+        //Will
+        JTextField willValue = new JTextField("Will: " + character.getWill());
+        willValue.setEditable(false);
+        willValue.setSize(fieldSize);
+        willValue.setLocation(colValue1, row);
+        row += rowInc;
+
+        JPanel panel = new JPanel(null);
+        panel.setSize(xMax - 200, yMax);
+        //panel.setLocation(0,0);
+
+        panel.add(agilityValue);
+        panel.add(animalHandlingValue);
+        panel.add(athleticsValue);
+        panel.add(awarenessValue);
+        panel.add(cunningValue);
+        panel.add(deceptionValue);
+        panel.add(enduranceValue);
+        panel.add(fightingValue);
+        panel.add(healingValue);
+        panel.add(knowledgeValue);
+        panel.add(languageValue);
+        panel.add(marksmanshipValue);
+        panel.add(persuasionValue);
+        panel.add(statusValue);
+        panel.add(stealthValue);
+        panel.add(survivalValue);
+        panel.add(thieveryValue);
+        panel.add(warfareValue);
+        panel.add(willValue);
+
+        JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane.setLocation(100, 100);
+        scrollPane.setSize(xMax - 200, yMax - 200);
+
+
+        c = getContentPane();
+
+        c.add(back);
+        c.add(scrollPane);
+        c.add(experiencField);
+        if (character.getExperience() == 0)
+            c.add(next);
+
+
+        scrollPane.revalidate();
+
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                characterAbilityAssignment(house, character);
+            }
+        });
+
     }
 
     private void characterSheet(CharacterNode character, HouseNode houseNode) {
