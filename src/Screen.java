@@ -780,7 +780,11 @@ public class Screen extends JFrame {
 
         JButton submit = new JButton("Submit Input");
         submit.setLocation(colInput, row);
-        submit.setSize(buttonSize);
+        submit.setSize(fieldSize);
+
+        JButton rollAll = new JButton("Roll All");
+        rollAll.setLocation(colButton, row);
+        rollAll.setSize(buttonSize);
         row += rowInc;
 
         JButton next = new JButton("Assign Abilities");
@@ -823,6 +827,7 @@ public class Screen extends JFrame {
         panel.add(viceInput);
         panel.add(viceButton);
         panel.add(submit);
+        panel.add(rollAll);
 
         //move on to ability assignment
         if (character.getBackground() != null && character.getAge() != null && character.getGoal() != null
@@ -909,6 +914,23 @@ public class Screen extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Data data = new Data();
                 character.setVice(data.randVice());
+                characterConcept(house, character);
+            }
+        });
+
+        rollAll.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Data data = new Data();
+                character.setVice(data.randVice());
+                character.setVirtue(data.randVirtue());
+                character.setGoal(data.randGoal());
+                character.setMotivation(data.randMotivation());
+                character.setBackground(data.randBackground());
+                Random rand = new Random();
+                character.setStatus(rand.nextInt(house.getMaxStatus())+1);
+                character.randAge();
+
                 characterConcept(house, character);
             }
         });
@@ -1679,7 +1701,7 @@ public class Screen extends JFrame {
         back.setSize(buttonSize);
         back.setLocation(20,10);
 
-        //on to
+        //on to Destiny and Benefits
         JButton next = new JButton("Next");
         next.setSize(buttonSize);
         next.setLocation(buttonSize.width + 40, 10);
@@ -1694,8 +1716,8 @@ public class Screen extends JFrame {
         Dimension smallButton = new Dimension(50, 30);
 
         int row = 10, rowInc = 40;
-        int colValue1 = 20;
-        int colButtonStart = fieldSize.width + 40;
+        int colValue1 = 10;
+        int colButtonStart = colValue1 + fieldSize.width + 10;
         int colButton = colButtonStart, colButtonInc = fieldSize.width + 10;
 
         int[] temp; //stores specialty arrays
@@ -1710,47 +1732,48 @@ public class Screen extends JFrame {
         JButton acrobaticsPlus = new JButton("Acrobatics " + temp[0]);
         acrobaticsPlus.setSize(fieldSize);
         acrobaticsPlus.setLocation(colButton, row);
-        colButton += smallButton.width + 10;
+        colButton += colButtonInc;
 
         JButton acrobaticsMinus = new JButton("-");
         acrobaticsMinus.setSize(smallButton);
         acrobaticsMinus.setLocation(colButton, row);
-        colButton += colButtonInc;
+        colButton += smallButton.width + 10;
 
         JButton balancePlus = new JButton("Balance " + temp[1]);
         balancePlus.setSize(fieldSize);
         balancePlus.setLocation(colButton, row);
-        colButton += smallButton.width + 10;
+        colButton += colButtonInc;
 
         JButton balanceMinus = new JButton("-");
         balanceMinus.setSize(smallButton);
         balanceMinus.setLocation(colButton, row);
-        colButton += colButtonInc;
+        colButton += smallButton.width + 10;
 
         JButton contortionsPlus = new JButton("Contortions " + temp[2]);
         contortionsPlus.setSize(fieldSize);
         contortionsPlus.setLocation(colButton, row);
-        colButton += smallButton.width + 10;
+        colButton += colButtonInc;
 
         JButton contortionsMinus = new JButton("-");
         contortionsMinus.setSize(smallButton);
         contortionsMinus.setLocation(colButton, row);
-        colButton += colButtonInc;
+        colButton = colButtonStart;
+        row += rowInc;
 
         JButton dodgePlus = new JButton("Dodge " + temp[3]);
         dodgePlus.setSize(fieldSize);
         dodgePlus.setLocation(colButton, row);
-        colButton += smallButton.width + 10;
+        colButton += colButtonInc;
 
         JButton dodgeMinus = new JButton("-");
         dodgeMinus.setSize(smallButton);
         dodgeMinus.setLocation(colButton, row);
-        colButton += colButtonInc;
+        colButton += smallButton.width + 10;
 
         JButton quicknessPlus = new JButton("Quickness " + temp[4]);
         quicknessPlus.setSize(fieldSize);
         quicknessPlus.setLocation(colButton, row);
-        colButton += smallButton.width + 10;
+        colButton += colButtonInc;
 
         JButton quicknessMinus = new JButton("-");
         quicknessMinus.setSize(smallButton);
@@ -1765,40 +1788,41 @@ public class Screen extends JFrame {
         animalHandlingValue.setLocation(colValue1, row);
 
         temp = character.getAnimalHandlingSpecialties();
-        JButton charmPlus = new JButton("Charm " + temp[0]);
-        charmPlus.setSize(fieldSize);
-        charmPlus.setLocation(colButton, row);
-        colButton += smallButton.width + 10;
-
-        JButton charmMinus = new JButton("-");
-        charmMinus.setSize(smallButton);
-        charmMinus.setLocation(colButton, row);
+        JButton charmAnimalPlus = new JButton("Charm " + temp[0]);
+        charmAnimalPlus.setSize(fieldSize);
+        charmAnimalPlus.setLocation(colButton, row);
         colButton += colButtonInc;
+
+        JButton charmAnimalMinus = new JButton("-");
+        charmAnimalMinus.setSize(smallButton);
+        charmAnimalMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
 
         JButton drivePlus = new JButton("Drive " + temp[1]);
         drivePlus.setSize(fieldSize);
         drivePlus.setLocation(colButton, row);
-        colButton += smallButton.width + 10;
+        colButton += colButtonInc;
 
         JButton driveMinus = new JButton("-");
         driveMinus.setSize(smallButton);
         driveMinus.setLocation(colButton, row);
-        colButton += colButtonInc;
+        colButton += smallButton.width + 10;
 
         JButton ridePlus = new JButton("Ride " + temp[2]);
         ridePlus.setSize(fieldSize);
         ridePlus.setLocation(colButton, row);
-        colButton += smallButton.width + 10;
+        colButton += colButtonInc;
 
         JButton rideMinus = new JButton("-");
         rideMinus.setSize(smallButton);
         rideMinus.setLocation(colButton, row);
-        colButton += colButtonInc;
+        colButton = colButtonStart;
+        row += rowInc;
 
         JButton trainPlus = new JButton("Train " + temp[3]);
         trainPlus.setSize(fieldSize);
         trainPlus.setLocation(colButton, row);
-        colButton += smallButton.width + 10;
+        colButton += colButtonInc;
 
         JButton trainMinus = new JButton("-");
         trainMinus.setSize(smallButton);
@@ -1816,57 +1840,58 @@ public class Screen extends JFrame {
         JButton climbPlus = new JButton("Climb " + temp[0]);
         climbPlus.setSize(fieldSize);
         climbPlus.setLocation(colButton, row);
-        colButton += smallButton.width + 10;
+        colButton += colButtonInc;
 
         JButton climbMinus = new JButton("-");
         climbMinus.setSize(smallButton);
         climbMinus.setLocation(colButton, row);
-        colButton += colButtonInc;
+        colButton += smallButton.width + 10;
 
         JButton jumpPlus = new JButton("Jump " + temp[1]);
         jumpPlus.setSize(fieldSize);
         jumpPlus.setLocation(colButton, row);
-        colButton += smallButton.width + 10;
+        colButton += colButtonInc;
 
         JButton jumpMinus = new JButton("-");
         jumpMinus.setSize(smallButton);
         jumpMinus.setLocation(colButton, row);
-        colButton += colButtonInc;
+        colButton += smallButton.width + 10;
 
         JButton runPlus = new JButton("Run " + temp[2]);
         runPlus.setSize(fieldSize);
         runPlus.setLocation(colButton, row);
-        colButton += smallButton.width + 10;
+        colButton += colButtonInc;
 
         JButton runMinus = new JButton("-");
         runMinus.setSize(smallButton);
         runMinus.setLocation(colButton, row);
-        colButton += colButtonInc;
+        colButton = colButtonStart;
+        row += rowInc;
 
         JButton strengthPlus = new JButton("Strength " + temp[3]);
         strengthPlus.setSize(fieldSize);
         strengthPlus.setLocation(colButton, row);
-        colButton += smallButton.width + 10;
+        colButton += colButtonInc;
 
         JButton strengthMinus = new JButton("-");
         strengthMinus.setSize(smallButton);
         strengthMinus.setLocation(colButton, row);
-        colButton += colButtonInc;
+        colButton += smallButton.width + 10;
 
         JButton swimPlus = new JButton("Swim " + temp[4]);
         swimPlus.setSize(fieldSize);
         swimPlus.setLocation(colButton, row);
-        colButton += smallButton.width + 10;
+        colButton += colButtonInc;
 
         JButton swimMinus = new JButton("-");
         swimMinus.setSize(smallButton);
         swimMinus.setLocation(colButton, row);
-        colButton += colButtonInc;
+        colButton += smallButton.width + 10;
 
         JButton throwPlus = new JButton("Throw " + temp[5]);
         throwPlus.setSize(fieldSize);
         throwPlus.setLocation(colButton, row);
-        colButton += smallButton.width + 10;
+        colButton += colButtonInc;
 
         JButton throwMinus = new JButton("-");
         throwMinus.setSize(smallButton);
@@ -1884,17 +1909,17 @@ public class Screen extends JFrame {
         JButton empathyPlus = new JButton("Empathy " + temp[0]);
         empathyPlus.setSize(fieldSize);
         empathyPlus.setLocation(colButton, row);
-        colButton += smallButton.width + 10;
+        colButton += colButtonInc;
 
         JButton empathyMinus = new JButton("-");
         empathyMinus.setSize(smallButton);
         empathyMinus.setLocation(colButton, row);
-        colButton += colButtonInc;
+        colButton += smallButton.width + 10;
 
         JButton noticePlus = new JButton("Notice " + temp[1]);
         noticePlus.setSize(fieldSize);
         noticePlus.setLocation(colButton, row);
-        colButton += smallButton.width + 10;
+        colButton += colButtonInc;
 
         JButton noticeMinus = new JButton("-");
         noticeMinus.setSize(smallButton);
@@ -1907,6 +1932,37 @@ public class Screen extends JFrame {
         cunningValue.setEditable(false);
         cunningValue.setSize(fieldSize);
         cunningValue.setLocation(colValue1, row);
+
+        temp = character.getCunningSpecialties();
+        JButton decipherPlus = new JButton("Decipher " + temp[0]);
+        decipherPlus.setSize(fieldSize);
+        decipherPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton decipherMinus = new JButton("-");
+        decipherMinus.setSize(smallButton);
+        decipherMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton logicPlus = new JButton("Logic " + temp[1]);
+        logicPlus.setSize(fieldSize);
+        logicPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton logicMinus = new JButton("-");
+        logicMinus.setSize(smallButton);
+        logicMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton memoryPlus = new JButton("Memory " + temp[2]);
+        memoryPlus.setSize(fieldSize);
+        memoryPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton memoryMinus = new JButton("-");
+        memoryMinus.setSize(smallButton);
+        memoryMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
         row += rowInc;
 
         //Deception
@@ -1914,6 +1970,48 @@ public class Screen extends JFrame {
         deceptionValue.setEditable(false);
         deceptionValue.setSize(fieldSize);
         deceptionValue.setLocation(colValue1, row);
+
+        temp = character.getDeceptionSpecialties();
+        JButton actPlus = new JButton("Act " + temp[0]);
+        actPlus.setSize(fieldSize);
+        actPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton actMinus = new JButton("-");
+        actMinus.setSize(smallButton);
+        actMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton bluffPlus = new JButton("Bluff " + temp[1]);
+        bluffPlus.setSize(fieldSize);
+        bluffPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton bluffMinus = new JButton("-");
+        bluffMinus.setSize(smallButton);
+        bluffMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton cheatPlus = new JButton("Cheat " + temp[2]);
+        cheatPlus.setSize(fieldSize);
+        cheatPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton cheatMinus = new JButton("-");
+        cheatMinus.setSize(smallButton);
+        cheatMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
+        row += rowInc;
+
+        JButton disguisePlus = new JButton("Disguise " + temp[3]);
+        disguisePlus.setSize(fieldSize);
+        disguisePlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton disguiseMinus = new JButton("-");
+        disguiseMinus.setSize(smallButton);
+        disguiseMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
         row += rowInc;
 
         //Endurance
@@ -1921,6 +2019,27 @@ public class Screen extends JFrame {
         enduranceValue.setEditable(false);
         enduranceValue.setSize(fieldSize);
         enduranceValue.setLocation(colValue1, row);
+
+        temp = character.getEnduranceSpecialties();
+        JButton resiliencePlus = new JButton("Resilience " + temp[0]);
+        resiliencePlus.setSize(fieldSize);
+        resiliencePlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton resilienceMinus = new JButton("-");
+        resilienceMinus.setSize(smallButton);
+        resilienceMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton staminaPlus = new JButton("Stamina " + temp[1]);
+        staminaPlus.setSize(fieldSize);
+        staminaPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton staminaMinus = new JButton("-");
+        staminaMinus.setSize(smallButton);
+        staminaMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
         row += rowInc;
 
         //Fighting
@@ -1928,6 +2047,99 @@ public class Screen extends JFrame {
         fightingValue.setEditable(false);
         fightingValue.setSize(fieldSize);
         fightingValue.setLocation(colValue1, row);
+
+        temp = character.getFightingSpecialties();
+        JButton axesPlus = new JButton("Axes " + temp[0]);
+        axesPlus.setSize(fieldSize);
+        axesPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton axesMinus = new JButton("-");
+        axesMinus.setSize(smallButton);
+        axesMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton bludgeonsPlus = new JButton("Bludgeons " + temp[1]);
+        bludgeonsPlus.setSize(fieldSize);
+        bludgeonsPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton bludgeonsMinus = new JButton("-");
+        bludgeonsMinus.setSize(smallButton);
+        bludgeonsMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton brawlingPlus = new JButton("Brawling " + temp[2]);
+        brawlingPlus.setSize(fieldSize);
+        brawlingPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton brawlingMinus = new JButton("-");
+        brawlingMinus.setSize(smallButton);
+        brawlingMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
+        row += rowInc;
+
+        JButton fencingPlus = new JButton("Fencing " + temp[3]);
+        fencingPlus.setSize(fieldSize);
+        fencingPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton fencingMinus = new JButton("-");
+        fencingMinus.setSize(smallButton);
+        fencingMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton longbladesPlus = new JButton("Longblades " + temp[4]);
+        longbladesPlus.setSize(fieldSize);
+        longbladesPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton longbladesMinus = new JButton("-");
+        longbladesMinus.setSize(smallButton);
+        longbladesMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton poleArmsPlus = new JButton("Pole-arms " + temp[5]);
+        poleArmsPlus.setSize(fieldSize);
+        poleArmsPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton poleArmsMinus = new JButton("-");
+        poleArmsMinus.setSize(smallButton);
+        poleArmsMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
+        row += rowInc;
+
+        JButton shieldsPlus = new JButton("Shields " + temp[6]);
+        shieldsPlus.setSize(fieldSize);
+        shieldsPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton shieldsMinus = new JButton("-");
+        shieldsMinus.setSize(smallButton);
+        shieldsMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton shortbladesPlus = new JButton("Shortblades " + temp[7]);
+        shortbladesPlus.setSize(fieldSize);
+        shortbladesPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton shortbladesMinus = new JButton("-");
+        shortbladesMinus.setSize(smallButton);
+        shortbladesMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton spearsPlus = new JButton("Spears " + temp[8]);
+        spearsPlus.setSize(fieldSize);
+        spearsPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton spearsMinus = new JButton("-");
+        spearsMinus.setSize(smallButton);
+        spearsMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
         row += rowInc;
 
         //Healing
@@ -1935,6 +2147,37 @@ public class Screen extends JFrame {
         healingValue.setEditable(false);
         healingValue.setSize(fieldSize);
         healingValue.setLocation(colValue1, row);
+
+        temp = character.getHealingSpecialties();
+        JButton diagnosePlus = new JButton("Diagnose " + temp[0]);
+        diagnosePlus.setSize(fieldSize);
+        diagnosePlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton diagnoseMinus = new JButton("-");
+        diagnoseMinus.setSize(smallButton);
+        diagnoseMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton treatAilmentPlus = new JButton("TreatAilment " + temp[1]);
+        treatAilmentPlus.setSize(fieldSize);
+        treatAilmentPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton treatAilmentMinus = new JButton("-");
+        treatAilmentMinus.setSize(smallButton);
+        treatAilmentMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton treatInjuryPlus = new JButton("TreatInjury " + temp[2]);
+        treatInjuryPlus.setSize(fieldSize);
+        treatInjuryPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton treatInjuryMinus = new JButton("-");
+        treatInjuryMinus.setSize(smallButton);
+        treatInjuryMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
         row += rowInc;
 
         //Knowledge
@@ -1942,6 +2185,37 @@ public class Screen extends JFrame {
         knowledgeValue.setEditable(false);
         knowledgeValue.setSize(fieldSize);
         knowledgeValue.setLocation(colValue1, row);
+
+        temp = character.getKnowledgeSpecialties();
+        JButton educationPlus = new JButton("Education " + temp[0]);
+        educationPlus.setSize(fieldSize);
+        educationPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton educationMinus = new JButton("-");
+        educationMinus.setSize(smallButton);
+        educationMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton researchPlus = new JButton("Research " + temp[1]);
+        researchPlus.setSize(fieldSize);
+        researchPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton researchMinus = new JButton("-");
+        researchMinus.setSize(smallButton);
+        researchMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton streetwisePlus = new JButton("Streetwise " + temp[2]);
+        streetwisePlus.setSize(fieldSize);
+        streetwisePlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton streetwiseMinus = new JButton("-");
+        streetwiseMinus.setSize(smallButton);
+        streetwiseMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
         row += rowInc;
 
         //Language
@@ -1956,6 +2230,48 @@ public class Screen extends JFrame {
         marksmanshipValue.setEditable(false);
         marksmanshipValue.setSize(fieldSize);
         marksmanshipValue.setLocation(colValue1, row);
+
+        temp = character.getMarksmanshipSpecialties();
+        JButton bowsPlus = new JButton("Bows " + temp[0]);
+        bowsPlus.setSize(fieldSize);
+        bowsPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton bowsMinus = new JButton("-");
+        bowsMinus.setSize(smallButton);
+        bowsMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton crossbowsPlus = new JButton("Crossbows " + temp[1]);
+        crossbowsPlus.setSize(fieldSize);
+        crossbowsPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton crossbowsMinus = new JButton("-");
+        crossbowsMinus.setSize(smallButton);
+        crossbowsMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton siegePlus = new JButton("Siege " + temp[2]);
+        siegePlus.setSize(fieldSize);
+        siegePlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton siegeMinus = new JButton("-");
+        siegeMinus.setSize(smallButton);
+        siegeMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
+        row += rowInc;
+
+        JButton thrownPlus = new JButton("Thrown " + temp[3]);
+        thrownPlus.setSize(fieldSize);
+        thrownPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton thrownMinus = new JButton("-");
+        thrownMinus.setSize(smallButton);
+        thrownMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
         row += rowInc;
 
         //Persuasion
@@ -1963,6 +2279,79 @@ public class Screen extends JFrame {
         persuasionValue.setEditable(false);
         persuasionValue.setSize(fieldSize);
         persuasionValue.setLocation(colValue1, row);
+
+        temp = character.getPersuasionSpecialties();
+        JButton bargainPlus = new JButton("Bargain " + temp[0]);
+        bargainPlus.setSize(fieldSize);
+        bargainPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton bargainMinus = new JButton("-");
+        bargainMinus.setSize(smallButton);
+        bargainMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton charmPlus = new JButton("Charm " + temp[1]);
+        charmPlus.setSize(fieldSize);
+        charmPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton charmMinus = new JButton("-");
+        charmMinus.setSize(smallButton);
+        charmMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton convincePlus = new JButton("Convince " + temp[2]);
+        convincePlus.setSize(fieldSize);
+        convincePlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton convinceMinus = new JButton("-");
+        convinceMinus.setSize(smallButton);
+        convinceMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
+        row += rowInc;
+
+        JButton incitePlus = new JButton("Incite " + temp[3]);
+        incitePlus.setSize(fieldSize);
+        incitePlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton inciteMinus = new JButton("-");
+        inciteMinus.setSize(smallButton);
+        inciteMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton intimidatePlus = new JButton("Intimidate " + temp[4]);
+        intimidatePlus.setSize(fieldSize);
+        intimidatePlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton intimidateMinus = new JButton("-");
+        intimidateMinus.setSize(smallButton);
+        intimidateMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton seducePlus = new JButton("Seduce " + temp[5]);
+        seducePlus.setSize(fieldSize);
+        seducePlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton seduceMinus = new JButton("-");
+        seduceMinus.setSize(smallButton);
+        seduceMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
+        row += rowInc;
+
+        JButton tauntPlus = new JButton("Taunt " + temp[6]);
+        tauntPlus.setSize(fieldSize);
+        tauntPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton tauntMinus = new JButton("-");
+        tauntMinus.setSize(smallButton);
+        tauntMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
         row += rowInc;
 
         //Status
@@ -1970,6 +2359,48 @@ public class Screen extends JFrame {
         statusValue.setEditable(false);
         statusValue.setSize(fieldSize);
         statusValue.setLocation(colValue1, row);
+
+        temp = character.getStatusSpecialties();
+        JButton breedingPlus = new JButton("Breeding " + temp[0]);
+        breedingPlus.setSize(fieldSize);
+        breedingPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton breedingMinus = new JButton("-");
+        breedingMinus.setSize(smallButton);
+        breedingMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton reputationPlus = new JButton("Reputation " + temp[1]);
+        reputationPlus.setSize(fieldSize);
+        reputationPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton reputationMinus = new JButton("-");
+        reputationMinus.setSize(smallButton);
+        reputationMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton stewardshipPlus = new JButton("Stewardship " + temp[2]);
+        stewardshipPlus.setSize(fieldSize);
+        stewardshipPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton stewardshipMinus = new JButton("-");
+        stewardshipMinus.setSize(smallButton);
+        stewardshipMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
+        row += rowInc;
+
+        JButton tournamentsPlus = new JButton("Tournaments " + temp[3]);
+        tournamentsPlus.setSize(fieldSize);
+        tournamentsPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton tournamentsMinus = new JButton("-");
+        tournamentsMinus.setSize(smallButton);
+        tournamentsMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
         row += rowInc;
 
         //Stealth
@@ -1977,6 +2408,27 @@ public class Screen extends JFrame {
         stealthValue.setEditable(false);
         stealthValue.setSize(fieldSize);
         stealthValue.setLocation(colValue1, row);
+
+        temp = character.getStealthSpecialties();
+        JButton blendInPlus = new JButton("BlendIn " + temp[0]);
+        blendInPlus.setSize(fieldSize);
+        blendInPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton blendInMinus = new JButton("-");
+        blendInMinus.setSize(smallButton);
+        blendInMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton sneakPlus = new JButton("Sneak " + temp[1]);
+        sneakPlus.setSize(fieldSize);
+        sneakPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton sneakMinus = new JButton("-");
+        sneakMinus.setSize(smallButton);
+        sneakMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
         row += rowInc;
 
         //Survival
@@ -1984,6 +2436,48 @@ public class Screen extends JFrame {
         survivalValue.setEditable(false);
         survivalValue.setSize(fieldSize);
         survivalValue.setLocation(colValue1, row);
+
+        temp = character.getSurvivalSpecialties();
+        JButton foragePlus = new JButton("Forage " + temp[0]);
+        foragePlus.setSize(fieldSize);
+        foragePlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton forageMinus = new JButton("-");
+        forageMinus.setSize(smallButton);
+        forageMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton huntPlus = new JButton("Hunt " + temp[1]);
+        huntPlus.setSize(fieldSize);
+        huntPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton huntMinus = new JButton("-");
+        huntMinus.setSize(smallButton);
+        huntMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton orientationPlus = new JButton("Orientation " + temp[2]);
+        orientationPlus.setSize(fieldSize);
+        orientationPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton orientationMinus = new JButton("-");
+        orientationMinus.setSize(smallButton);
+        orientationMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
+        row += rowInc;
+
+        JButton trackPlus = new JButton("Track " + temp[3]);
+        trackPlus.setSize(fieldSize);
+        trackPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton trackMinus = new JButton("-");
+        trackMinus.setSize(smallButton);
+        trackMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
         row += rowInc;
 
         //Thievery
@@ -1991,6 +2485,37 @@ public class Screen extends JFrame {
         thieveryValue.setEditable(false);
         thieveryValue.setSize(fieldSize);
         thieveryValue.setLocation(colValue1, row);
+
+        temp = character.getThieverySpecialties();
+        JButton pickLockPlus = new JButton("PickLock " + temp[0]);
+        pickLockPlus.setSize(fieldSize);
+        pickLockPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton pickLockMinus = new JButton("-");
+        pickLockMinus.setSize(smallButton);
+        pickLockMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton sleightOfHandPlus = new JButton("SleightOfHand " + temp[1]);
+        sleightOfHandPlus.setSize(fieldSize);
+        sleightOfHandPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton sleightOfHandMinus = new JButton("-");
+        sleightOfHandMinus.setSize(smallButton);
+        sleightOfHandMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton stealPlus = new JButton("Steal " + temp[2]);
+        stealPlus.setSize(fieldSize);
+        stealPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton stealMinus = new JButton("-");
+        stealMinus.setSize(smallButton);
+        stealMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
         row += rowInc;
 
         //Warfare
@@ -1998,6 +2523,37 @@ public class Screen extends JFrame {
         warfareValue.setEditable(false);
         warfareValue.setSize(fieldSize);
         warfareValue.setLocation(colValue1, row);
+
+        temp = character.getWarfareSpecialties();
+        JButton commandPlus = new JButton("Command " + temp[0]);
+        commandPlus.setSize(fieldSize);
+        commandPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton commandMinus = new JButton("-");
+        commandMinus.setSize(smallButton);
+        commandMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton strategyPlus = new JButton("Strategy " + temp[1]);
+        strategyPlus.setSize(fieldSize);
+        strategyPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton strategyMinus = new JButton("-");
+        strategyMinus.setSize(smallButton);
+        strategyMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton tacticsPlus = new JButton("Tactics " + temp[2]);
+        tacticsPlus.setSize(fieldSize);
+        tacticsPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton tacticsMinus = new JButton("-");
+        tacticsMinus.setSize(smallButton);
+        tacticsMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
         row += rowInc;
 
         //Will
@@ -2005,11 +2561,41 @@ public class Screen extends JFrame {
         willValue.setEditable(false);
         willValue.setSize(fieldSize);
         willValue.setLocation(colValue1, row);
+
+        temp = character.getWillSpecialties();
+        JButton couragePlus = new JButton("Courage " + temp[0]);
+        couragePlus.setSize(fieldSize);
+        couragePlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton courageMinus = new JButton("-");
+        courageMinus.setSize(smallButton);
+        courageMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton coordinatePlus = new JButton("Coordinate " + temp[1]);
+        coordinatePlus.setSize(fieldSize);
+        coordinatePlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton coordinateMinus = new JButton("-");
+        coordinateMinus.setSize(smallButton);
+        coordinateMinus.setLocation(colButton, row);
+        colButton += smallButton.width + 10;
+
+        JButton dedicationPlus = new JButton("Dedication " + temp[2]);
+        dedicationPlus.setSize(fieldSize);
+        dedicationPlus.setLocation(colButton, row);
+        colButton += colButtonInc;
+
+        JButton dedicationMinus = new JButton("-");
+        dedicationMinus.setSize(smallButton);
+        dedicationMinus.setLocation(colButton, row);
+        colButton = colButtonStart;
         row += rowInc;
 
         JPanel panel = new JPanel(null);
-        panel.setSize(xMax - 200, yMax);
-        //panel.setLocation(0,0);
+        panel.setPreferredSize(new Dimension(xMax-150, 1220));
 
         panel.add(agilityValue);
         panel.add(animalHandlingValue);
@@ -2031,9 +2617,153 @@ public class Screen extends JFrame {
         panel.add(warfareValue);
         panel.add(willValue);
 
+        panel.add(acrobaticsMinus);
+        panel.add(acrobaticsPlus);
+        panel.add(balanceMinus);
+        panel.add(balancePlus);
+        panel.add(contortionsMinus);
+        panel.add(contortionsPlus);
+        panel.add(dodgeMinus);
+        panel.add(dodgePlus);
+        panel.add(quicknessMinus);
+        panel.add(quicknessPlus);
+        panel.add(charmAnimalMinus);
+        panel.add(charmAnimalPlus);
+        panel.add(driveMinus);
+        panel.add(drivePlus);
+        panel.add(rideMinus);
+        panel.add(ridePlus);
+        panel.add(trainMinus);
+        panel.add(trainPlus);
+        panel.add(climbMinus);
+        panel.add(climbPlus);
+        panel.add(jumpMinus);
+        panel.add(jumpPlus);
+        panel.add(runMinus);
+        panel.add(runPlus);
+        panel.add(strengthMinus);
+        panel.add(strengthPlus);
+        panel.add(swimMinus);
+        panel.add(swimPlus);
+        panel.add(throwMinus);
+        panel.add(throwPlus);
+        panel.add(empathyMinus);
+        panel.add(empathyPlus);
+        panel.add(noticeMinus);
+        panel.add(noticePlus);
+        panel.add(decipherMinus);
+        panel.add(decipherPlus);
+        panel.add(logicMinus);
+        panel.add(logicPlus);
+        panel.add(memoryMinus);
+        panel.add(memoryPlus);
+        panel.add(actMinus);
+        panel.add(actPlus);
+        panel.add(bluffMinus);
+        panel.add(bluffPlus);
+        panel.add(cheatMinus);
+        panel.add(cheatPlus);
+        panel.add(disguiseMinus);
+        panel.add(disguisePlus);
+        panel.add(resilienceMinus);
+        panel.add(resiliencePlus);
+        panel.add(staminaMinus);
+        panel.add(staminaPlus);
+        panel.add(axesMinus);
+        panel.add(axesPlus);
+        panel.add(bludgeonsMinus);
+        panel.add(bludgeonsPlus);
+        panel.add(brawlingMinus);
+        panel.add(brawlingPlus);
+        panel.add(fencingMinus);
+        panel.add(fencingPlus);
+        panel.add(longbladesMinus);
+        panel.add(longbladesPlus);
+        panel.add(poleArmsMinus);
+        panel.add(poleArmsPlus);
+        panel.add(shieldsMinus);
+        panel.add(shieldsPlus);
+        panel.add(shortbladesMinus);
+        panel.add(shortbladesPlus);
+        panel.add(spearsMinus);
+        panel.add(spearsPlus);
+        panel.add(diagnoseMinus);
+        panel.add(diagnosePlus);
+        panel.add(treatAilmentMinus);
+        panel.add(treatAilmentPlus);
+        panel.add(treatInjuryMinus);
+        panel.add(treatInjuryPlus);
+        panel.add(educationMinus);
+        panel.add(educationPlus);
+        panel.add(researchMinus);
+        panel.add(researchPlus);
+        panel.add(streetwiseMinus);
+        panel.add(streetwisePlus);
+        panel.add(bowsMinus);
+        panel.add(bowsPlus);
+        panel.add(crossbowsMinus);
+        panel.add(crossbowsPlus);
+        panel.add(siegeMinus);
+        panel.add(siegePlus);
+        panel.add(thrownMinus);
+        panel.add(thrownPlus);
+        panel.add(bargainMinus);
+        panel.add(bargainPlus);
+        panel.add(charmMinus);
+        panel.add(charmPlus);
+        panel.add(convinceMinus);
+        panel.add(convincePlus);
+        panel.add(inciteMinus);
+        panel.add(incitePlus);
+        panel.add(intimidateMinus);
+        panel.add(intimidatePlus);
+        panel.add(seduceMinus);
+        panel.add(seducePlus);
+        panel.add(tauntMinus);
+        panel.add(tauntPlus);
+        panel.add(breedingMinus);
+        panel.add(breedingPlus);
+        panel.add(reputationMinus);
+        panel.add(reputationPlus);
+        panel.add(stewardshipMinus);
+        panel.add(stewardshipPlus);
+        panel.add(tournamentsMinus);
+        panel.add(tournamentsPlus);
+        panel.add(blendInMinus);
+        panel.add(blendInPlus);
+        panel.add(sneakMinus);
+        panel.add(sneakPlus);
+        panel.add(forageMinus);
+        panel.add(foragePlus);
+        panel.add(huntMinus);
+        panel.add(huntPlus);
+        panel.add(orientationMinus);
+        panel.add(orientationPlus);
+        panel.add(trackMinus);
+        panel.add(trackPlus);
+        panel.add(pickLockMinus);
+        panel.add(pickLockPlus);
+        panel.add(sleightOfHandMinus);
+        panel.add(sleightOfHandPlus);
+        panel.add(stealMinus);
+        panel.add(stealPlus);
+        panel.add(commandMinus);
+        panel.add(commandPlus);
+        panel.add(strategyMinus);
+        panel.add(strategyPlus);
+        panel.add(tacticsMinus);
+        panel.add(tacticsPlus);
+        panel.add(courageMinus);
+        panel.add(couragePlus);
+        panel.add(coordinateMinus);
+        panel.add(coordinatePlus);
+        panel.add(dedicationMinus);
+        panel.add(dedicationPlus);
+
         JScrollPane scrollPane = new JScrollPane(panel);
-        scrollPane.setLocation(100, 100);
-        scrollPane.setSize(xMax - 200, yMax - 200);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        scrollPane.setLocation(50, 100);
+        scrollPane.setSize(xMax - 100, yMax - 200);
 
 
         c = getContentPane();
@@ -2041,11 +2771,1147 @@ public class Screen extends JFrame {
         c.add(back);
         c.add(scrollPane);
         c.add(experiencField);
-        if (character.getExperience() == 0)
+        if (character.getSpecialtyExperience() == 0)
             c.add(next);
 
 
         scrollPane.revalidate();
+
+        acrobaticsMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseAcrobatics();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        acrobaticsPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseAcrobatics();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        balanceMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseBalance();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        balancePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseBalance();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        contortionsMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseContortions();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        contortionsPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseContortions();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        dodgeMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseDodge();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        dodgePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseDodge();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        quicknessMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseQuickness();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        quicknessPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseQuickness();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        charmAnimalMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseCharmAnimal();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        charmAnimalPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseCharmAnimal();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        driveMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseDrive();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        drivePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseDrive();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        rideMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseRide();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        ridePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseRide();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        trainMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseTrain();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        trainPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseTrain();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        climbMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseClimb();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        climbPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseClimb();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        jumpMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseJump();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        jumpPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseJump();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        runMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseRun();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        runPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseRun();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        strengthMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseStrength();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        strengthPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseStrength();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        swimMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseSwim();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        swimPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseSwim();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        throwMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseThrow();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        throwPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseThrow();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        empathyMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseEmpathy();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        empathyPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseEmpathy();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        noticeMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseNotice();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        noticePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseNotice();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        decipherMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseDecipher();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        decipherPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseDecipher();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        logicMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseLogic();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        logicPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseLogic();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        memoryMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseMemory();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        memoryPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseMemory();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        actMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseAct();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        actPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseAct();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        bluffMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseBluff();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        bluffPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseBluff();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        cheatMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseCheat();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        cheatPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseCheat();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        disguiseMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseDisguise();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        disguisePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseDisguise();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        resilienceMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseResilience();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        resiliencePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseResilience();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        staminaMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseStamina();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        staminaPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseStamina();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        axesMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseAxes();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        axesPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseAxes();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        bludgeonsMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseBludgeons();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        bludgeonsPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseBludgeons();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        brawlingMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseBrawling();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        brawlingPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseBrawling();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        fencingMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseFencing();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        fencingPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseFencing();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        longbladesMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseLongblades();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        longbladesPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseLongblades();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        poleArmsMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreasePoleArms();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        poleArmsPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increasePoleArms();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        shieldsMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseShields();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        shieldsPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseShields();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        shortbladesMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseShortblades();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        shortbladesPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseShortblades();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        spearsMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseSpears();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        spearsPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseSpears();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        diagnoseMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseDiagnose();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        diagnosePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseDiagnose();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        treatAilmentMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseTreatAilment();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        treatAilmentPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseTreatAilment();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        treatInjuryMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseTreatInjury();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        treatInjuryPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseTreatInjury();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        educationMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseEducation();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        educationPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseEducation();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        researchMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseResearch();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        researchPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseResearch();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        streetwiseMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseStreetwise();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        streetwisePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseStreetwise();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        bowsMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseBows();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        bowsPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseBows();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        crossbowsMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseCrossbows();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        crossbowsPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseCrossbows();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        siegeMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseSiege();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        siegePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseSiege();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        thrownMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseThrown();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        thrownPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseThrown();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        bargainMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseBargain();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        bargainPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseBargain();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        charmMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseCharm();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        charmPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseCharm();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        convinceMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseConvince();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        convincePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseConvince();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        inciteMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseIncite();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        incitePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseIncite();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        intimidateMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseIntimidate();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        intimidatePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseIntimidate();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        seduceMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseSeduce();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        seducePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseSeduce();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        tauntMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseTaunt();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        tauntPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseTaunt();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        breedingMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseBreeding();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        breedingPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseBreeding();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        reputationMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseReputation();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        reputationPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseReputation();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        stewardshipMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseStewardship();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        stewardshipPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseStewardship();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        tournamentsMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseTournaments();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        tournamentsPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseTournaments();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        blendInMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseBlendIn();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        blendInPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseBlendIn();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        sneakMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseSneak();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        sneakPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseSneak();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        forageMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseForage();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        foragePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseForage();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        huntMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseHunt();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        huntPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseHunt();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        orientationMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseOrientation();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        orientationPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseOrientation();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        trackMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseTrack();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        trackPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseTrack();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        pickLockMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreasePickLock();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        pickLockPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increasePickLock();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        sleightOfHandMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseSleightOfHand();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        sleightOfHandPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseSleightOfHand();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        stealMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseSteal();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        stealPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseSteal();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        commandMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseCommand();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        commandPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseCommand();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        strategyMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseStrategy();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        strategyPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseStrategy();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        tacticsMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseTactics();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        tacticsPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseTactics();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        courageMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseCourage();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        couragePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseCourage();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        coordinateMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseCoordinate();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        coordinatePlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseCoordinate();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        dedicationMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.decreaseDedication();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+        dedicationPlus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                character.increaseDedication();
+                characterSpecialtyAssignment(house, character);
+            }
+        });
 
         back.addActionListener(new ActionListener() {
             @Override
@@ -2054,7 +3920,50 @@ public class Screen extends JFrame {
             }
         });
 
+        next.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                characterDestinyBenefits(house, character);
+            }
+        });
+
     }
+
+    private void characterDestinyBenefits(House house, Character character) {
+        repaint();
+        getContentPane().removeAll();
+
+        //back to Specialty Assignment
+        JButton back = new JButton("Back");
+        back.setSize(buttonSize);
+        back.setLocation(20,10);
+
+        //on to Drawbacks
+        JButton next = new JButton("Next");
+        next.setSize(buttonSize);
+        next.setLocation(buttonSize.width + 40, 10);
+
+        //experience
+        JTextField destinyField = new JTextField("Destiny Points remaining: "
+                + character.getDestinyPoints());
+        destinyField.setEditable(false);
+        destinyField.setLocation(20, 50);
+        destinyField.setSize(buttonSize);
+
+        c = getContentPane();
+
+        c.add(back);
+        c.add(destinyField);
+        c.add(next);
+
+        back.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                characterSpecialtyAssignment(house, character);
+            }
+        });
+
+    };
 
     private void characterSheet(CharacterNode character, HouseNode houseNode) {
         repaint();

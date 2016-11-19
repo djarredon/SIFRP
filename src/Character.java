@@ -65,7 +65,8 @@ public class Character {
     public Character() {
         nullAll();
         status = -1;
-        startingStats();
+        startingAbilities();
+        startingSpecialties();
     }
 
     public Character(Character toCopy) {
@@ -77,7 +78,8 @@ public class Character {
         nullAll();
         this.name = name;
         status = -1;
-        startingStats();
+        startingAbilities();
+        startingSpecialties();
     }
 
     public Character(String houseName, String realm, String gender, int status) {
@@ -86,7 +88,8 @@ public class Character {
         this.realm = realm;
         this.gender = gender;
         this.status = status;
-        startingStats();
+        startingAbilities();
+        startingSpecialties();
     }
 
     public Character(String houseName, String realm, int status) {
@@ -94,7 +97,8 @@ public class Character {
         this.houseName = houseName;
         this.realm = realm;
         this.status = status;
-        startingStats();
+        startingAbilities();
+        startingSpecialties();
     }
 
     //this exists because there are so many constructors
@@ -950,7 +954,7 @@ Venerable
         int toSpend = specialtyExperience;
 
         while (toSpend > 10) {
-            num = rand.nextInt(17) + 1;
+            num = rand.nextInt(18) + 1;
             switch (num) {
                 case 1:
                     if (agilitySpecialties == null) {
@@ -1123,6 +1127,18 @@ Venerable
                     }
                     break;
                 case 15:
+                    if (survivalSpecialties == null) {
+                        survivalSpecialties = new int[4];
+                        for (int i = 0; i < 4; ++i)
+                            survivalSpecialties[i] = 0;
+                    }
+                    num = rand.nextInt(4);
+                    if (survivalSpecialties[num] < status) {
+                        ++survivalSpecialties[num];
+                        toSpend -= 10;
+                    }
+                    break;
+                case 16:
                     if (thieverySpecialties == null) {
                         thieverySpecialties = new int[3];
                         thieverySpecialties[0] = 0;
@@ -1135,7 +1151,7 @@ Venerable
                         toSpend -= 10;
                     }
                     break;
-                case 16:
+                case 17:
                     if (warfareSpecialties == null) {
                         warfareSpecialties = new int[3];
                         warfareSpecialties[0] = 0;
@@ -1148,7 +1164,7 @@ Venerable
                         toSpend -= 10;
                     }
                     break;
-                case 17:
+                case 18:
                     if (willSpecialties == null) {
                         willSpecialties = new int[3];
                         willSpecialties[0] = 0;
@@ -1261,7 +1277,8 @@ Venerable
         generateDerivedStats();
     }
 
-    public void startingStats() {
+    public void startingAbilities() {
+        //abilities
         agility = 2;
         animalHandling = 2;
         athletics = 2;
@@ -1282,20 +1299,88 @@ Venerable
         will = 2;
     }
 
-    //++++++++++Increasing Abilities++++++++++
-    /*
-    int value = character.getAgility() + 1;
-                if (value > 0 && value < character.getAbilityLimit()) {
-                    if (value == 2)
-                        character.setExperience(character.getExperience() - 50);
-                    else if (value  == 3)
-                        character.setExperience(character.getExperience() - 10);
-                    else if (value  >= 3)
-                        character.setExperience(character.getExperience() - 30);
+    public void startingSpecialties() {
+        //specialties
+        agilitySpecialties = new int[5];
+        for (int i = 0; i < 5; ++i)
+            agilitySpecialties[i] = 0;
 
-                    characterAbilityAssignment(house, character);
-                }
-     */
+        animalHandlingSpecialties = new int[4];
+        for (int i = 0; i < 4; ++i)
+            animalHandlingSpecialties[i] = 0;
+
+        athleticsSpecialties = new int[6];
+        for (int i = 0; i < 6; ++i)
+            athleticsSpecialties[i] = 0;
+
+        awarenessSpecialties = new int[2];
+        awarenessSpecialties[0] = 0;
+        awarenessSpecialties[1] = 0;
+
+        cunningSpecialties = new int[3];
+        for (int i = 0; i < 3; ++i)
+            cunningSpecialties[i] = 0;
+
+        deceptionSpecialties = new int[4];
+        for (int i = 0; i < 4; ++i)
+            deceptionSpecialties[i] = 0;
+
+        enduranceSpecialties = new int[2];
+        enduranceSpecialties[0] = 0;
+        enduranceSpecialties[1] = 0;
+
+        fightingSpecialties = new int[9];
+        for (int i = 0; i < 9; ++i)
+            fightingSpecialties[i] = 0;
+
+        healingSpecialties = new int[3];
+        healingSpecialties[0] = 0;
+        healingSpecialties[1] = 0;
+        healingSpecialties[2] = 0;
+
+        knowledgeSpecialties = new int[3];
+        knowledgeSpecialties[0] = 0;
+        knowledgeSpecialties[1] = 0;
+        knowledgeSpecialties[2] = 0;
+
+        marksmanshipSpecialties = new int[4];
+        for (int i = 0; i < 4; ++i)
+            marksmanshipSpecialties[i] = 0;
+
+        persuasionSpecialties = new int[7];
+        for (int i = 0; i < 7; ++i)
+            persuasionSpecialties[i] = 0;
+
+        statusSpecialties = new int[4];
+        for (int i = 0; i < 4; ++i)
+            statusSpecialties[i] = 0;
+
+        stealthSpecialties = new int[2];
+        stealthSpecialties[0] = 0;
+        stealthSpecialties[1] = 0;
+
+        survivalSpecialties = new int[4];
+        for (int i = 0; i < 4; ++i)
+            survivalSpecialties[i] = 0;
+
+        thieverySpecialties = new int[3];
+        thieverySpecialties[0] = 0;
+        thieverySpecialties[1] = 0;
+        thieverySpecialties[2] = 0;
+
+        warfareSpecialties = new int[3];
+        warfareSpecialties[0] = 0;
+        warfareSpecialties[1] = 0;
+        warfareSpecialties[2] = 0;
+
+        willSpecialties = new int[3];
+        willSpecialties[0] = 0;
+        willSpecialties[1] = 0;
+        willSpecialties[2] = 0;
+
+    }
+
+    //++++++++++Increasing Abilities++++++++++
     public void increaseAgility() {
         int value = agility + 1;
         if (value > 0 && value < abilityLimit) {
@@ -1863,6 +1948,1303 @@ Venerable
                 experience += 30;
 
             --will;
+        }
+    }
+
+    //++++++++++Increasing Specialties++++++++++
+//Agility Specialties
+    public void increaseAcrobatics() {
+        if (agilitySpecialties == null)
+            startingSpecialties();
+        if (agilitySpecialties[0] +1 <= agility && specialtyExperience >= 10) {
+            ++agilitySpecialties[0];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseAcrobatics() {
+        if (agilitySpecialties == null)
+            startingSpecialties();
+        if (agilitySpecialties[0] - 1 >= 0) {
+            --agilitySpecialties[0];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseBalance() {
+        if (agilitySpecialties == null)
+            startingSpecialties();
+        if (agilitySpecialties[1] +1 <= agility && specialtyExperience >= 10) {
+            ++agilitySpecialties[1];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseBalance() {
+        if (agilitySpecialties == null)
+            startingSpecialties();
+        if (agilitySpecialties[1] - 1 >= 0) {
+            --agilitySpecialties[1];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseContortions() {
+        if (agilitySpecialties == null)
+            startingSpecialties();
+        if (agilitySpecialties[2] +1 <= agility && specialtyExperience >= 10) {
+            ++agilitySpecialties[2];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseContortions() {
+        if (agilitySpecialties == null)
+            startingSpecialties();
+        if (agilitySpecialties[2] - 1 >= 0) {
+            --agilitySpecialties[2];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseDodge() {
+        if (agilitySpecialties == null)
+            startingSpecialties();
+        if (agilitySpecialties[3] +1 <= agility && specialtyExperience >= 10) {
+            ++agilitySpecialties[3];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseDodge() {
+        if (agilitySpecialties == null)
+            startingSpecialties();
+        if (agilitySpecialties[3] - 1 >= 0) {
+            --agilitySpecialties[3];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseQuickness() {
+        if (agilitySpecialties == null)
+            startingSpecialties();
+        if (agilitySpecialties[4] +1 <= agility && specialtyExperience >= 10) {
+            ++agilitySpecialties[4];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseQuickness() {
+        if (agilitySpecialties == null)
+            startingSpecialties();
+        if (agilitySpecialties[4] - 1 >= 0) {
+            --agilitySpecialties[4];
+            specialtyExperience += 10;
+        }
+    }
+
+    //AnimalHandling Specialties
+    public void increaseCharmAnimal() {
+        if (animalHandlingSpecialties == null)
+            startingSpecialties();
+        if (animalHandlingSpecialties[0] +1 <= animalHandling && specialtyExperience >= 10) {
+            ++animalHandlingSpecialties[0];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseCharmAnimal() {
+        if (animalHandlingSpecialties == null)
+            startingSpecialties();
+        if (animalHandlingSpecialties[0] - 1 >= 0) {
+            --animalHandlingSpecialties[0];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseDrive() {
+        if (animalHandlingSpecialties == null)
+            startingSpecialties();
+        if (animalHandlingSpecialties[1] +1 <= animalHandling && specialtyExperience >= 10) {
+            ++animalHandlingSpecialties[1];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseDrive() {
+        if (animalHandlingSpecialties == null)
+            startingSpecialties();
+        if (animalHandlingSpecialties[1] - 1 >= 0) {
+            --animalHandlingSpecialties[1];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseRide() {
+        if (animalHandlingSpecialties == null)
+            startingSpecialties();
+        if (animalHandlingSpecialties[2] +1 <= animalHandling && specialtyExperience >= 10) {
+            ++animalHandlingSpecialties[2];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseRide() {
+        if (animalHandlingSpecialties == null)
+            startingSpecialties();
+        if (animalHandlingSpecialties[2] - 1 >= 0) {
+            --animalHandlingSpecialties[2];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseTrain() {
+        if (animalHandlingSpecialties == null)
+            startingSpecialties();
+        if (animalHandlingSpecialties[3] +1 <= animalHandling && specialtyExperience >= 10) {
+            ++animalHandlingSpecialties[3];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseTrain() {
+        if (agilitySpecialties == null)
+            startingSpecialties();
+        if (agilitySpecialties[3] - 1 >= 0) {
+            --agilitySpecialties[3];
+            specialtyExperience += 10;
+        }
+    }
+
+    //Athletics Specialties
+    public void increaseClimb() {
+        if (athleticsSpecialties == null)
+            startingSpecialties();
+        if (athleticsSpecialties[0] +1 <= athletics && specialtyExperience >= 10) {
+            ++athleticsSpecialties[0];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseClimb() {
+        if (athleticsSpecialties == null)
+            startingSpecialties();
+        if (athleticsSpecialties[0] - 1 >= 0) {
+            --athleticsSpecialties[0];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseJump() {
+        if (athleticsSpecialties == null)
+            startingSpecialties();
+        if (athleticsSpecialties[1] +1 <= athletics && specialtyExperience >= 10) {
+            ++athleticsSpecialties[1];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseJump() {
+        if (athleticsSpecialties == null)
+            startingSpecialties();
+        if (athleticsSpecialties[1] - 1 >= 0) {
+            --athleticsSpecialties[1];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseRun() {
+        if (athleticsSpecialties == null)
+            startingSpecialties();
+        if (athleticsSpecialties[2] +1 <= athletics && specialtyExperience >= 10) {
+            ++athleticsSpecialties[2];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseRun() {
+        if (athleticsSpecialties == null)
+            startingSpecialties();
+        if (athleticsSpecialties[2] - 1 >= 0) {
+            --athleticsSpecialties[2];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseStrength() {
+        if (athleticsSpecialties == null)
+            startingSpecialties();
+        if (athleticsSpecialties[3] +1 <= athletics && specialtyExperience >= 10) {
+            ++athleticsSpecialties[3];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseStrength() {
+        if (athleticsSpecialties == null)
+            startingSpecialties();
+        if (athleticsSpecialties[3] - 1 >= 0) {
+            --athleticsSpecialties[3];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseSwim() {
+        if (athleticsSpecialties == null)
+            startingSpecialties();
+        if (athleticsSpecialties[4] +1 <= athletics && specialtyExperience >= 10) {
+            ++athleticsSpecialties[4];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseSwim() {
+        if (athleticsSpecialties == null)
+            startingSpecialties();
+        if (athleticsSpecialties[4] - 1 >= 0) {
+            --athleticsSpecialties[4];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseThrow() {
+        if (athleticsSpecialties == null)
+            startingSpecialties();
+        if (athleticsSpecialties[5] +1 <= athletics && specialtyExperience >= 10) {
+            ++athleticsSpecialties[5];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseThrow() {
+        if (athleticsSpecialties == null)
+            startingSpecialties();
+        if (athleticsSpecialties[5] - 1 >= 0) {
+            --athleticsSpecialties[5];
+            specialtyExperience += 10;
+        }
+    }
+
+    //Awareness Specialties
+    public void increaseEmpathy() {
+        if (awarenessSpecialties == null)
+            startingSpecialties();
+        if (awarenessSpecialties[0] +1 <= awareness && specialtyExperience >= 10) {
+            ++awarenessSpecialties[0];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseEmpathy() {
+        if (awarenessSpecialties == null)
+            startingSpecialties();
+        if (awarenessSpecialties[0] - 1 >= 0) {
+            --awarenessSpecialties[0];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseNotice() {
+        if (awarenessSpecialties == null)
+            startingSpecialties();
+        if (awarenessSpecialties[1] +1 <= awareness && specialtyExperience >= 10) {
+            ++awarenessSpecialties[1];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseNotice() {
+        if (awarenessSpecialties == null)
+            startingSpecialties();
+        if (awarenessSpecialties[1] - 1 >= 0) {
+            --awarenessSpecialties[1];
+            specialtyExperience += 10;
+        }
+    }
+
+    //Cunning Specialties
+    public void increaseDecipher() {
+        if (cunningSpecialties == null)
+            startingSpecialties();
+        if (cunningSpecialties[0] +1 <= cunning && specialtyExperience >= 10) {
+            ++cunningSpecialties[0];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseDecipher() {
+        if (cunningSpecialties == null)
+            startingSpecialties();
+        if (cunningSpecialties[0] - 1 >= 0) {
+            --cunningSpecialties[0];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseLogic() {
+        if (cunningSpecialties == null)
+            startingSpecialties();
+        if (cunningSpecialties[1] +1 <= cunning && specialtyExperience >= 10) {
+            ++cunningSpecialties[1];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseLogic() {
+        if (cunningSpecialties == null)
+            startingSpecialties();
+        if (cunningSpecialties[1] - 1 >= 0) {
+            --cunningSpecialties[1];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseMemory() {
+        if (cunningSpecialties == null)
+            startingSpecialties();
+        if (cunningSpecialties[2] +1 <= cunning && specialtyExperience >= 10) {
+            ++cunningSpecialties[2];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseMemory() {
+        if (cunningSpecialties == null)
+            startingSpecialties();
+        if (cunningSpecialties[2] - 1 >= 0) {
+            --cunningSpecialties[2];
+            specialtyExperience += 10;
+        }
+    }
+
+    //Deception Specialties
+    public void increaseAct() {
+        if (deceptionSpecialties == null)
+            startingSpecialties();
+        if (deceptionSpecialties[0] +1 <= deception && specialtyExperience >= 10) {
+            ++deceptionSpecialties[0];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseAct() {
+        if (deceptionSpecialties == null)
+            startingSpecialties();
+        if (deceptionSpecialties[0] - 1 >= 0) {
+            --deceptionSpecialties[0];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseBluff() {
+        if (deceptionSpecialties == null)
+            startingSpecialties();
+        if (deceptionSpecialties[1] +1 <= deception && specialtyExperience >= 10) {
+            ++deceptionSpecialties[1];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseBluff() {
+        if (deceptionSpecialties == null)
+            startingSpecialties();
+        if (deceptionSpecialties[1] - 1 >= 0) {
+            --deceptionSpecialties[1];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseCheat() {
+        if (deceptionSpecialties == null)
+            startingSpecialties();
+        if (deceptionSpecialties[2] +1 <= deception && specialtyExperience >= 10) {
+            ++deceptionSpecialties[2];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseCheat() {
+        if (deceptionSpecialties == null)
+            startingSpecialties();
+        if (deceptionSpecialties[2] - 1 >= 0) {
+            --deceptionSpecialties[2];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseDisguise() {
+        if (deceptionSpecialties == null)
+            startingSpecialties();
+        if (deceptionSpecialties[3] +1 <= deception && specialtyExperience >= 10) {
+            ++deceptionSpecialties[3];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseDisguise() {
+        if (deceptionSpecialties == null)
+            startingSpecialties();
+        if (deceptionSpecialties[3] - 1 >= 0) {
+            --deceptionSpecialties[3];
+            specialtyExperience += 10;
+        }
+    }
+
+    //Endurance Specialties
+    public void increaseResilience() {
+        if (enduranceSpecialties == null)
+            startingSpecialties();
+        if (enduranceSpecialties[0] +1 <= endurance && specialtyExperience >= 10) {
+            ++enduranceSpecialties[0];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseResilience() {
+        if (enduranceSpecialties == null)
+            startingSpecialties();
+        if (enduranceSpecialties[0] - 1 >= 0) {
+            --enduranceSpecialties[0];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseStamina() {
+        if (enduranceSpecialties == null)
+            startingSpecialties();
+        if (enduranceSpecialties[1] +1 <= endurance && specialtyExperience >= 10) {
+            ++enduranceSpecialties[1];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseStamina() {
+        if (enduranceSpecialties == null)
+            startingSpecialties();
+        if (enduranceSpecialties[1] - 1 >= 0) {
+            --enduranceSpecialties[1];
+            specialtyExperience += 10;
+        }
+    }
+
+    //Fighting Specialties
+    public void increaseAxes() {
+        if (fightingSpecialties == null)
+            startingSpecialties();
+        if (fightingSpecialties[0] +1 <= fighting && specialtyExperience >= 10) {
+            ++fightingSpecialties[0];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseAxes() {
+        if (fightingSpecialties == null)
+            startingSpecialties();
+        if (fightingSpecialties[0] - 1 >= 0) {
+            --fightingSpecialties[0];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseBludgeons() {
+        if (fightingSpecialties == null)
+            startingSpecialties();
+        if (fightingSpecialties[1] +1 <= fighting && specialtyExperience >= 10) {
+            ++fightingSpecialties[1];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseBludgeons() {
+        if (fightingSpecialties == null)
+            startingSpecialties();
+        if (fightingSpecialties[1] - 1 >= 0) {
+            --fightingSpecialties[1];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseBrawling() {
+        if (fightingSpecialties == null)
+            startingSpecialties();
+        if (fightingSpecialties[2] +1 <= fighting && specialtyExperience >= 10) {
+            ++fightingSpecialties[2];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseBrawling() {
+        if (fightingSpecialties == null)
+            startingSpecialties();
+        if (fightingSpecialties[2] - 1 >= 0) {
+            --fightingSpecialties[2];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseFencing() {
+        if (fightingSpecialties == null)
+            startingSpecialties();
+        if (fightingSpecialties[3] +1 <= fighting && specialtyExperience >= 10) {
+            ++fightingSpecialties[3];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseFencing() {
+        if (fightingSpecialties == null)
+            startingSpecialties();
+        if (fightingSpecialties[3] - 1 >= 0) {
+            --fightingSpecialties[3];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseLongblades() {
+        if (fightingSpecialties == null)
+            startingSpecialties();
+        if (fightingSpecialties[4] +1 <= fighting && specialtyExperience >= 10) {
+            ++fightingSpecialties[4];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseLongblades() {
+        if (fightingSpecialties == null)
+            startingSpecialties();
+        if (fightingSpecialties[4] - 1 >= 0) {
+            --fightingSpecialties[4];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increasePoleArms() {
+        if (fightingSpecialties == null)
+            startingSpecialties();
+        if (fightingSpecialties[5] +1 <= fighting && specialtyExperience >= 10) {
+            ++fightingSpecialties[5];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreasePoleArms() {
+        if (fightingSpecialties == null)
+            startingSpecialties();
+        if (fightingSpecialties[5] - 1 >= 0) {
+            --fightingSpecialties[5];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseShields() {
+        if (fightingSpecialties == null)
+            startingSpecialties();
+        if (fightingSpecialties[6] +1 <= fighting && specialtyExperience >= 10) {
+            ++fightingSpecialties[6];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseShields() {
+        if (fightingSpecialties == null)
+            startingSpecialties();
+        if (fightingSpecialties[6] - 1 >= 0) {
+            --fightingSpecialties[6];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseShortblades() {
+        if (fightingSpecialties == null)
+            startingSpecialties();
+        if (fightingSpecialties[7] +1 <= fighting && specialtyExperience >= 10) {
+            ++fightingSpecialties[7];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseShortblades() {
+        if (fightingSpecialties == null)
+            startingSpecialties();
+        if (fightingSpecialties[7] - 1 >= 0) {
+            --fightingSpecialties[7];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseSpears() {
+        if (fightingSpecialties == null)
+            startingSpecialties();
+        if (fightingSpecialties[8] +1 <= fighting && specialtyExperience >= 10) {
+            ++fightingSpecialties[8];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseSpears() {
+        if (fightingSpecialties == null)
+            startingSpecialties();
+        if (fightingSpecialties[8] - 1 >= 0) {
+            --fightingSpecialties[8];
+            specialtyExperience += 10;
+        }
+    }
+
+    //Healing Specialties
+    public void increaseDiagnose() {
+        if (healingSpecialties == null)
+            startingSpecialties();
+        if (healingSpecialties[0] +1 <= healing && specialtyExperience >= 10) {
+            ++healingSpecialties[0];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseDiagnose() {
+        if (healingSpecialties == null)
+            startingSpecialties();
+        if (healingSpecialties[0] - 1 >= 0) {
+            --healingSpecialties[0];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseTreatAilment() {
+        if (healingSpecialties == null)
+            startingSpecialties();
+        if (healingSpecialties[1] +1 <= healing && specialtyExperience >= 10) {
+            ++healingSpecialties[1];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseTreatAilment() {
+        if (healingSpecialties == null)
+            startingSpecialties();
+        if (healingSpecialties[1] - 1 >= 0) {
+            --healingSpecialties[1];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseTreatInjury() {
+        if (healingSpecialties == null)
+            startingSpecialties();
+        if (healingSpecialties[2] +1 <= healing && specialtyExperience >= 10) {
+            ++healingSpecialties[2];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseTreatInjury() {
+        if (healingSpecialties == null)
+            startingSpecialties();
+        if (healingSpecialties[2] - 1 >= 0) {
+            --healingSpecialties[2];
+            specialtyExperience += 10;
+        }
+    }
+
+    //Knowledge Specialties
+    public void increaseEducation() {
+        if (knowledgeSpecialties == null)
+            startingSpecialties();
+        if (knowledgeSpecialties[0] +1 <= knowledge && specialtyExperience >= 10) {
+            ++knowledgeSpecialties[0];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseEducation() {
+        if (knowledgeSpecialties == null)
+            startingSpecialties();
+        if (knowledgeSpecialties[0] - 1 >= 0) {
+            --knowledgeSpecialties[0];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseResearch() {
+        if (knowledgeSpecialties == null)
+            startingSpecialties();
+        if (knowledgeSpecialties[1] +1 <= knowledge && specialtyExperience >= 10) {
+            ++knowledgeSpecialties[1];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseResearch() {
+        if (knowledgeSpecialties == null)
+            startingSpecialties();
+        if (knowledgeSpecialties[1] - 1 >= 0) {
+            --knowledgeSpecialties[1];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseStreetwise() {
+        if (knowledgeSpecialties == null)
+            startingSpecialties();
+        if (knowledgeSpecialties[2] +1 <= knowledge && specialtyExperience >= 10) {
+            ++knowledgeSpecialties[2];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseStreetwise() {
+        if (knowledgeSpecialties == null)
+            startingSpecialties();
+        if (knowledgeSpecialties[2] - 1 >= 0) {
+            --knowledgeSpecialties[2];
+            specialtyExperience += 10;
+        }
+    }
+
+    //Marksmanship Specialties
+    public void increaseBows() {
+        if (marksmanshipSpecialties == null)
+            startingSpecialties();
+        if (marksmanshipSpecialties[0] +1 <= marksmanship && specialtyExperience >= 10) {
+            ++marksmanshipSpecialties[0];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseBows() {
+        if (marksmanshipSpecialties == null)
+            startingSpecialties();
+        if (marksmanshipSpecialties[0] - 1 >= 0) {
+            --marksmanshipSpecialties[0];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseCrossbows() {
+        if (marksmanshipSpecialties == null)
+            startingSpecialties();
+        if (marksmanshipSpecialties[1] +1 <= marksmanship && specialtyExperience >= 10) {
+            ++marksmanshipSpecialties[1];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseCrossbows() {
+        if (marksmanshipSpecialties == null)
+            startingSpecialties();
+        if (marksmanshipSpecialties[1] - 1 >= 0) {
+            --marksmanshipSpecialties[1];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseSiege() {
+        if (marksmanshipSpecialties == null)
+            startingSpecialties();
+        if (marksmanshipSpecialties[2] +1 <= marksmanship && specialtyExperience >= 10) {
+            ++marksmanshipSpecialties[2];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseSiege() {
+        if (marksmanshipSpecialties == null)
+            startingSpecialties();
+        if (marksmanshipSpecialties[2] - 1 >= 0) {
+            --marksmanshipSpecialties[2];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseThrown() {
+        if (marksmanshipSpecialties == null)
+            startingSpecialties();
+        if (marksmanshipSpecialties[3] +1 <= marksmanship && specialtyExperience >= 10) {
+            ++marksmanshipSpecialties[3];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseThrown() {
+        if (marksmanshipSpecialties == null)
+            startingSpecialties();
+        if (marksmanshipSpecialties[3] - 1 >= 0) {
+            --marksmanshipSpecialties[3];
+            specialtyExperience += 10;
+        }
+    }
+
+    //Persuasion Specialties
+    public void increaseBargain() {
+        if (persuasionSpecialties == null)
+            startingSpecialties();
+        if (persuasionSpecialties[0] +1 <= persuasion && specialtyExperience >= 10) {
+            ++persuasionSpecialties[0];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseBargain() {
+        if (persuasionSpecialties == null)
+            startingSpecialties();
+        if (persuasionSpecialties[0] - 1 >= 0) {
+            --persuasionSpecialties[0];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseCharm() {
+        if (persuasionSpecialties == null)
+            startingSpecialties();
+        if (persuasionSpecialties[1] +1 <= persuasion && specialtyExperience >= 10) {
+            ++persuasionSpecialties[1];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseCharm() {
+        if (persuasionSpecialties == null)
+            startingSpecialties();
+        if (persuasionSpecialties[1] - 1 >= 0) {
+            --persuasionSpecialties[1];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseConvince() {
+        if (persuasionSpecialties == null)
+            startingSpecialties();
+        if (persuasionSpecialties[2] +1 <= persuasion && specialtyExperience >= 10) {
+            ++persuasionSpecialties[2];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseConvince() {
+        if (persuasionSpecialties == null)
+            startingSpecialties();
+        if (persuasionSpecialties[2] - 1 >= 0) {
+            --persuasionSpecialties[2];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseIncite() {
+        if (persuasionSpecialties == null)
+            startingSpecialties();
+        if (persuasionSpecialties[3] +1 <= persuasion && specialtyExperience >= 10) {
+            ++persuasionSpecialties[3];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseIncite() {
+        if (persuasionSpecialties == null)
+            startingSpecialties();
+        if (persuasionSpecialties[3] - 1 >= 0) {
+            --persuasionSpecialties[3];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseIntimidate() {
+        if (persuasionSpecialties == null)
+            startingSpecialties();
+        if (persuasionSpecialties[4] +1 <= persuasion && specialtyExperience >= 10) {
+            ++persuasionSpecialties[4];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseIntimidate() {
+        if (persuasionSpecialties == null)
+            startingSpecialties();
+        if (persuasionSpecialties[4] - 1 >= 0) {
+            --persuasionSpecialties[4];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseSeduce() {
+        if (persuasionSpecialties == null)
+            startingSpecialties();
+        if (persuasionSpecialties[5] +1 <= persuasion && specialtyExperience >= 10) {
+            ++persuasionSpecialties[5];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseSeduce() {
+        if (persuasionSpecialties == null)
+            startingSpecialties();
+        if (persuasionSpecialties[5] - 1 >= 0) {
+            --persuasionSpecialties[5];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseTaunt() {
+        if (persuasionSpecialties == null)
+            startingSpecialties();
+        if (persuasionSpecialties[6] +1 <= persuasion && specialtyExperience >= 10) {
+            ++persuasionSpecialties[6];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseTaunt() {
+        if (persuasionSpecialties == null)
+            startingSpecialties();
+        if (persuasionSpecialties[6] - 1 >= 0) {
+            --persuasionSpecialties[6];
+            specialtyExperience += 10;
+        }
+    }
+
+    //Status Specialties
+    public void increaseBreeding() {
+        if (statusSpecialties == null)
+            startingSpecialties();
+        if (statusSpecialties[0] +1 <= status && specialtyExperience >= 10) {
+            ++statusSpecialties[0];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseBreeding() {
+        if (statusSpecialties == null)
+            startingSpecialties();
+        if (statusSpecialties[0] - 1 >= 0) {
+            --statusSpecialties[0];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseReputation() {
+        if (statusSpecialties == null)
+            startingSpecialties();
+        if (statusSpecialties[1] +1 <= status && specialtyExperience >= 10) {
+            ++statusSpecialties[1];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseReputation() {
+        if (statusSpecialties == null)
+            startingSpecialties();
+        if (statusSpecialties[1] - 1 >= 0) {
+            --statusSpecialties[1];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseStewardship() {
+        if (statusSpecialties == null)
+            startingSpecialties();
+        if (statusSpecialties[2] +1 <= status && specialtyExperience >= 10) {
+            ++statusSpecialties[2];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseStewardship() {
+        if (statusSpecialties == null)
+            startingSpecialties();
+        if (statusSpecialties[2] - 1 >= 0) {
+            --statusSpecialties[2];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseTournaments() {
+        if (statusSpecialties == null)
+            startingSpecialties();
+        if (statusSpecialties[3] +1 <= status && specialtyExperience >= 10) {
+            ++statusSpecialties[3];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseTournaments() {
+        if (statusSpecialties == null)
+            startingSpecialties();
+        if (statusSpecialties[3] - 1 >= 0) {
+            --statusSpecialties[3];
+            specialtyExperience += 10;
+        }
+    }
+
+    //Stealth Specialties
+    public void increaseBlendIn() {
+        if (stealthSpecialties == null)
+            startingSpecialties();
+        if (stealthSpecialties[0] +1 <= stealth && specialtyExperience >= 10) {
+            ++stealthSpecialties[0];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseBlendIn() {
+        if (stealthSpecialties == null)
+            startingSpecialties();
+        if (stealthSpecialties[0] - 1 >= 0) {
+            --stealthSpecialties[0];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseSneak() {
+        if (stealthSpecialties == null)
+            startingSpecialties();
+        if (stealthSpecialties[1] +1 <= stealth && specialtyExperience >= 10) {
+            ++stealthSpecialties[1];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseSneak() {
+        if (stealthSpecialties == null)
+            startingSpecialties();
+        if (stealthSpecialties[1] - 1 >= 0) {
+            --stealthSpecialties[1];
+            specialtyExperience += 10;
+        }
+    }
+
+    //Survival Specialties
+    public void increaseForage() {
+        if (survivalSpecialties == null)
+            startingSpecialties();
+        if (survivalSpecialties[0] +1 <= survival && specialtyExperience >= 10) {
+            ++survivalSpecialties[0];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseForage() {
+        if (survivalSpecialties == null)
+            startingSpecialties();
+        if (survivalSpecialties[0] - 1 >= 0) {
+            --survivalSpecialties[0];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseHunt() {
+        if (survivalSpecialties == null)
+            startingSpecialties();
+        if (survivalSpecialties[1] +1 <= survival && specialtyExperience >= 10) {
+            ++survivalSpecialties[1];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseHunt() {
+        if (survivalSpecialties == null)
+            startingSpecialties();
+        if (survivalSpecialties[1] - 1 >= 0) {
+            --survivalSpecialties[1];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseOrientation() {
+        if (survivalSpecialties == null)
+            startingSpecialties();
+        if (survivalSpecialties[2] +1 <= survival && specialtyExperience >= 10) {
+            ++survivalSpecialties[2];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseOrientation() {
+        if (survivalSpecialties == null)
+            startingSpecialties();
+        if (survivalSpecialties[2] - 1 >= 0) {
+            --survivalSpecialties[2];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseTrack() {
+        if (survivalSpecialties == null)
+            startingSpecialties();
+        if (survivalSpecialties[3] +1 <= survival && specialtyExperience >= 10) {
+            ++survivalSpecialties[3];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseTrack() {
+        if (survivalSpecialties == null)
+            startingSpecialties();
+        if (survivalSpecialties[3] - 1 >= 0) {
+            --survivalSpecialties[3];
+            specialtyExperience += 10;
+        }
+    }
+
+    //Thievery Specialties
+    public void increasePickLock() {
+        if (thieverySpecialties == null)
+            startingSpecialties();
+        if (thieverySpecialties[0] +1 <= thievery && specialtyExperience >= 10) {
+            ++thieverySpecialties[0];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreasePickLock() {
+        if (thieverySpecialties == null)
+            startingSpecialties();
+        if (thieverySpecialties[0] - 1 >= 0) {
+            --thieverySpecialties[0];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseSleightOfHand() {
+        if (thieverySpecialties == null)
+            startingSpecialties();
+        if (thieverySpecialties[1] +1 <= thievery && specialtyExperience >= 10) {
+            ++thieverySpecialties[1];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseSleightOfHand() {
+        if (thieverySpecialties == null)
+            startingSpecialties();
+        if (thieverySpecialties[1] - 1 >= 0) {
+            --thieverySpecialties[1];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseSteal() {
+        if (thieverySpecialties == null)
+            startingSpecialties();
+        if (thieverySpecialties[2] +1 <= thievery && specialtyExperience >= 10) {
+            ++thieverySpecialties[2];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseSteal() {
+        if (thieverySpecialties == null)
+            startingSpecialties();
+        if (thieverySpecialties[2] - 1 >= 0) {
+            --thieverySpecialties[2];
+            specialtyExperience += 10;
+        }
+    }
+
+    //Warfare Specialties
+    public void increaseCommand() {
+        if (warfareSpecialties == null)
+            startingSpecialties();
+        if (warfareSpecialties[0] +1 <= warfare && specialtyExperience >= 10) {
+            ++warfareSpecialties[0];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseCommand() {
+        if (warfareSpecialties == null)
+            startingSpecialties();
+        if (warfareSpecialties[0] - 1 >= 0) {
+            --warfareSpecialties[0];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseStrategy() {
+        if (warfareSpecialties == null)
+            startingSpecialties();
+        if (warfareSpecialties[1] +1 <= warfare && specialtyExperience >= 10) {
+            ++warfareSpecialties[1];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseStrategy() {
+        if (warfareSpecialties == null)
+            startingSpecialties();
+        if (warfareSpecialties[1] - 1 >= 0) {
+            --warfareSpecialties[1];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseTactics() {
+        if (warfareSpecialties == null)
+            startingSpecialties();
+        if (warfareSpecialties[2] +1 <= warfare && specialtyExperience >= 10) {
+            ++warfareSpecialties[2];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseTactics() {
+        if (warfareSpecialties == null)
+            startingSpecialties();
+        if (warfareSpecialties[2] - 1 >= 0) {
+            --warfareSpecialties[2];
+            specialtyExperience += 10;
+        }
+    }
+
+    //Will Specialties
+    public void increaseCourage() {
+        if (willSpecialties == null)
+            startingSpecialties();
+        if (willSpecialties[0] +1 <= will && specialtyExperience >= 10) {
+            ++willSpecialties[0];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseCourage() {
+        if (willSpecialties == null)
+            startingSpecialties();
+        if (willSpecialties[0] - 1 >= 0) {
+            --willSpecialties[0];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseCoordinate() {
+        if (willSpecialties == null)
+            startingSpecialties();
+        if (willSpecialties[1] +1 <= will && specialtyExperience >= 10) {
+            ++willSpecialties[1];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseCoordinate() {
+        if (willSpecialties == null)
+            startingSpecialties();
+        if (willSpecialties[1] - 1 >= 0) {
+            --willSpecialties[1];
+            specialtyExperience += 10;
+        }
+    }
+
+    public void increaseDedication() {
+        if (willSpecialties == null)
+            startingSpecialties();
+        if (willSpecialties[2] +1 <= will && specialtyExperience >= 10) {
+            ++willSpecialties[2];
+            specialtyExperience -= 10;
+        }
+    }
+
+    public void decreaseDedication() {
+        if (willSpecialties == null)
+            startingSpecialties();
+        if (willSpecialties[2] - 1 >= 0) {
+            --willSpecialties[2];
+            specialtyExperience += 10;
         }
     }
 
@@ -2830,8 +4212,6 @@ Venerable
         return toReturn;
     }
 
-
-
     public void setHouseName(String houseName) {
         this.houseName = houseName;
     }
@@ -3008,7 +4388,7 @@ Venerable
         return maximumBenefits;
     }
 
-    public void setMaximumBenefits(int maximumBenefits) {
+    private void setMaximumBenefits(int maximumBenefits) {
         this.maximumBenefits = maximumBenefits;
     }
 

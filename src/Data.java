@@ -612,4 +612,137 @@ public class Data {
             default: return 0;
         }
     }
+
+    public String benefits() {
+        String abilityQualities = "Artist — Create works of art.\n" +
+                "Beastfriend — +1D on Animal Handling tests to Charm or Train.\n" +
+                "Connections† Streetwise 1B +1D on Knowledge tests in chosen location.\n" +
+                "Dexterous — Re-roll 1s on Agility tests.\n" +
+                "Eidetic Memory Cunning 2 (Memory 1B) Memory bonus dice are test dice for you.\n" +
+                "Evaluation Knowledge 3 Test Cunning to learn about object.\n" +
+                "Expertise† — Gain +1D with one specialty.\n" +
+                "Face in the Crowd Stealth 3 (Blend In 1B) Blend In as Free Action, and add Cunning rank\n" +
+                "to Blend In test results.\n" +
+                "Furtive Stealth 4 (Sneak 1B) Re-roll 1s, and add Agility rank to Sneak test results.\n" +
+                "Gifted Athlete† Athletics 4 Convert half bonus dice to test dice.\n" +
+                "Gifted Teacher Knowledge 4, Persuasion 3 Grant bonus dice to students.\n" +
+                "Great Hunter Survival 4 Bonus when fighting, hunting, and tracking animals.\n" +
+                "Guttersnipe — Re-roll 1s on Thievery tests.\n" +
+                "Hardy Endurance 3 (Stamina 1B) Ignore –1 or –1D on Endurance tests to recover from injuries.\n" +
+                "Head for Numbers Status 3 (Stewardship 1B) Add Cunning rank to Status test result for turn events,\n" +
+                "and re-roll 1s on Status test to generate coin.\n" +
+                "Keen Senses Awareness 4 Re-roll 1s on Awareness tests, and add Cunning rank to base Awareness.\n" +
+                "Knowledge Focus† Knowledge 4 Gain unequaled expertise in a particular area of knowledge.\n" +
+                "Miracle Worker Healing 4 Diagnose patient to gain significant bonuses.\n" +
+                "Mummer Persuasion 3 You can entertain audiences.\n" +
+                "Polyglot Cunning 4 (Decipher 1B) Learn languages easily.\n" +
+                "Sinister — You radiate menace.\n" +
+                "Talented† — Add +1 to chosen test result.\n" +
+                "Terrain Specialist† Survival 4 Add Education to Survival results in chosen terrain.\n" +
+                "Trade — Learn a trade.";
+        String fateQualites = "Animal Cohort Animal Handling 3 (Train 1B) Gain service of Animal Cohort.\n" +
+                "Brother of the Night’s\n" +
+                "Watch — You are a member of the Night’s Watch.\n" +
+                "Cadre Persuasion 5 Gain veteran squad.\n" +
+                "Cohort Status 3 Gain service of a devoted ally.\n" +
+                "Famous — Your fame gives you advantages in intrigues.\n" +
+                "Greensight Will 5 Experience true dreams\n" +
+                "Head of House — You are the highest-ranking member in your noble house.\n" +
+                "Heir — You will one day inherit your family’s lands and holdings.\n" +
+                "Heirloom Head of House or Heir You gain a Valyrian steel weapon\n" +
+                "Landed Sponsor You gain lands and holdings.\n" +
+                "Lucky — Re-roll one test per day, and take best result.\n" +
+                "Maester Cunning 3, Knowledge Focus (x2) You are a maester of the Citadel.\n" +
+                "Master of Ravens Animal Handling 3 Dispatch ravens to bear your messages.\n" +
+                "Man of the Kingsguard Sponsor You are charged with protecting the royal family.\n" +
+                "Night Eyes — See in darkness.\n" +
+                "Pious Will 3 (Dedication 1B) Gain +1D once per day.\n" +
+                "Skinchanger Will 5 (Dedication 3B,) Warg You may warg into animals other than your Animal Cohort\n" +
+                "Sponsor — Gain a powerful ally.\n" +
+                "Warg Will 5 (Dedication 2B), Warg Dreams You can wear the skin of your Animal Cohort\n" +
+                "Warg Dreams Will 4 (Dedication 1B), Animal Cohort You ccasionally dream through the eyes of your Animal Cohort\n" +
+                "Wealthy — Replenish coffers each month.";
+        String heritageQualites = "Blood of the Andals — You are uncommonly lucky.\n" +
+                "Blood of the First Men — Your heritage makes you tough and hardy.\n" +
+                "Blood of Heroes — Exceed 7 limit on a specific ability.\n" +
+                "Blood of the Ironmen — Seawater flows through your veins.\n" +
+                "Blood of the Rhoyne — You are agile and elusive.\n" +
+                "Blood of Valyria — People find you compelling.\n" +
+                "Blood of the Wildlings — You were born free of the tyranny of Westeros.\n" +
+                "Massive Endurance 5 You are uncommonly large.";
+        String martialQualities = "Accurate Marksmanship 4 +1D against opponents with cover.\n" +
+                "Acrobatic Defense Agility 4 (Acrobatics 1B) Lesser Action to add twice Acrobatics to Combat Defense.\n" +
+                "Anointed Sponsor +2 on Status test, 1/day gain +5 to Defenses.\n" +
+                "Armor Mastery — +1 AR, –1 Bulk.\n" +
+                "Axe Fighter I Fighting 4 (Axes 2B) Sacrifice bonus dice to deal extra damage.\n" +
+                "Axe Fighter II Fighting 5 (Axes 3B), Axe Fighter I Sacrifice bonus dice to inflict a wound.\n" +
+                "Axe Fighter III Fighting 6 (Axes 4B), Axe Fighter II Sacrifice bonus dice to inflict a wound and Maimed quality.\n" +
+                "Berserker — Make free attack with injury or wound; fight past death.\n" +
+                "Bludgeon Fighter I Fighting 4 (Bludgeons 2B) Weapon gains or increases Shattering by 1.\n" +
+                "Bludgeon Fighter II Fighting 5 (Bludgeons 3B),\n" +
+                "Bludgeon Fighter I Foe loses 1 Lesser Action on hit and –1 tests.\n" +
+                "Bludgeon Fighter III Fighting 6 (Bludgeons 4B),\n" +
+                "Bludgeon Fighter II Foe gains wound, prone, loses action.\n" +
+                "Braavosi Fighter I Fighting 4 (Fencing 1B) Increase Defensive Bonus by +1.\n" +
+                "Braavosi Fighter II Fighting 5 (Fencing 2B), Braavosi Fighter I Boost Combat Defense.\n" +
+                "Braavosi Fighter III Fighting 6 (Fencing 3B), Braavosi Fighter II Free attack when opponent misses you.\n" +
+                "Brawler I Fighting 4 (Brawling 1B) Fists are Fast and deal extra damage.\n" +
+                "Brawler II Fighting 4 (Brawling 3B), Brawler I Fists are Powerful and add Athletics rank to Fighting result.\n" +
+                "Brawler III Fighting 5 (Brawling 5B), Brawler II Stun opponents with fist attack.\n" +
+                "Danger Sense Awareness 4 Re-roll 1s on initiative tests, deny surprising opponent +1D to attack you.\n" +
+                "Deadly Shot Marksmanship 5 Bows and crossbow gain Armor Piercing 1 and Vicious.\n" +
+                "Deft Hands Agility 4 Reduce weapon’s reload time.\n" +
+                "Double Shot Marksmanship 5 (Bows 3B) Fire two arrows at once.\n" +
+                "Fast — Move +1 yard, run ×5 Movement.\n" +
+                "Fury Athletics 4 (Strength 2B) –2D to deal +4 damage.\n" +
+                "Hail of Steel Marksmanship 4 (Thrown 2B) Thrown weapons gain Fast quality.\n" +
+                "Improved Armor Mastery Armor Mastery Increase AR by 1 for a total of +2." +
+                "\nImproved Weapon Mastery Weapon Mastery Increase weapon damage by 1.\n" +
+                "Inspiring Warfare 4 Gain extra command, plus sacrifice command to re-roll test result.\n" +
+                "Leader of Men Warfare 4 (Command 1B) Automatically reorganize or rally one unit.\n" +
+                "Long Blade Fighter I Fighting 4 (Long Blades 2B) Sacrifice bonus dice for a free degree.\n" +
+                "Long Blade Fighter II Fighting 5, Long Blade Fighter I Sacrifice bonus dice to move target with hit.\n" +
+                "Long Blade Fighter III Fighting 6, Long Blade Fighter II Sacrifice bonus dice to Maim opponent.\n" +
+                "Pole-arm Fighter I Fighting 4, (Pole-arms 2B) Knock foes to the ground with a sweep.\n" +
+                "Pole-arm Fighter II Athletics 4 or Fighting 4, Pole-arm Fighter I Bonus dice are test dice when pulling riders from mounts.\n" +
+                "Pole-arm Fighter III Fighting 5, Pole-arm Fighter II Pin opponent with weapon.\n" +
+                "Shield Mastery Fighting 3 (Shields 1B) Increase Defensive Bonus by +1 with shields.\n" +
+                "Short Blade Fighter I Fighting 4 (Short Blades 1B) Short blades gain Piercing 1.\n" +
+                "Short Blade Fighter II Fighting 5, Short Blade Fighter I Draw as Free Action, bonus to test results.\n" +
+                "Short Blade Fighter III Fighting 6, Short Blade Fighter II Add number of bonus dice as extra damage.\n" +
+                "Spear Fighter I Fighting 3 (Spears 1B) Attack again on a miss.\n" +
+                "Spear Fighter II Spear Fighter I +1D on Knockdown attempts; attack foes up to 1 extra yard away.\n" +
+                "Spear Fighter III Athletics 5, Spear Fighter II Spears gain Piercing 2.\n" +
+                "Tough Resilience 1B Add Resilience to Health.\n" +
+                "Tourney Knight Fighting 3 (Spears 1B), Status 3\n" +
+                "(Tournaments 1B)\n" +
+                "Add Tournaments bonus dice on Fighting.\n" +
+                "and Animal Handling test results when jousting.\n" +
+                "Triple Shot Marksmanship 7 (Bows 5B), Double Shot Fire three arrows at once.\n" +
+                "Water Dancer I Fighting 3 (Fencing 1B) Add Fighting rank to Awareness results.\n" +
+                "Water Dancer II Water Dancer I Add Fighting rank to Agility results.\n" +
+                "Water Dancer III Water Dancer II Add Fencing to Combat Defense.\n" +
+                "Weapon Mastery† — Increase weapon damage by +1.\n" +
+                "Weapon Savant Agility 4, Cunning 4, Fighting 5 Ignore Trained requirement and penalties with weapons.\n";
+
+        String socialQualities = "Adept Negotiator Deception 3 No penalty from your disposition.\n" +
+                "Attractive — Re-roll 1s on Persuasion tests.\n" +
+                "Authority — Reduce disposition penalties to Persuasion by 2.\n" +
+                "Cautious Diplomat Awareness 4 (Empathy 2B) Retain bonus dice from consider during intrigues.\n" +
+                "Charismatic† Persuasion 3 Add +2 to the result of Persuasion test.\n" +
+                "Compelling† Charismatic Increase influence with specialty by 1.\n" +
+                "Courteous Persuasion 3 You have impeccable manners.\n" +
+                "Dutiful Will 4 You are unfailing in your loyalty.\n" +
+                "Eloquent Language 4, Persuasion 4 Automatically go first in an intrigue.\n" +
+                "Favored of Nobles — +1B on Persuasion tests against characters with 4 or higher Status.\n" +
+                "Favored of Smallfolk — +1B on Persuasion tests against characters with 3 or lower Status.\n" +
+                "Magnetic Charismatic Achieve greater results with Charm.\n" +
+                "Respected Reputation 2B Your accomplishments and reputation inspire respect.\n" +
+                "Stubborn Will 3 (Dedication 1B) Add Dedication to Composure.\n" +
+                "Treacherous — Add Cunning rank to Deception result.\n" +
+                "Worldly — +2B on Persuasion tests against characters\n" +
+                "from lands other than Westeros.\n";
+
+        return "";
+    }
 }

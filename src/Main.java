@@ -15,33 +15,41 @@ public class Main {
         Dice die = new Dice();
         Data data = new Data();
 
-        int xmax = 1000;
-        int ymax = 1000;
+        runScreen();
 
-        /*
-        Screen screen = new Screen("SIFRP", xmax, ymax);
-        screen.setVisible(true);
-        screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        */
-
-        String input = "\n" +
-                "temp = character.getAgilitySpecialties();\n" +
-                "        JButton acrobaticsPlus = new JButton(\"Acrobatics \" + temp[0]);\n" +
-                "        acrobaticsPlus.setSize(fieldSize);\n" +
-                "        acrobaticsPlus.setLocation(colButton, row);\n" +
-                "        colButton += smallButton.width + 10;\n" +
+        String input ="\n" +
+                "        acrobaticsMinus.addActionListener(new ActionListener() {\n" +
+                "            @Override\n" +
+                "            public void actionPerformed(ActionEvent e) {\n" +
+                "                character.decreaseAcrobatics();\n" +
+                "                characterSpecialtyAssignment(house, character);\n" +
+                "            }\n" +
+                "        });\n" +
                 "\n" +
-                "        JButton acrobaticsMinus = new JButton(\"-\");\n" +
-                "        acrobaticsMinus.setSize(smallButton);\n" +
-                "        acrobaticsMinus.setLocation(colButton, row);\n" +
-                "        colButton += colButtonInc;\n";
+                "        acrobaticsPlus.addActionListener(new ActionListener() {\n" +
+                "            @Override\n" +
+                "            public void actionPerformed(ActionEvent e) {\n" +
+                "                character.increaseAcrobatics();\n" +
+                "                characterSpecialtyAssignment(house, character);\n" +
+                "            }\n" +
+                "        });\n";
         String from = "";
         String to = "";
 
         //System.out.println(stringReplace(input, from, to));
         //System.out.println(replaceAbilities(input));
-        System.out.println(replaceSpecialties(input));
+        //System.out.println(replaceSpecialties(input));
 
+    }
+
+    public static void runScreen() {
+        int xmax = 1000;
+        int ymax = 1000;
+
+
+        Screen screen = new Screen("SIFRP", xmax, ymax);
+        screen.setVisible(true);
+        screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public static String replaceSpecialties(String input) {
@@ -55,7 +63,7 @@ public class Main {
         toReturn = toReturn.concat(stringReplace(input, "acrobatics", "contortions"));
         toReturn = toReturn.concat(stringReplace(input, "acrobatics", "dodge"));
         toReturn = toReturn.concat(stringReplace(input, "acrobatics", "quickness"));
-        toReturn = toReturn.concat(stringReplace(input, "acrobatics", "charm"));
+        toReturn = toReturn.concat(stringReplace(input, "acrobatics", "charmAnimal"));
         toReturn = toReturn.concat(stringReplace(input, "acrobatics", "drive"));
         toReturn = toReturn.concat(stringReplace(input, "acrobatics", "ride"));
         toReturn = toReturn.concat(stringReplace(input, "acrobatics", "train"));
@@ -81,7 +89,7 @@ public class Main {
         toReturn = toReturn.concat(stringReplace(input, "acrobatics", "brawling"));
         toReturn = toReturn.concat(stringReplace(input, "acrobatics", "fencing"));
         toReturn = toReturn.concat(stringReplace(input, "acrobatics", "longblades"));
-        toReturn = toReturn.concat(stringReplace(input, "acrobatics", "pole-arms"));
+        toReturn = toReturn.concat(stringReplace(input, "acrobatics", "poleArms"));
         toReturn = toReturn.concat(stringReplace(input, "acrobatics", "shields"));
         toReturn = toReturn.concat(stringReplace(input, "acrobatics", "shortblades"));
         toReturn = toReturn.concat(stringReplace(input, "acrobatics", "spears"));
