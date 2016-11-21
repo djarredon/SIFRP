@@ -3,10 +3,32 @@
  */
 
 public class BenefitList {
+    //change to BST
     private Benefit head;
 
     public BenefitList() {
         head = null;
+    }
+
+    public BenefitList(BenefitList toCopy) {
+        copyList(toCopy);
+    }
+
+    private void copyList(BenefitList toCopy) {
+        if (toCopy == null || toCopy.head == null)
+            head = null;
+        else {
+            head = toCopy.head;
+            Benefit current = head;
+
+            Benefit toCopyCurrent = toCopy.head.getNext();
+
+            while (toCopyCurrent != null) {
+                current.setNext(toCopyCurrent);
+                current = current.getNext();
+                toCopyCurrent = current.getNext();
+            }
+        }
     }
 
     public void insert(Benefit toInsert) {
@@ -88,13 +110,633 @@ abstract class Benefit {
 class name extends Benefit {
     name() {
         super("name",
-                "req",
+                "none",
                 "short",
                 "long");
     }
 }
 
 */
+
+class Worldly extends Benefit {
+    Worldly() {
+        super("Worldly",
+                "none",
+                "You are familiar with people from beyond the Seven Kingdoms.",
+                "When interacting with a character from the Free Cities or beyond, you\n" +
+                        "gain +2B on all Persuasion tests.");
+    }
+}
+
+class WeaponSavant extends Benefit {
+    WeaponSavant() {
+        super("Weapon Savant",
+                "Requires Agility 4, Cunning 4, Fighting 5",
+                "You are able to pick up any weapon and fight with accomplished skill.",
+                "You can wield any weapon without penalty, regardless of its training\n" +
+                        "requirements.");
+    }
+}
+
+class WeaponMastery extends Benefit {
+    WeaponMastery() {
+        super("Weapon Mastery",
+                "none",
+                "You are skilled with a particular weapon.",
+                "When you take this quality, choose a single weapon. When you wield\n" +
+                        "this weapon in combat, you increase its damage by +1.\n" +
+                        "You may select this quality multiple times. Each time, its effects apply\n" +
+                        "to a different weapon.");
+    }
+}
+
+class Wealthy extends Benefit {
+    Wealthy() {
+        super("Wealthy",
+                "none",
+                "You have fortunes from inheritance or through mastery of business.",
+                "At the start of each month, you may roll an Easy (3) Cunning or Status test\n" +
+                        "to refill your coffers. Success earns you 10 gold dragons times your degree.");
+    }
+}
+
+class WaterDancerIII extends Benefit {
+    WaterDancerIII() {
+        super("Water Dancer III",
+                "Requires Water Dancer II",
+                "You are graceful and elusive in battle.",
+                "When you fight with a Fencing weapon, you may add your Fencing\n" +
+                        "specialty rank to your Combat Defense. This bonus to Combat Defense\n" +
+                        "is negated if the water dancer is denied his Awareness to his Combat\n" +
+                        "Defense at any point. Whenever you wear armor with Bulk 1 or greater,\n" +
+                        "you lose this benefit.");
+    }
+}
+
+class WaterDancerII extends Benefit {
+    WaterDancerII() {
+        super("Water Dancer II",
+                "Requires Water Dancer I",
+                "You are swift as a deer and quick as a snake.",
+                "You may add your Fighting rank to all Agility test results.");
+    }
+}
+
+class WaterDancerI extends Benefit {
+    WaterDancerI() {
+        super("Water Dancer I",
+                "Requires Fighting 3 (Fencing 1B)",
+                "Your eyes see true.",
+                "You may add your Fighting rank to all Awareness test results and to\n" +
+                        "your passive Awareness result.");
+    }
+}
+
+class WargDreams extends Benefit {
+    WargDreams() {
+        super("Warg Dreams",
+                "Requires Will 4 (Dedication 1B), Animal Cohort",
+                "Plagued with queer dreams, you have an uncanny connection with\n" +
+                        "your animal companion, and sometimes you feel as though you\n" +
+                        "wear its body when you sleep.",
+                "Whenever you sleep, roll 1d6. On a result of 1–5 you have a normal night\n" +
+                        "of sleep. A result of 6 indicates you slipped into the skin of your Animal\n" +
+                        "Cohort, filling your mind with strange sensations and experiences. While\n" +
+                        "wearing its skin, you can attempt to influence the creature by making an\n" +
+                        "opposed Will test. If you win, you take control of the animal. You may act\n" +
+                        "normally, but you use the beast’s statistics in place of your own.\n" +
+                        "If the animal wins, it retains control, but you can see through its eyes\n" +
+                        "and experience what it experiences. In either case, you cannot free yourself\n" +
+                        "from the animal unless you succeed on another Challenging (9) Will\n" +
+                        "test. You may test just once per hour you occupy the animal. An ally can\n" +
+                        "give you another test before this time is up by shaking you vigorously. If\n" +
+                        "the animal takes any Damage while this is happening, you are snapped\n" +
+                        "back to your own body and gain a point of Fatigue from the experience.\n" +
+                        "Finally, each time you have an out-of-body experience, you must succeed\n" +
+                        "on a Challenging (9) Will test (Dedication applies). If you succeed,\n" +
+                        "you suffer no ill effect. On a failure, you take –1D on all Persuasion tests\n" +
+                        "until you next sleep. If you ever fail two consecutive Will tests after two\n" +
+                        "nights of skinchanging, you permanently reduce your Cunning by 1 rank.\n" +
+                        "Should you die, a part of yourself enters your Animal Cohort, making\n" +
+                        "it more intelligent, with emotional ties to people, places, and events\n" +
+                        "inherited from you.");
+    }
+}
+
+class Warg extends Benefit {
+    Warg() {
+        super("Warg",
+                "Requires Will 5 (Dedication 2B), Warg Dreams",
+                "The connection between your animal friend and yourself is\n" +
+                        "available to you while you are awake, allowing you to slip into its\n" +
+                        "skin as you will.",
+                "You can safely wear the skin of your Animal Cohort, slipping into its\n" +
+                        "skin as a Greater Action. You use the animal’s statistics but retain your\n" +
+                        "own Cunning and Will; during this time, however, your body is insensate\n" +
+                        "and unconscious, and you have no awareness of what is going on\n" +
+                        "around you.\n" +
+                        "You may remain in this form as long as you wish, though be aware\n" +
+                        "your true body’s needs must be met, and extended trips into your Animal\n" +
+                        "Cohort could cause you to starve to death if you remain out for a\n" +
+                        "week or more. You can return to your body automatically. While you are\n" +
+                        "wearing your Animal Cohort’s skin, you may even enter into combat\n" +
+                        "with it. As an added benefit, the animal can take Injuries, but if this\n" +
+                        "happens you snap back to your own body and gain a point of Fatigue\n" +
+                        "from the experience.");
+    }
+}
+
+class TripleShot extends Benefit {
+    TripleShot() {
+        super("Triple Shot",
+                "Requires Marks manship 7 (Bows 5B), Double Shot",
+                "Like Anguy the Archer, you can fire three arrows at once.",
+                "As a Greater Action, you may fire three arrows simultaneously. Roll\n" +
+                        "three tests using your full Marksmanship, but take –2D on each test.\n" +
+                        "You may fire the arrows at the same target or at three adjacent targets.");
+    }
+}
+
+class Treacherous extends Benefit {
+    Treacherous() {
+        super("Treacherous",
+                "none",
+                "You use your cunning and duplicity to outmaneuver your enemies.",
+                "Whenever you use Deception in an intrigue, you may add your Cunning\n" +
+                        "rank to your Deception test results.");
+    }
+}
+
+class Trade extends Benefit {
+    Trade() {
+        super("Trade",
+                "none",
+                "You are a skilled craftsman.",
+                "You have learned a trade. Choose any one trade. You have to invest at\n" +
+                        "least 2 silver stags and spend ten hours each day for five days. After this\n" +
+                        "period is up, roll a Challenging (9) Cunning test. A success grants you\n" +
+                        "6 × your initial investment (12 silver stags for a Profit of 10 silver stags).\n" +
+                        "Each additional degree improves the multiplier by 1 (so 35 silver stags\n" +
+                        "for two degrees of success and 5 silver stags as investment). If you roll\n" +
+                        "a Critical failure, your investment is lost, and you receive –1D on your\n" +
+                        "next Trade test. Finally, you may create items related to your trade that\n" +
+                        "allow you to purchase them for half the list price.");
+    }
+}
+
+class TourneyKnight extends Benefit {
+    TourneyKnight() {
+        super("Tourney Knight",
+                "Requires Fighting 3 (Spears 1B), Status 3 (Tournaments 1B)",
+                "You are a veteran of numerous tournaments.",
+                "Whenever you joust, you may add the number of bonus dice from the\n" +
+                        "Tournaments specialty to your Fighting test result and to your passive\n" +
+                        "Animal Handling result to stay in the saddle.");
+    }
+}
+
+class Tough extends Benefit {
+    Tough() {
+        super("Tough",
+                "Requires Resilience 1B",
+                "You are uncommonly tough and can shrug off damage with ease.",
+                "You may add the number of bonus dice you have in the Resilience specialty\n" +
+                        "to your Health.");
+    }
+}
+
+class TerrainSpecialist extends Benefit {
+    TerrainSpecialist() {
+        super("Terrain Specialist",
+                "Requires Survival 4",
+                "Vast experience in the wild gives you an advantage\n" +
+                        "when moving through familiar terrain.",
+                "Choose one terrain type from any of the following—deserts, forests,\n" +
+                        "hills, marshes, mountains, plains, and coastal lands. When testing Survival\n" +
+                        "in these areas, you may add the number of bonus dice you have in\n" +
+                        "Education to your Survival test results. In addition, you never take a\n" +
+                        "Movement penalty when moving through this terrain.\n" +
+                        "You may select this benefit multiple times. Each time, its effects apply\n" +
+                        "to a different terrain type.");
+    }
+}
+
+class Talented extends Benefit {
+    Talented() {
+        super("Talented",
+                "none",
+                "You have a natural talent with a single ability.",
+                "Choose a single ability (Fighting, Knowledge, etc.). Whenever you test\n" +
+                        "the chosen ability, add +1 to the test result.\n" +
+                        "You may select this benefit multiple times. Each time, choose a\n" +
+                        "new ability.");
+    }
+}
+
+class Stubborn extends Benefit {
+    Stubborn() {
+        super("Stubborn",
+                "Requires Will 3 (Dedication 1B)",
+                "You are hard to persuade",
+                "You may add the number of bonus dice you have in Dedication to your\n" +
+                        "Composure.");
+    }
+}
+
+class Sponsor extends Benefit {
+    Sponsor() {
+        super("Sponsor",
+                "none",
+                "You have the favor of an important personage.",
+                "A person of quality will vouch for you. Sponsor is a requirement for\n" +
+                        "several qualities. You and the Narrator should work together to define\n" +
+                        "the person who stands for you. The Sponsor should be related to one\n" +
+                        "of the qualities you pursue. A Sponsor may grant you information,\n" +
+                        "audiences, companionship, and even take an interest in your development,\n" +
+                        "though this quality typically does not provide a mechanical\n" +
+                        "benefit");
+    }
+}
+
+class SpearFighterIII extends Benefit {
+    SpearFighterIII() {
+        super("Spear Fighter III",
+                "Requires Athletics 5, Spear Fighter II",
+                "With skill and brute strength,\n" +
+                        "you thrust your spear through your foes.",
+                "Spears in your hands gain the Piercing 2 quality. If the spear already has\n" +
+                        "the Piercing quality, instead increase it by +2");
+    }
+}
+
+class SpearFighterII extends Benefit {
+    SpearFighterII() {
+        super("Spear Fighter II",
+                "Requires Spear Fighter I",
+                "You can trip up your foes with a deft strike of your spear.",
+                "Spears in your hands can attack opponents 1 yard further than they\n" +
+                        "normally could and at no penalty. In addition, when armed with a spear,\n" +
+                        "you gain +1D on tests to Knockdown your opponents.");
+    }
+}
+
+class SpearFighterI extends Benefit {
+    SpearFighterI() {
+        super("Spear Fighter I",
+                "Requires Fighting 3 (Spears 1B)",
+                "A spear’s haft is as much a threat as is its point.",
+                "As a Greater Action, make a normal attack against a single opponent. If\n" +
+                        "you miss, you may immediately make a second attack at any other foe. If\n" +
+                        "this attack hits, it deals damage equal to your Athletics –1.");
+    }
+}
+
+class Skinchanger extends Benefit {
+    Skinchanger() {
+        super("Skinchanger",
+                "Requires Will 5 (Dedication 2B), Warg",
+                "You have mastered the method of skinchanging and can now freely\n" +
+                        "leave your body for a variety of skins.",
+                "You are now no longer restricted to your Animal Cohort for the purpose\n" +
+                        "of warging. Entering an animal that is not your Animal Cohort\n" +
+                        "requires mastering the animal’s Will.\n" +
+                        "This process involves finding an animal in sensory range and engaging\n" +
+                        "in a Conflict Test, using your Animal Handling against the beast’s\n" +
+                        "passive Will. The animal resists its will being subsumed, and many\n" +
+                        "animals will demonstrate either fear or anger at the intrusion. Success\n" +
+                        "means that you have imprinted your will upon the animal, and may\n" +
+                        "control it through your Warg Benefit.\n" +
+                        "While you are wearing one of these skins, you may use it to enter into\n" +
+                        "combat. As an added benefit, it can take Injuries and Wounds. If the\n" +
+                        "animal takes a Wound, however, you snap back to your own body and\n" +
+                        "gain a point of Fatigue from the experience.\n" +
+                        "It is difficult to imprint upon too many beasts at once, however. After\n" +
+                        "the first non-Animal Cohort beast so imprinted, add a +3 cumulative\n" +
+                        "bonus to the beast’s passive Will for the purpose of imprinting it. There\n" +
+                        "are practical limits to how many beasts may be active as potential wargskins\n" +
+                        "at once, and those wargs who manage to accrue large numbers\n" +
+                        "of beasts are well-respected and feared among those cultures (such as\n" +
+                        "wildlings) who acknowledge the existence of wargs.\n" +
+                        "By spending a Destiny point, a warg may also make a human of\n" +
+                        "Cunning 1 into a viable target for this Benefit, allowing the warg to ride\n" +
+                        "those who are simpler in mind.\n" +
+                        "If, at the moment of his bodily death, a warg is either within one of\n" +
+                        "his skins or cognizant enough to shift into one of them, he may burn\n" +
+                        "a Destiny point to permanently take over that creature, continuing his\n" +
+                        "existence. He retains his Cunning and Will, as well as all appropriate\n" +
+                        "Benefits and Drawbacks, particularly his warging abilities.");
+    }
+}
+
+class Sinister extends Benefit {
+    Sinister() {
+        super("Sinister",
+                "none",
+                "Everything about you suggests you are a dangerous individual",
+                "During the first round of combat or intrigue, your opponents take –1D\n" +
+                        "on all Fighting and Persuasion tests made to attack or influence you.");
+    }
+}
+
+class ShortBladeFighterIII extends Benefit {
+    ShortBladeFighterIII() {
+        super("Short Blade Fighter III",
+                "Requires Fighting 6, Short Blade Fighter II",
+                "A short blade is a deadly weapon in your hands.",
+                "When wielding a short blade weapon in combat, you may add the number\n" +
+                        "of bonus dice you have in the Short Blades specialty to your damage\n" +
+                        "result. This extra damage is added after you apply the effects of degree of\n" +
+                        "success.");
+    }
+}
+
+class ShortBladeFighterII extends Benefit {
+    ShortBladeFighterII() {
+        super("Short Blade Fighter II",
+                "Requires Fighting 5, Short Blade Fighter I",
+                "You can pull blades with lightning speed.",
+                "You can draw a short blade as a Free Action. In addition, when using\n" +
+                        "a short blade in combat, you may add the number of bonus dice in the\n" +
+                        "Short Blades specialty to your Fighting test result. So if you have 3B,\n" +
+                        "you would add +3 to your Fighting test result.");
+    }
+}
+
+class ShortBladeFighterI extends Benefit {
+    ShortBladeFighterI() {
+        super("Short Blade Fighter I",
+                "Requires Fighting 4 (Short Blades 1B)",
+                "You know how to slip your blade through the chinks\n" +
+                        "in even the heaviest armors.",
+                "Whenever you wield a short blade in combat, your weapon gains Piercing\n" +
+                        "1. If the weapon already has Piercing, increase it by +1.");
+    }
+}
+
+class ShieldMastery extends Benefit {
+    ShieldMastery() {
+        super("Shield Mastery",
+                "Requires Fighting 3 (Shields 1B)",
+                "You are able to deflect attacks with ease when wielding a shield.",
+                "Increase the Defensive Bonus of any shield carried by +1 per rank in\n" +
+                        "the Shields specialty, to a maximum of doubling the bonus granted by\n" +
+                        "the shield.");
+    }
+}
+
+class Respected extends Benefit {
+    Respected() {
+        super("Respected",
+                "Requires Reputation 2B",
+                "Your accomplishments are widely known and\n" +
+                        "your reputation inspires respect in others.",
+                "During intrigues, your opponents take –1D on Persuasion tests involving\n" +
+                        "Incite, Intimidate, and Taunt.");
+    }
+}
+
+class Polyglot extends Benefit {
+    Polyglot() {
+        super("Polyglot",
+                "Requires Cunning 4 (Decipher 1B)",
+                "You have a great facility with languages.",
+                "You may read any language in which you have at least 1 rank. As well,\n" +
+                        "when exposed to a language with which you aren’t familiar, you may\n" +
+                        "roll a Formidable (12) Cunning test to pick up enough of the tongue\n" +
+                        "to get by. If this test succeeds, you gain 1 rank in the Language for the\n" +
+                        "duration of the encounter. For every two additional degrees on the test,\n" +
+                        "you gain an additional rank.");
+    }
+}
+
+class PolearmFighterIII extends Benefit {
+    PolearmFighterIII() {
+        super("Pole-arm Fighter III",
+                "Requires Fighting 5, Pole-Arm Fighter II",
+                "You can pin your opponent in place with a deft jab of your weapon",
+                "With a hard thrust of your pole-arm, you can pin your opponent. Make\n" +
+                        "a Fighting test as normal to attack your opponent as a Greater Action.\n" +
+                        "If you succeed and achieve at least two degrees of success, you\n" +
+                        "prevent your opponent from spending actions to move. Your opponent\n" +
+                        "can break the pin by beating you on an opposed Athletics test (Strength\n" +
+                        "applies). Your bonus dice from the Pole-arm specialty apply to the opposed\n" +
+                        "Strength test.");
+    }
+}
+
+class PolearmFighterII extends Benefit {
+    PolearmFighterII() {
+        super("Pole-arm Fighter II",
+                "Requires Fighting 4 or Athletics 4, Pole-Arm Fighter I",
+                "You can use your pole-arm to unhorse your opponents.",
+                "When you use a pole-arm to pull a rider from his mount, you may convert\n" +
+                        "your pole-arm bonus dice into test dice. If you fail to beat the rider’s\n" +
+                        "Animal Handling test, you are disarmed.");
+    }
+}
+
+class PolearmFighterI extends Benefit {
+    PolearmFighterI() {
+        super("Pole-arm Fighter I",
+                "Requires Fighting 4 (Pole-arms 2B)",
+                "You are highly trained with the pole-arm.",
+                "You can sweep your pole-arm out to knock your foes to the ground. Roll a\n" +
+                        "Fighting test as normal, but subtract 2 from your test result for each opponent\n" +
+                        "within reach that you want to attack with the sweep. Compare the test\n" +
+                        "result to the Combat Defense of each opponent within reach. Opponents\n" +
+                        "whose Combat Defense you equal or beat are knocked to the ground");
+    }
+}
+
+class Pious extends Benefit {
+    Pious() {
+        super("Pious",
+                "Requires Will 3 (Dedication 1B)",
+                "You have deep-seated conviction and unwavering\n" +
+                        "devotion to your god or gods.",
+                "Choose one religious group, god, or quasi-religious principle. Examples\n" +
+                        "include the Old Way, the Seven, the Lord of Light, and so on. Once per\n" +
+                        "day, you may call upon your faith to help you and your efforts. You gain\n" +
+                        "+1D on a single test.");
+    }
+}
+
+class NightEyes extends Benefit {
+    NightEyes() {
+        super("Night Eyes",
+                "none",
+                "You have exceptional vision and can see clearly in the dark.",
+                "The shadows hold no fear for you. You take no penalty on Fighting and\n" +
+                        "Marksmanship tests or on other physical tests when in areas of poor\n" +
+                        "visibility caused by low light.");
+    }
+}
+
+class Mummer extends Benefit {
+    Mummer() {
+        super("Mummer",
+                "Requires Persuasion 3",
+                "You are an accomplished performer and actor, skilled at\n" +
+                        "entertaining audiences with your antics.",
+                "You can perform in front of audiences and earn a living doing so. To\n" +
+                        "perform, you must succeed on a Persuasion test. The Difficulty is usually\n" +
+                        "Challenging (9), but it may be higher or lower depending on the\n" +
+                        "atmosphere and mood of the crowd. If you succeed, you earn 1d6 silver\n" +
+                        "stags. Each additional degree results in an additional coin. A single test\n" +
+                        "represents an evening’s performance.\n" +
+                        "If you roll a Critical failure, your act offends your audience and you\n" +
+                        "are tossed out for your poor performance. Until you next succeed on a\n" +
+                        "Persuasion test to perform, you take a –5 penalty on your Persuasion\n" +
+                        "test results.");
+    }
+}
+
+class MiracleWorker extends Benefit {
+    MiracleWorker() {
+        super("Miracle Worker",
+                "Requires Healing 4",
+                "You know a variety of techniques and remedies to aid your patients.",
+                "Whenever you test Healing to first diagnose your patient, you gain +2B\n" +
+                        "for a successful test, plus 1 bonus die for each additional degree. You\n" +
+                        "may convert two bonus dice into test dice for your Healing test to treat\n" +
+                        "the patient. Finally, you may add your Education rank to your Healing\n" +
+                        "test results.");
+    }
+}
+
+class MasterOfRavens extends Benefit {
+    MasterOfRavens() {
+        super("Master Of Ravens",
+                "Requires Animal Handling 3",
+                "You are skilled at handling ravens.",
+                "You may dispatch ravens to bear your messages. The Narrator makes a\n" +
+                        "secret Routine (6) Animal Handling test on your behalf (the Charm\n" +
+                        "specialty applies). Success means the raven delivers the message to the\n" +
+                        "appointed destination while failure means the message (and possibly\n" +
+                        "the raven) goes astray. Additional degrees of success may allow you to\n" +
+                        "coax some extra speed or distance out of your birds, at the Narrator’s\n" +
+                        "discretion, or get a message through dangerous or difficult weather or\n" +
+                        "the like.");
+    }
+}
+
+class Massive extends Benefit {
+    Massive() {
+        super("Massive",
+                "Requires Endurance 5",
+                "You are uncommonly large.",
+                "You can wield Two-handed weapons in one hand, and you may ignore\n" +
+                        "the Unwieldy quality of these weapons (if any).");
+    }
+}
+
+class ManOfTheKingsguard extends Benefit {
+    ManOfTheKingsguard() {
+        super("Man Of The Kingsguard",
+                "Requires Sponsor",
+                "You have been selected to protect the king as one of the seven\n" +
+                        "Kingsguard.",
+                "You are a member of the Kingsguard and have vowed to give your life\n" +
+                        "to the protection of the royal family. As a result of this great honor, you\n" +
+                        "gain the following benefits:\n" +
+                        "\t* Your Status increases to 5.\n" +
+                        "\t* Increase your Composure by +2.\n" +
+                        "\t* When fighting to protect the king, queen, or other members of the\n" +
+                        "\troyal family, you may add +1 to all Fighting test results.\n" +
+                        "\t* You have a cell inside the White Tower at King’s Landing and are\n" +
+                        "\tsupplied with a castle-forged longsword, castle-forged plate, and\n" +
+                        "\tmail armor, and whenever you have need of general equipment, the\n" +
+                        "\tcrown supplies it.\n" +
+                        "There is a downside to this: you no longer have ties to your family\n" +
+                        "and cannot derive any benefits from your house’s lands or fortunes,\n" +
+                        "though when you gain Glory, you may invest up to one half into your\n" +
+                        "former house.\n" +
+                        "You must have the Narrator’s permission to select this quality. Taking\n" +
+                        "this quality results in the loss of all Fate qualities tied to your birth\n" +
+                        "house, but you regain the Destiny Points invested in them.");
+    }
+}
+
+class Magnetic extends Benefit {
+    Magnetic() {
+        super("Magnetic",
+                "Requires Charismatic",
+                "You have a way about you that cultivates alliances and friendships.",
+                "Whenever you defeat a foe using Charm, that foe’s disposition increases\n" +
+                        "by a number of steps equal to the number of bonus dice you invested in\n" +
+                        "Charm (minimum 2 steps).");
+    }
+}
+
+class Maester extends Benefit {
+    Maester() {
+        super("Maester",
+                "Requires Cunning 3, Knowledge Focus (any two or more)",
+                "You have forged your chain of knowledge and wear it proudly.",
+                "You are a maester of the Citadel. You are now immune to the household\n" +
+                        "fortunes of your birth house, but you suffer the effects of the household\n" +
+                        "fortunes of the house to which you are assigned. In addition, you may\n" +
+                        "add your Cunning rank to all Knowledge and Will test results.\n" +
+                        "You must have the Narrator’s permission to select this quality. Taking\n" +
+                        "this quality results in the loss of any Fate qualities tied to your birth\n" +
+                        "house, although you regain invested Destiny Points for lost qualities.\n" +
+                        "A character need not take the Maester Benefit in order to be a maester.\n" +
+                        "It simply reflects a maester who has successfully and fully severed\n" +
+                        "all ties with his past, and whose learning has become an inspiration\n" +
+                        "for others of the Citadel.");
+    }
+}
+
+class Lucky extends Benefit {
+    Lucky() {
+        super("Lucky",
+                "none",
+                "You are uncharacteristically lucky.",
+                "Fate favors you. Once per day you may re-roll a single test. You take the\n" +
+                        "better of the two results");
+    }
+}
+
+class LongBladeFighterIII extends Benefit {
+    LongBladeFighterIII() {
+        super("Long Blade Fighter III",
+                "Requires Fighting 6, Long Blade Fighter II",
+                "You can deliver a savage strike to cut your enemy to pieces.",
+                "When you wield a long blade in combat, you may sacrifice all of your\n" +
+                        "bonus dice to deliver a dreadful attack. If you hit with three or more\n" +
+                        "degrees of success, you deal damage as normal, but you also impose a\n" +
+                        "wound and the Maimed quality (see page 95). A target that burns a\n" +
+                        "Destiny Point can avoid gaining this quality.");
+    }
+}
+
+class LongBladeFighterII extends Benefit {
+    LongBladeFighterII() {
+        super("Long Blade Fighter II",
+                "Requires Fighting 5, Long Blade Fighter I",
+                "You drive your enemies before you with the fierceness of your attacks",
+                "When wielding a long blade in combat—for every two bonus dice sacrificed—\n" +
+                        "you and your opponent move 1 yard in any direction if you successfully\n" +
+                        "hit your foe. You may drive your foe into terrain features, such\n" +
+                        "as ponds, rivers, or off cliffs. Should you move your opponent in such a\n" +
+                        "way that they would lose their balance or be in danger, your opponent\n" +
+                        "can negate this movement by succeeding on a Challenging (9) Agility\n" +
+                        "test. Bonus dice from the Dodge specialty apply.");
+    }
+}
+
+class LongBladeFighterI extends Benefit {
+    LongBladeFighterI() {
+        super("Long Blade Fighter I",
+                "Requires Fighting 4 (Long Blades 2B)",
+                "The weight of your blade make your attacks harder to parry.",
+                "When armed with a Long Blade, you may sacrifice all of your bonus\n" +
+                        "dice from Long Blades to gain one free degree of success if you successfully\n" +
+                        "hit your opponent. In addition, adversaries wielding nonshield\n" +
+                        "parrying weapons take a –1 penalty to their Combat Defense\n" +
+                        "against your attacks.");
+    }
+}
 
 class LeaderOfMen extends Benefit {
     LeaderOfMen() {

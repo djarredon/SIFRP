@@ -41,6 +41,7 @@ public class Character {
     private int language;   //this eventually should be translated into a list of known languages.
     private int moveSpeed; //movement speed of character
     //Destiny and qualities
+    private BenefitList benefitList;
     private int destinyPoints;
     private int maximumBenefits;
     private int requiredDrawbacks;
@@ -138,6 +139,8 @@ public class Character {
         thieverySpecialties = null;
         warfareSpecialties = null;
         willSpecialties = null;
+        //benefits
+        benefitList = null;
 
     }
 
@@ -1206,6 +1209,208 @@ Venerable
         }
     }
 
+    public void randBenefits() {
+        int num = maximumBenefits;
+        Data data = new Data();
+        while (num < maximumBenefits) {
+            addBenefit(data.randBenefit(this));
+        }
+    }
+
+    public void addBenefit(Benefit benefit) {
+        if (benefitList == null)
+            benefitList = new BenefitList();
+        if (checkBenefitEligibility(benefit))
+            benefitList.insert(benefit);
+        
+    }
+
+    public boolean checkBenefitEligibility(Benefit benefit) {
+        if (benefit == null)
+            return false;
+        switch (benefit.getName()) {
+            case "Artist":
+                if (!benefitList.contains("Artist"))
+                    return true;
+                return false;
+            case "Accurate":
+                if (marksmanship >= 4 && !benefitList.contains("Accurate"))
+                    return true;
+                return false;
+            case "Acrobatic Defense":
+                if (agility >= 4 && agilitySpecialties[0] >= 1 && !benefitList.contains("Acrobatic Defense"))
+                    return true;
+                return false;
+            case "Adept Negotiator":
+                if (deception >= 3 && !benefitList.contains("Adept Negotiator"))
+                    return true;
+                return false;
+            case "Animal Cohort":
+                if (animalHandling >= 3 && animalHandlingSpecialties[3] >= 1
+                        && !benefitList.contains("Animal Cohort"))
+                    return true;
+                return false;
+            case "Anointed":
+                if (benefitList.contains("Sponsor") && !benefitList.contains("Anointed"))
+                    return true;
+                return false;
+            case "Armor Mastery":
+                if (!benefitList.contains("Anointed"))
+                    return true;
+                return false;
+            case "Attractive":
+                if (!benefitList.contains("Attractive"))
+                    return true;
+                return false;
+            case "Authority":
+                if (!benefitList.contains("Authority"))
+                    return true;
+                return false;
+            case "Axe Fighter I":
+                if (fighting >= 4 && fightingSpecialties[0] >= 2 && !benefitList.contains("Axe Fighter I"))
+                    return true;
+                return false;
+            case "Axe Fighter II":
+                if (fighting >= 5 && fightingSpecialties[0] >= 3 && benefitList.contains("Axe Fighter I")
+                        && !benefitList.contains("Axe Fighter II"))
+                    return true;
+                return false;
+            case "Axe Fighter III":
+                if (fighting >= 6 && fightingSpecialties[0] >= 4 && benefitList.contains("Axe Fighter II")
+                        && !benefitList.contains("Axe Fighter III"))
+                    return true;
+                return false;
+            case "Beastfriend":
+                if (!benefitList.contains("Beastfriend"))
+                    return true;
+                return false;
+            case "Berserker":
+                if (!benefitList.contains("Berserker"))
+                    return true;
+                return false;
+            case "Blood Of The Andals":
+                if (!(benefitList.contains("Blood Of The First Men") || benefitList.contains("Blood Of Heroes"))
+                        || benefitList.contains("Blood Of The Ironmen") || benefitList.contains("Blood Of The Rhoyne")
+                        || benefitList.contains("Blood Of The Wildlings") || benefitList.contains("Blood Of Valyria")
+                        || benefitList.contains("Blood Of The Andals"))
+                    return true;
+                return false;
+            case "Blood Of The First Men":
+                if (!(benefitList.contains("Blood Of The First Men") || benefitList.contains("Blood Of Heroes"))
+                        || benefitList.contains("Blood Of The Ironmen") || benefitList.contains("Blood Of The Rhoyne")
+                        || benefitList.contains("Blood Of The Wildlings") || benefitList.contains("Blood Of Valyria")
+                        || benefitList.contains("Blood Of The Andals"))
+                    return true;
+                return false;
+            case "Blood Of Heroes":
+                if (!(benefitList.contains("Blood Of The First Men") || benefitList.contains("Blood Of Heroes"))
+                        || benefitList.contains("Blood Of The Ironmen") || benefitList.contains("Blood Of The Rhoyne")
+                        || benefitList.contains("Blood Of The Wildlings") || benefitList.contains("Blood Of Valyria")
+                        || benefitList.contains("Blood Of The Andals"))
+                    return true;
+                return false;
+            case "Blood Of The Ironmen":
+                if (!(benefitList.contains("Blood Of The First Men") || benefitList.contains("Blood Of Heroes"))
+                        || benefitList.contains("Blood Of The Ironmen") || benefitList.contains("Blood Of The Rhoyne")
+                        || benefitList.contains("Blood Of The Wildlings") || benefitList.contains("Blood Of Valyria")
+                        || benefitList.contains("Blood Of The Andals"))
+                    return true;
+                return false;
+            case "Blood Of The Rhoyne":
+                if (!(benefitList.contains("Blood Of The First Men") || benefitList.contains("Blood Of Heroes"))
+                        || benefitList.contains("Blood Of The Ironmen") || benefitList.contains("Blood Of The Rhoyne")
+                        || benefitList.contains("Blood Of The Wildlings") || benefitList.contains("Blood Of Valyria")
+                        || benefitList.contains("Blood Of The Andals"))
+                    return true;
+                return false;
+            case "Blood Of Valryia":
+                if (!(benefitList.contains("Blood Of The First Men") || benefitList.contains("Blood Of Heroes"))
+                        || benefitList.contains("Blood Of The Ironmen") || benefitList.contains("Blood Of The Rhoyne")
+                        || benefitList.contains("Blood Of The Wildlings") || benefitList.contains("Blood Of Valyria")
+                        || benefitList.contains("Blood Of The Andals"))
+                    return true;
+                return false;
+            case "Blood Of The Wildlings":
+                if (!(benefitList.contains("Blood Of The First Men") || benefitList.contains("Blood Of Heroes"))
+                        || benefitList.contains("Blood Of The Ironmen") || benefitList.contains("Blood Of The Rhoyne")
+                        || benefitList.contains("Blood Of The Wildlings") || benefitList.contains("Blood Of Valyria")
+                        || benefitList.contains("Blood Of The Andals"))
+                    return true;
+                return false;
+            case "Bludgeon Fighter I":
+                if (fighting >= 4 && fightingSpecialties[1] >= 2
+                        &&!benefitList.contains("Bludgeon Fighter I"))
+                    return true;
+                return false;
+            case "Bludgeon Fighter II":
+                if (fighting >= 5 && fightingSpecialties[1] >= 3 && benefitList.contains("Bludgeon Fighter I")
+                        &&!benefitList.contains("Bludgeon Fighter II"))
+                    return true;
+                return false;
+            case "Bludgeon Fighter III":
+                if (fighting >= 6 && fightingSpecialties[1] >= 4 && benefitList.contains("Bludgeon Fighter II")
+                        &&!benefitList.contains("Bludgeon Fighter III"))
+                    return true;
+                return false;
+            case "Braavosi Fighter I":
+                if (fighting >= 4 && fightingSpecialties[3] >= 1
+                        && !benefitList.contains("Braavosi Fighter I"))
+                    return true;
+                return false;
+            case "Braavosi Fighter II":
+                if (fighting >= 5 && fightingSpecialties[3] >= 2
+                        && benefitList.contains("Braavosi Fighter I")
+                        && !benefitList.contains("Braavosi Fighter II"))
+                    return true;
+                return false;
+            case "Braavosi Fighter III":
+                if (fighting >= 6 && fightingSpecialties[3] >= 3
+                        && benefitList.contains("Braavosi Fighter II")
+                        && !benefitList.contains("Braavosi Fighter III"))
+                    return true;
+                return false;
+            case "Brawler I":
+                if (fighting >= 4 && fightingSpecialties[2] >= 1
+                        && !benefitList.contains("Brawler I"))
+                    return true;
+                return false;
+            case "Brawler II":
+                if (fighting >= 4 && fightingSpecialties[2] >= 3
+                        && benefitList.contains("Brawler I")
+                        && !benefitList.contains("Brawler II"))
+                    return true;
+                return false;
+            case "Brawler III":
+                if (fighting >= 5 && fightingSpecialties[2] >= 5
+                        && benefitList.contains("Brawler II")
+                        && !benefitList.contains("Brawler III"))
+                    return true;
+                return false;
+            case "Brother Of The Night's Watch":
+                if (!benefitList.contains("Brother Of The Night's Watch"))
+                    return true;
+                return false;
+            case "Cadre":
+                if (persuasion >= 5 && !benefitList.contains("Cadre"))
+                    return true;
+                return false;
+
+
+
+            /*
+            case "name":
+                if (ability >= num && specialty[num] >= num
+                    && benefitList.contains("name")
+                    && !benefitList.contains("name"))
+                    return true;
+                 return false;
+             */
+
+            default:
+                return false;
+        }
+    }
+
     public void generateDerivedStats() {
         combatDefense = agility + awareness + athletics
                 + defensiveBonus - armorPenalty;
@@ -1262,6 +1467,9 @@ Venerable
         this.thieverySpecialties = toCopy.thieverySpecialties;
         this.warfareSpecialties = toCopy.warfareSpecialties;
         this.willSpecialties = toCopy.willSpecialties;
+        //benefits
+        if (toCopy.benefitList != null)
+            this.benefitList = new BenefitList(toCopy.benefitList);
         //gear
         if (toCopy.weapon1 != null)
             this.weapon1 = new Weapon(toCopy.weapon1);

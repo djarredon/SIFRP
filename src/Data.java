@@ -745,4 +745,14 @@ public class Data {
 
         return "";
     }
+
+    public Benefit randBenefit(Character character) {
+        //has Character object to make sure
+        Random rand = new Random();
+
+        int num = rand.nextInt(118) + 1;
+
+
+        return null;
+    }
 }
