@@ -3,7 +3,6 @@
  */
 
 public class BenefitList {
-    //change to BST
     private Benefit head;
 
     public BenefitList() {
@@ -32,6 +31,7 @@ public class BenefitList {
     }
 
     public void insert(Benefit toInsert) {
+        //change to insert alphabetically
         if (head == null)
             head = toInsert;
         else {
@@ -44,6 +44,29 @@ public class BenefitList {
         if (find(toCheck) == null)
             return false;
         return true;
+    }
+
+    public int knowledgeFocusCount() {
+        return knowledgeFocusCount(head);
+    }
+
+    private int knowledgeFocusCount(Benefit head) {
+        if (head == null)
+            return 0;
+        else if (head.getName().equalsIgnoreCase("Knowledge Focus [Alchemy]")
+                || head.getName().equalsIgnoreCase("Knowledge Focus [Architecture]")
+                || head.getName().equalsIgnoreCase("Knowledge Focus [Astronomy]")
+                || head.getName().equalsIgnoreCase("Knowledge Focus [Geography]")
+                || head.getName().equalsIgnoreCase("Knowledge Focus [Heraldry]")
+                || head.getName().equalsIgnoreCase("Knowledge Focus [History]")
+                || head.getName().equalsIgnoreCase("Knowledge Focus [Legends]")
+                || head.getName().equalsIgnoreCase("Knowledge Focus [Magic]")
+                || head.getName().equalsIgnoreCase("Knowledge Focus [Nature]")
+                || head.getName().equalsIgnoreCase("Knowledge Focus [Religion]")
+                || head.getName().equalsIgnoreCase("Knowledge Focus [Underworld]"))
+            return knowledgeFocusCount(head.getNext()) + 1;
+        else
+            return knowledgeFocusCount(head.getNext());
     }
 
     public Benefit find(String toFind) {
@@ -511,7 +534,7 @@ class Polyglot extends Benefit {
 
 class PolearmFighterIII extends Benefit {
     PolearmFighterIII() {
-        super("Pole-arm Fighter III",
+        super("Polearm Fighter III",
                 "Requires Fighting 5, Pole-Arm Fighter II",
                 "You can pin your opponent in place with a deft jab of your weapon",
                 "With a hard thrust of your pole-arm, you can pin your opponent. Make\n" +
@@ -526,7 +549,7 @@ class PolearmFighterIII extends Benefit {
 
 class PolearmFighterII extends Benefit {
     PolearmFighterII() {
-        super("Pole-arm Fighter II",
+        super("Polearm Fighter II",
                 "Requires Fighting 4 or Athletics 4, Pole-Arm Fighter I",
                 "You can use your pole-arm to unhorse your opponents.",
                 "When you use a pole-arm to pull a rider from his mount, you may convert\n" +
@@ -537,7 +560,7 @@ class PolearmFighterII extends Benefit {
 
 class PolearmFighterI extends Benefit {
     PolearmFighterI() {
-        super("Pole-arm Fighter I",
+        super("Polearm Fighter I",
                 "Requires Fighting 4 (Pole-arms 2B)",
                 "You are highly trained with the pole-arm.",
                 "You can sweep your pole-arm out to knock your foes to the ground. Roll a\n" +
@@ -992,9 +1015,79 @@ class GiftedTeacher extends Benefit {
     }
 }
 
-class GiftedAthlete extends Benefit {
-    GiftedAthlete() {
-        super("Gifted Athlete",
+class GiftedAthleteClimb extends Benefit {
+    GiftedAthleteClimb() {
+        super("Gifted Athlete [Climb]",
+                "Requires Athletics 4",
+                "You are in excellent physical shape\n" +
+                        "and are skilled in a particular area of Athletics.",
+                "Choose one Athletics specialty. When testing Athletics to perform your\n" +
+                        "chosen specialty, you may convert half your bonus dice (round down,\n" +
+                        "minimum 1) into test dice.\n" +
+                        "You may select this quality multiple times. Each time, choose a new\n" +
+                        "Athletics specialty.");
+    }
+}
+
+class GiftedAthleteJump extends Benefit {
+    GiftedAthleteJump() {
+        super("Gifted Athlete [Jump]",
+                "Requires Athletics 4",
+                "You are in excellent physical shape\n" +
+                        "and are skilled in a particular area of Athletics.",
+                "Choose one Athletics specialty. When testing Athletics to perform your\n" +
+                        "chosen specialty, you may convert half your bonus dice (round down,\n" +
+                        "minimum 1) into test dice.\n" +
+                        "You may select this quality multiple times. Each time, choose a new\n" +
+                        "Athletics specialty.");
+    }
+}
+
+class GiftedAthleteRun extends Benefit {
+    GiftedAthleteRun() {
+        super("Gifted Athlete [Run]",
+                "Requires Athletics 4",
+                "You are in excellent physical shape\n" +
+                        "and are skilled in a particular area of Athletics.",
+                "Choose one Athletics specialty. When testing Athletics to perform your\n" +
+                        "chosen specialty, you may convert half your bonus dice (round down,\n" +
+                        "minimum 1) into test dice.\n" +
+                        "You may select this quality multiple times. Each time, choose a new\n" +
+                        "Athletics specialty.");
+    }
+}
+
+class GiftedAthleteStrength extends Benefit {
+    GiftedAthleteStrength() {
+        super("Gifted Athlete [Strength]",
+                "Requires Athletics 4",
+                "You are in excellent physical shape\n" +
+                        "and are skilled in a particular area of Athletics.",
+                "Choose one Athletics specialty. When testing Athletics to perform your\n" +
+                        "chosen specialty, you may convert half your bonus dice (round down,\n" +
+                        "minimum 1) into test dice.\n" +
+                        "You may select this quality multiple times. Each time, choose a new\n" +
+                        "Athletics specialty.");
+    }
+}
+
+class GiftedAthleteSwim extends Benefit {
+    GiftedAthleteSwim() {
+        super("Gifted Athlete [Swim]",
+                "Requires Athletics 4",
+                "You are in excellent physical shape\n" +
+                        "and are skilled in a particular area of Athletics.",
+                "Choose one Athletics specialty. When testing Athletics to perform your\n" +
+                        "chosen specialty, you may convert half your bonus dice (round down,\n" +
+                        "minimum 1) into test dice.\n" +
+                        "You may select this quality multiple times. Each time, choose a new\n" +
+                        "Athletics specialty.");
+    }
+}
+
+class GiftedAthleteThrow extends Benefit {
+    GiftedAthleteThrow() {
+        super("Gifted Athlete [Throw]",
                 "Requires Athletics 4",
                 "You are in excellent physical shape\n" +
                         "and are skilled in a particular area of Athletics.",
@@ -1088,9 +1181,9 @@ class FaceInTheCrowd extends Benefit {
     }
 }
 
-class Exptertise extends Benefit {
-    Exptertise() {
-        super("Exptertise",
+class Expertise extends Benefit {
+    Expertise() {
+        super("Expertise",
                 "none",
                 "You possess amazing talent with a single ability.",
                 "Choose one specialty. Whenever you test the ability to perform an action\n" +

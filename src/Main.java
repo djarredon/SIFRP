@@ -89,7 +89,7 @@ public class Main {
         toReturn = toReturn.concat(stringReplace(input, "acrobatics", "brawling"));
         toReturn = toReturn.concat(stringReplace(input, "acrobatics", "fencing"));
         toReturn = toReturn.concat(stringReplace(input, "acrobatics", "longblades"));
-        toReturn = toReturn.concat(stringReplace(input, "acrobatics", "poleArms"));
+        toReturn = toReturn.concat(stringReplace(input, "acrobatics", "polearms"));
         toReturn = toReturn.concat(stringReplace(input, "acrobatics", "shields"));
         toReturn = toReturn.concat(stringReplace(input, "acrobatics", "shortblades"));
         toReturn = toReturn.concat(stringReplace(input, "acrobatics", "spears"));

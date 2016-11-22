@@ -1222,7 +1222,6 @@ Venerable
             benefitList = new BenefitList();
         if (checkBenefitEligibility(benefit))
             benefitList.insert(benefit);
-        
     }
 
     public boolean checkBenefitEligibility(Benefit benefit) {
@@ -1394,17 +1393,541 @@ Venerable
                 if (persuasion >= 5 && !benefitList.contains("Cadre"))
                     return true;
                 return false;
-
-
-
-            /*
-            case "name":
-                if (ability >= num && specialty[num] >= num
-                    && benefitList.contains("name")
-                    && !benefitList.contains("name"))
+            case "Cautious Diplomat":
+                if (awareness >= 4 && awarenessSpecialties[0] >= 2
+                        && !benefitList.contains("Cautious Diplomat"))
                     return true;
-                 return false;
-             */
+                return false;
+            case "Charismatic":
+                if (persuasion >= 3 && !benefitList.contains("Charismatic"))
+                    return true;
+                return  false;
+            case "Cohort":
+                if (status >= 3 && !benefitList.contains("Cohort"))
+                    return true;
+                return false;
+            case "Compelling":
+                if (benefitList.contains("Charismatic")
+                        && !benefitList.contains("Compelling"))
+                    return true;
+                return false;
+            case "Connections":
+                if (knowledgeSpecialties[2] >= 1 && !benefitList.contains("Connections"))
+                    return true;
+                return false;
+            case "Courteous":
+                if (persuasion >= 3 && !benefitList.contains("Courteous"))
+                    return true;
+                return false;
+            case "Danger Sense":
+                if (awareness >= 4 && !benefitList.contains("Danger Sense"))
+                    return true;
+                return false;
+            case "Deadly Shot":
+                if (marksmanship >= 5 && !benefitList.contains("Deadly Shot"))
+                    return true;
+                return false;
+            case "Deft Hands":
+                if (agility >= 4 && !benefitList.contains("Deft Hands"))
+                    return true;
+                return false;
+            case "Dextrous":
+                if (!benefitList.contains("Dextrous"))
+                    return true;
+                return false;
+            case "Double Shot":
+                if (marksmanship >= 5 && marksmanshipSpecialties[0] >= 3
+                        && !benefitList.contains("Double Shot"))
+                    return true;
+                return false;
+            case "Dutiful":
+                if (will >= 4 && !benefitList.contains("Dutiful"))
+                    return true;
+                return false;
+            case "Eidetic Memory":
+                if (cunning >= 2 && cunningSpecialties[2] >= 1
+                        && !benefitList.contains("Eidetic Memory"))
+                    return true;
+                return false;
+            case "Eloquent":
+                if (language >= 4 && persuasion >= 4
+                        && !benefitList.contains("Eloquent"))
+                    return true;
+                return false;
+            case "Evaluation":
+                if (knowledge >= 3 && !benefitList.contains("Evaluation"))
+                    return true;
+                return false;
+            case "Expertise":
+                if (!benefitList.contains("Expertise"))
+                    return true;
+                return false;
+            case "Face In The Crowd":
+                if (stealth >= 3 && stealthSpecialties[0] >= 1
+                        && !benefitList.contains("Face In The Crowd"))
+                    return true;
+                return false;
+            case "Famous":
+                if (!benefitList.contains("Famous"))
+                    return true;
+                return false;
+            case "Fast":
+                if (!benefitList.contains("Fast"))
+                    return true;
+                return false;
+            case "Favored Of Nobles":
+                if (!benefitList.contains("Favored Of Nobles"))
+                    return true;
+                return false;
+            case "Favored Of Smallfold":
+                if (!benefitList.contains("Favored Of Smallfolk"))
+                    return true;
+                return false;
+            case "Furtive":
+                if (stealth >= 4 && stealthSpecialties[1] >= 1
+                    && !benefitList.contains("Furtive"))
+                    return true;
+                return false;
+            case "Fury":
+                if (athletics >= 4 && athleticsSpecialties[3] >= 2
+                        && !benefitList.contains("Fury"))
+                    return true;
+                return false;
+            case "Gifted Athlete [Climb]":
+                if (athletics >= 4 && !benefitList.contains("Gifted Athlete [Climb]"))
+                    return true;
+                return false;
+            case "Gifted Athlete [Jump]":
+                if (athletics >= 4 && !benefitList.contains("Gifted Athlete [Jump]"))
+                    return true;
+                return false;
+            case "Gifted Athlete [Run]":
+                if (athletics >= 4 && !benefitList.contains("Gifted Athlete [Run]"))
+                    return true;
+                return false;
+            case "Gifted Athlete [Strength]":
+                if (athletics >= 4 && !benefitList.contains("Gifted Athlete [Strength]"))
+                    return true;
+                return false;
+            case "Gifted Athlete [Swim]":
+                if (athletics >= 4 && !benefitList.contains("Gifted Athlete [Swim]"))
+                    return true;
+                return false;
+            case "Gifted Athlete [Throw]":
+                if (athletics >= 4 && !benefitList.contains("Gifted Athlete [Throw]"))
+                    return true;
+                return false;
+            case "Gifted Teacher":
+                if (knowledge >= 4 && persuasion >= 3
+                        && !benefitList.contains("Gifted Teacher"))
+                    return true;
+                return false;
+            case "Great Hunter":
+                if (survival >= 4 && !benefitList.contains("Great Hunter"))
+                    return true;
+                return false;
+            case "Greensight":
+                if (will >= 5 && !benefitList.contains("Greensight"))
+                    return true;
+                return false;
+            case "Guttersnipe":
+                if (!benefitList.contains("Guttersnipe"))
+                    return true;
+                return false;
+            case "Hail Of Steel":
+                if (marksmanship >= 4 && marksmanshipSpecialties[3] >= 2
+                        && !benefitList.contains("Hail Of Steel"))
+                    return true;
+                return false;
+            case "Hardy":
+                if (endurance >= 3 && enduranceSpecialties[1] >= 1
+                        && !benefitList.contains("Hardy"))
+                    return true;
+                return false;
+            case "Head For Numbers":
+                if (status >= 3 && statusSpecialties[2] >= 1
+                        && !benefitList.contains("Head For Numbers"))
+                    return true;
+                return false;
+            case "Head Of House":
+                if (!benefitList.contains("Head Of House"))
+                    return true;
+                return false;
+            case "Heir":
+                if (!benefitList.contains("Heir"))
+                    return true;
+                return false;
+            case "Heirloom":
+                if (benefitList.contains("Heir")
+                        || benefitList.contains("Head Of House"))
+                    return true;
+                return false;
+            case "Improved Armor Mastery":
+                if (benefitList.contains("Armor Mastery")
+                    && !benefitList.contains("Improved Armor Mastery"))
+                    return true;
+                return false;
+            case "Improved Weapon Mastery":
+                if (benefitList.contains("Weapon Mastery")
+                        && !benefitList.contains("Improved Weapon Mastery"))
+                    return true;
+                return false;
+            case "Inspiring":
+                if (warfare >= 4 && !benefitList.contains("Inspiring"))
+                    return true;
+                return false;
+            case "Keen Senses":
+                if (awareness >= 4 && !benefitList.contains("Keen Senses"))
+                    return true;
+                return false;
+            case "Knowledge Focus [Alchemy]":
+                if (knowledge >= 4 && !benefitList.contains("Knowledge Focus [Alchemy]"))
+                    return true;
+                return false;
+            case "Knowledge Focus [Architecture]":
+                if (knowledge >= 4 && !benefitList.contains("Knowledge Focus [Architecture]"))
+                    return true;
+                return false;
+            case "Knowledge Focus [Astronomy]":
+                if (knowledge >= 4 && !benefitList.contains("Knowledge Focus [Astronomy]"))
+                    return true;
+                return false;
+            case "Knowledge Focus [Geography]":
+                if (knowledge >= 4 && !benefitList.contains("Knowledge Focus [Geography]"))
+                    return true;
+                return false;
+            case "Knowledge Focus [Heraldry]":
+                if (knowledge >= 4 && !benefitList.contains("Knowledge Focus [Heraldry]"))
+                    return true;
+                return false;
+            case "Knowledge Focus [History]":
+                if (knowledge >= 4 && !benefitList.contains("Knowledge Focus [History]"))
+                    return true;
+                return false;
+            case "Knowledge Focus [Legends]":
+                if (knowledge >= 4 && !benefitList.contains("Knowledge Focus [Legends]"))
+                    return true;
+                return false;
+            case "Knowledge Focus [Magic]":
+                if (knowledge >= 4 && !benefitList.contains("Knowledge Focus [Magic]"))
+                    return true;
+                return false;
+            case "Knowledge Focus [Nature]":
+                if (knowledge >= 4 && !benefitList.contains("Knowledge Focus [Nature]"))
+                    return true;
+                return false;
+            case "Knowledge Focus [Religion]":
+                if (knowledge >= 4 && !benefitList.contains("Knowledge Focus [Religion]"))
+                    return true;
+                return false;
+            case "Knowledge Focus [Underworld]":
+                if (knowledge >= 4 && !benefitList.contains("Knowledge Focus [Underworld]"))
+                    return true;
+                return false;
+            case "Landed":
+                if (benefitList.contains("Sponsor")
+                        && !benefitList.contains("Landed"))
+                    return true;
+                return false;
+            case "Leader Of Men":
+                if (warfare >= 4 && warfareSpecialties[0] >= 1
+                        && !benefitList.contains("Leader Of Men"))
+                    return true;
+                return false;
+            case "Long Blade Fighter I":
+                if (fighting >= 4 && fightingSpecialties[4] >= 2
+                        && !benefitList.contains("Long Blade Fighter I"))
+                    return true;
+                return false;
+            case "Long Blade Fighter II":
+                if (fighting >= 5
+                        && benefitList.contains("Long Blade Figther I")
+                        && !benefitList.contains("Long Blade Fighter II"))
+                    return true;
+                return false;
+            case "Long Blade Fighter III":
+                if (fighting >= 6
+                        && benefitList.contains("Long Blade Figther II")
+                        && !benefitList.contains("Long Blade Fighter III"))
+                    return true;
+                return false;
+            case "Lucky":
+                if (!benefitList.contains("Lucky"))
+                    return true;
+                return false;
+            case "Maester":
+                if (cunning >= 3 && benefitList.knowledgeFocusCount() >= 2
+                        && !benefitList.contains("Maester"))
+                    return true;
+                return false;
+            case "Magnetic":
+                if (benefitList.contains("Charismatic")
+                        && !benefitList.contains("Magntetic"))
+                    return true;
+                return false;
+            case "Man Of The Kingsguard":
+                if (benefitList.contains("Sponsor")
+                        && !benefitList.contains("Man Of The Kingsguard"))
+                    return true;
+                return false;
+            case "Massive":
+                if (endurance >= 5 && !benefitList.contains("Massive"))
+                    return true;
+                return false;
+            case "Master Of Ravens":
+                if (animalHandling >= 3 && !benefitList.contains("Master Of Ravens"))
+                    return true;
+                return false;
+            case "Miracle Worker":
+                if (healing >= 4 && !benefitList.contains("Miracle Worker"))
+                    return true;
+                return false;
+            case "Mummer":
+                if (persuasion >= 3 && !benefitList.contains("Mummer"))
+                    return true;
+                return false;
+            case "Night Eyes":
+                if (!benefitList.contains("Night Eyes"))
+                    return true;
+                return false;
+            case "Pious":
+                if (will >= 3 && willSpecialties[2] >= 1
+                        && !benefitList.contains("Pious"))
+                    return true;
+                return false;
+            case "Polearm Fighter I":
+                if (fighting >= 4 && fightingSpecialties[5] >= 2
+                        && !benefitList.contains("Polearm Fighter I"))
+                    return true;
+                return false;
+            case "Polearm Fighter II":
+                if (fighting >= 4 || athletics >= 4
+                        && benefitList.contains("Polearm Fighter I")
+                        && !benefitList.contains("Polearm Fighter II"))
+                    return true;
+                return false;
+            case "Polearm Fighter III":
+                if (fighting >= 5
+                        && benefitList.contains("Polearm Fighter II")
+                        && !benefitList.contains("Polearm Fighter III"))
+                    return true;
+                return false;
+            case "Polyglot":
+                if (cunning >= 4 && cunningSpecialties[0] >= 1
+                        && !benefitList.contains("Polyglot"))
+                    return true;
+                return false;
+            case "Respected":
+                if (statusSpecialties[1] >= 2
+                        && !benefitList.contains("Respected"))
+                    return true;
+                return false;
+            case "Shield Mastery":
+                if (fighting >= 3 && fightingSpecialties [6] >= 1
+                        && !benefitList.contains("Shield Mastery"))
+                    return true;
+                return false;
+            case "Short Blade Fighter I":
+                if (fighting >= 4 && fightingSpecialties[7] >= 1
+                        && !benefitList.contains("Short Blade Fighter I"))
+                    return true;
+                return false;
+            case "Short Blade Fighter II":
+                if (fighting >= 5
+                        && benefitList.contains("Short Blade Fighter I")
+                        && !benefitList.contains("Short Blade Fighter II"))
+                    return true;
+                return false;
+            case "Short Blade Fighter III":
+                if (fighting >= 6
+                        && benefitList.contains("Short Blade Fighter II")
+                        && !benefitList.contains("Short Blade Fighter III"))
+                    return true;
+                return false;
+            case "Sinister":
+                if (!benefitList.contains("Sinister"))
+                    return true;
+                return false;
+            case "Skinchanger":
+                if (will >= 5 && willSpecialties[2] >= 2
+                        && benefitList.contains("Warg")
+                        && !benefitList.contains("Skinchanger"))
+                    return true;
+                return false;
+            case "Spear Fighter I":
+                if (fighting >= 3 && fightingSpecialties[8] >= 1
+                        && !benefitList.contains("Spear Fighter I"))
+                    return true;
+                return false;
+            case "Spear Fighter II":
+                if (benefitList.contains("Spear Fighter I")
+                        && !benefitList.contains("Spear Fighter II"))
+                    return true;
+                return false;
+            case "Spear Fighter III":
+                if (athletics >= 5 && benefitList.contains("Spear Fighter II")
+                        && !benefitList.contains("Spear Fighter III"))
+                    return true;
+            return false;
+            case "Sponsor":
+                if (!benefitList.contains("Sponsor"))
+                    return true;
+                return false;
+            case "Stubborn":
+                if (will >= 3 && willSpecialties[2] >= 1
+                        && !benefitList.contains("Stubborn"))
+                    return true;
+                return false;
+            case "Talented [Agility]":
+                if (!benefitList.contains("Talented [Agility]"))
+                    return true;
+                return false;
+            case "Talented [Animal Handling]":
+                if (!benefitList.contains("Talented [Animal Handling]"))
+                    return true;
+                return false;
+            case "Talented [Athletics]":
+                if (!benefitList.contains("Talented [Athletics]"))
+                    return true;
+                return false;
+            case "Talented [Awareness]":
+                if (!benefitList.contains("Talented [Awareness]"))
+                    return true;
+                return false;
+            case "Talented [Cunning]":
+                if (!benefitList.contains("Talented [Cunning]"))
+                    return true;
+                return false;
+            case "Talented [Deception]":
+                if (!benefitList.contains("Talented [Deception]"))
+                    return true;
+                return false;
+            case "Talented [Endurance]":
+                if (!benefitList.contains("Talented [Endurance]"))
+                    return true;
+                return false;
+            case "Talented [Fighting]":
+                if (!benefitList.contains("Talented [Fighting]"))
+                    return true;
+                return false;
+            case "Talented [Healing]":
+                if (!benefitList.contains("Talented [Healing]"))
+                    return true;
+                return false;
+            case "Talented [Knowledge]":
+                if (!benefitList.contains("Talented [Knowledge]"))
+                    return true;
+                return false;
+            case "Talented [Language]":
+                if (!benefitList.contains("Talented [Language]"))
+                    return true;
+                return false;
+            case "Talented [Marksmanship]":
+                if (!benefitList.contains("Talented [Marksmanship]"))
+                    return true;
+                return false;
+            case "Talented [Persuasion]":
+                if (!benefitList.contains("Talented [Persuasion]"))
+                    return true;
+                return false;
+            case "Talented [Status]":
+                if (!benefitList.contains("Talented [Status]"))
+                    return true;
+                return false;
+            case "Talented [Stealth]":
+                if (!benefitList.contains("Talented [Stealth]"))
+                    return true;
+                return false;
+            case "Talented [Survival]":
+                if (!benefitList.contains("Talented [Survival]"))
+                    return true;
+                return false;
+            case "Talented [Thievery]":
+                if (!benefitList.contains("Talented [Thievery]"))
+                    return true;
+                return false;
+            case "Talented [Warfare]":
+                if (!benefitList.contains("Talented [Warfare]"))
+                    return true;
+                return false;
+            case "Talented [Will]":
+                if (!benefitList.contains("Talented [Will]"))
+                    return true;
+                return false;
+            case "Terrain Specialist":
+                if (survival >= 4
+                        && !benefitList.contains("Terrain Specialist"))
+                    return true;
+                return false;
+            case "Tough":
+                if (enduranceSpecialties[0] >= 1
+                        && !benefitList.contains("Tough"))
+                    return true;
+                return false;
+            case "Tourney Knight":
+                if (fighting >= 3 && fightingSpecialties[8] >= 1
+                        && status >= 3 && statusSpecialties[3] >= 1
+                        && !benefitList.contains("Tourney Knight"))
+                    return true;
+                return false;
+            case "Trade":
+                if (!benefitList.contains("Trade"))
+                    return true;
+                return false;
+            case "Treacherous":
+                if (!benefitList.contains("Treacherous"))
+                    return true;
+                return false;
+            case "Triple Shot":
+                if (marksmanship >= 7 && marksmanshipSpecialties[0] >= 5
+                        && benefitList.contains("Double Shot")
+                        && !benefitList.contains("Triple Shot"))
+                    return true;
+                return false;
+            case "Warg":
+                if (will >= 5 && willSpecialties[2] >= 2
+                        && benefitList.contains("Warg Dreams")
+                        && !benefitList.contains("Warg"))
+                    return true;
+                return false;
+            case "Warg Dreams":
+                if (will >= 4 && willSpecialties[2] >= 1
+                        && benefitList.contains("Animal Cohort")
+                        && !benefitList.contains("Warg Dreams"))
+                    return true;
+                return false;
+            case "Water Dancer I":
+                if (fighting >= 3 && fightingSpecialties[3] >= 1
+                        && !benefitList.contains("Water Dancer I"))
+                    return true;
+                return false;
+            case "Water Dancer II":
+                if (benefitList.contains("Water Dancer I")
+                        && !benefitList.contains("Water Dancer II"))
+                    return true;
+                return false;
+            case "Water Dancer III":
+                if (benefitList.contains("Water Dancer II")
+                        && !benefitList.contains("Water Dancer III"))
+                    return  true;
+                return false;
+            case "Wealthy":
+                if (!benefitList.contains("Wealthy"))
+                    return true;
+                return false;
+            case "Weapon Mastery":
+                if (!benefitList.contains("Weapon Mastery"))
+                    return true;
+                return false;
+            case "Weapon Savant":
+                if (agility >= 4 && cunning >= 4 && fighting >= 5
+                        && !benefitList.contains("Weapon Savant"))
+                    return true;
+                return false;
+            case "Worldly":
+                if (!benefitList.contains("Worldly"))
+                    return true;
+                return false;
 
             default:
                 return false;
