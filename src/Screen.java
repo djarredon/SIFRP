@@ -3950,11 +3950,87 @@ public class Screen extends JFrame {
         destinyField.setLocation(20, 50);
         destinyField.setSize(buttonSize);
 
+        //Benefits purchased
+        JTextArea purchased = new JTextArea("Benefits purchased:\n" + character.printBenefits());
+        purchased.setEditable(false);
+        purchased.setLocation(20, 90);
+        purchased.setSize(buttonSize.width, 300);
+
+        /* name, requirements, short description (links to long description)
+            organized
+
+            name1       name2       name3      name4
+            req1        req2
+            short1      short2
+
+         */
+        Dimension nameSize = new Dimension(200, 40);
+        Dimension shortSize = new Dimension(nameSize.width, 70);
+        Benefit benefit = new Benefit();
+        int nameRow = 20, reqRow = nameRow + nameSize.height + 10, shortRow = reqRow + nameSize.height + 10;
+        int rowInc = shortSize.height + 10;
+        int colStart = 20;
+        int column = colStart;
+        int colInc = nameSize.width + 10;
+        //boolean canBuy;
+        Benefit canBuy = new Benefit();
+
+        /*
+
+            superiorCastleButton.setForeground(Color.red);
+         */
+
+        JButton accurateButton = new JButton("Accurate");
+        if (!character.checkBenefitEligibility(canBuy.Accurate()))
+            accurateButton.setForeground(Color.red);
+        accurateButton.setLocation(column, nameRow);
+        accurateButton.setSize(nameSize);
+
+        JTextArea accurateReq = new JTextArea(benefit.Accurate().getRequirement());
+        accurateReq.setEditable(false);
+        accurateReq.setLineWrap(true);
+        accurateReq.setWrapStyleWord(true);
+        accurateReq.setSize(nameSize);
+        accurateReq.setLocation(column, reqRow);
+
+        JTextArea accurateDescription = new JTextArea(benefit.Accurate().getShortDescription());
+        accurateDescription.setEditable(false);
+        accurateDescription.setLineWrap(true);
+        accurateDescription.setWrapStyleWord(true);
+
+        JScrollPane accurateScroll = new JScrollPane(accurateDescription);
+        accurateScroll.setSize(shortSize);
+        accurateScroll.setLocation(column, shortRow);
+        accurateScroll.getVerticalScrollBar().setUnitIncrement(16);
+        column += colInc;
+
+
+
+
+        JPanel panel = new JPanel(null);
+        panel.setPreferredSize(new Dimension(xMax - 290, yMax));
+
+        panel.add(accurateButton);
+        panel.add(accurateReq);
+        panel.add(accurateScroll);
+        accurateScroll.revalidate();
+
+
+        JScrollPane scrollPane = new JScrollPane(panel);
+        scrollPane.setLocation(buttonSize.width + 40, 90);
+        scrollPane.setSize(xMax - 290, yMax - 200 );
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
+
         c = getContentPane();
 
         c.add(back);
         c.add(destinyField);
+        c.add(purchased);
         c.add(next);
+        c.add(scrollPane);
+
+        scrollPane.revalidate();
 
         back.addActionListener(new ActionListener() {
             @Override

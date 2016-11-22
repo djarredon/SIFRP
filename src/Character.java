@@ -152,6 +152,8 @@ public class Character {
         System.out.println();
         displayStats();
         System.out.println();
+        System.out.println(printBenefits());
+        System.out.println();
         displayCombatInfo();
         System.out.println();
         displayGear();
@@ -178,6 +180,7 @@ public class Character {
         toReturn = toReturn.concat(printBio());
         toReturn = toReturn.concat(printConcept());
         toReturn = toReturn.concat(printStats());
+        toReturn = toReturn.concat("Benefits: " + printBenefits());
         toReturn = toReturn.concat(printCombatInfo());
         toReturn = toReturn.concat(printGear());
 
@@ -643,6 +646,14 @@ public class Character {
             }
             return toReturn;
         }
+    }
+
+    public String printBenefits() {
+        String toReturn = "";
+        if (benefitList != null)
+            toReturn =  toReturn.concat(benefitList.print());
+
+        return toReturn;
     }
 
     public void generateCharacter() {
@@ -1220,8 +1231,12 @@ Venerable
     public void addBenefit(Benefit benefit) {
         if (benefitList == null)
             benefitList = new BenefitList();
-        if (checkBenefitEligibility(benefit))
+        if (checkBenefitEligibility(benefit)) {
             benefitList.insert(benefit);
+            --destinyPoints;
+        }
+        else
+            System.out.println("Couldn't add " + benefit.getName());
     }
 
     public boolean checkBenefitEligibility(Benefit benefit) {
@@ -1287,53 +1302,53 @@ Venerable
                 if (!benefitList.contains("Berserker"))
                     return true;
                 return false;
-            case "Blood Of The Andals":
-                if (!(benefitList.contains("Blood Of The First Men") || benefitList.contains("Blood Of Heroes"))
-                        || benefitList.contains("Blood Of The Ironmen") || benefitList.contains("Blood Of The Rhoyne")
-                        || benefitList.contains("Blood Of The Wildlings") || benefitList.contains("Blood Of Valyria")
-                        || benefitList.contains("Blood Of The Andals"))
+            case "Blood of the Andals":
+                if (!(benefitList.contains("Blood of the First Men") || benefitList.contains("Blood of Heroes")
+                        || benefitList.contains("Blood of the Ironmen") || benefitList.contains("Blood of the Rhoyne")
+                        || benefitList.contains("Blood of the Wildlings") || benefitList.contains("Blood of Valyria")
+                        || benefitList.contains("Blood of the Andals")))
                     return true;
                 return false;
-            case "Blood Of The First Men":
-                if (!(benefitList.contains("Blood Of The First Men") || benefitList.contains("Blood Of Heroes"))
-                        || benefitList.contains("Blood Of The Ironmen") || benefitList.contains("Blood Of The Rhoyne")
-                        || benefitList.contains("Blood Of The Wildlings") || benefitList.contains("Blood Of Valyria")
-                        || benefitList.contains("Blood Of The Andals"))
+            case "Blood of the First Men":
+                if (!(benefitList.contains("Blood of the First Men") || benefitList.contains("Blood of Heroes")
+                        || benefitList.contains("Blood of the Ironmen") || benefitList.contains("Blood of the Rhoyne")
+                        || benefitList.contains("Blood of the Wildlings") || benefitList.contains("Blood of Valyria")
+                        || benefitList.contains("Blood of the Andals")))
                     return true;
                 return false;
-            case "Blood Of Heroes":
-                if (!(benefitList.contains("Blood Of The First Men") || benefitList.contains("Blood Of Heroes"))
-                        || benefitList.contains("Blood Of The Ironmen") || benefitList.contains("Blood Of The Rhoyne")
-                        || benefitList.contains("Blood Of The Wildlings") || benefitList.contains("Blood Of Valyria")
-                        || benefitList.contains("Blood Of The Andals"))
+            case "Blood of Heroes":
+                if (!(benefitList.contains("Blood of the First Men") || benefitList.contains("Blood of Heroes")
+                        || benefitList.contains("Blood of the Ironmen") || benefitList.contains("Blood of the Rhoyne")
+                        || benefitList.contains("Blood of the Wildlings") || benefitList.contains("Blood of Valyria")
+                        || benefitList.contains("Blood of the Andals")))
                     return true;
                 return false;
-            case "Blood Of The Ironmen":
-                if (!(benefitList.contains("Blood Of The First Men") || benefitList.contains("Blood Of Heroes"))
-                        || benefitList.contains("Blood Of The Ironmen") || benefitList.contains("Blood Of The Rhoyne")
-                        || benefitList.contains("Blood Of The Wildlings") || benefitList.contains("Blood Of Valyria")
-                        || benefitList.contains("Blood Of The Andals"))
+            case "Blood of the Ironmen":
+                if (!(benefitList.contains("Blood of the First Men") || benefitList.contains("Blood of Heroes")
+                        || benefitList.contains("Blood of the Ironmen") || benefitList.contains("Blood of the Rhoyne")
+                        || benefitList.contains("Blood of the Wildlings") || benefitList.contains("Blood of Valyria")
+                        || benefitList.contains("Blood of the Andals")))
                     return true;
                 return false;
-            case "Blood Of The Rhoyne":
-                if (!(benefitList.contains("Blood Of The First Men") || benefitList.contains("Blood Of Heroes"))
-                        || benefitList.contains("Blood Of The Ironmen") || benefitList.contains("Blood Of The Rhoyne")
-                        || benefitList.contains("Blood Of The Wildlings") || benefitList.contains("Blood Of Valyria")
-                        || benefitList.contains("Blood Of The Andals"))
+            case "Blood of the Rhoyne":
+                if (!(benefitList.contains("Blood of the First Men") || benefitList.contains("Blood of Heroes")
+                        || benefitList.contains("Blood of the Ironmen") || benefitList.contains("Blood of the Rhoyne")
+                        || benefitList.contains("Blood of the Wildlings") || benefitList.contains("Blood of Valyria")
+                        || benefitList.contains("Blood of the Andals")))
                     return true;
                 return false;
-            case "Blood Of Valryia":
-                if (!(benefitList.contains("Blood Of The First Men") || benefitList.contains("Blood Of Heroes"))
-                        || benefitList.contains("Blood Of The Ironmen") || benefitList.contains("Blood Of The Rhoyne")
-                        || benefitList.contains("Blood Of The Wildlings") || benefitList.contains("Blood Of Valyria")
-                        || benefitList.contains("Blood Of The Andals"))
+            case "Blood of Valryia":
+                if (!(benefitList.contains("Blood of the First Men") || benefitList.contains("Blood of Heroes")
+                        || benefitList.contains("Blood of the Ironmen") || benefitList.contains("Blood of the Rhoyne")
+                        || benefitList.contains("Blood of the Wildlings") || benefitList.contains("Blood of Valyria")
+                        || benefitList.contains("Blood of the Andals")))
                     return true;
                 return false;
-            case "Blood Of The Wildlings":
-                if (!(benefitList.contains("Blood Of The First Men") || benefitList.contains("Blood Of Heroes"))
-                        || benefitList.contains("Blood Of The Ironmen") || benefitList.contains("Blood Of The Rhoyne")
-                        || benefitList.contains("Blood Of The Wildlings") || benefitList.contains("Blood Of Valyria")
-                        || benefitList.contains("Blood Of The Andals"))
+            case "Blood of the Wildlings":
+                if (!(benefitList.contains("Blood of the First Men") || benefitList.contains("Blood of Heroes")
+                        || benefitList.contains("Blood of the Ironmen") || benefitList.contains("Blood of the Rhoyne")
+                        || benefitList.contains("Blood of the Wildlings") || benefitList.contains("Blood of Valyria")
+                        || benefitList.contains("Blood of the Andals")))
                     return true;
                 return false;
             case "Bludgeon Fighter I":
