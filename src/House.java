@@ -37,6 +37,8 @@ public class House {
     private boolean isBanner;
     private DomainList domains;
     private DefenseList castles;
+    private Character firstHeir;
+    private Character secondHeir;
     private CharacterList heirs;
     private WealthList wealthHoldings;
     private String lawHoldings;
@@ -72,6 +74,9 @@ public class House {
         domains = null;
         castles = null;
         steward = null;
+        heirs = null;
+        firstHeir = null;
+        secondHeir = null;
         residents = null;
         wealthHoldings = null;
         lawHoldings = null;
@@ -316,6 +321,14 @@ public class House {
         this.liegeHouse = toCopy.liegeHouse;
 
         //Holdings
+        if (toCopy.firstHeir != null)
+            this.firstHeir = new Character(toCopy.firstHeir);
+        else
+            firstHeir = null;
+        if (toCopy.secondHeir != null)
+            this.secondHeir = new Character(toCopy.secondHeir);
+        else
+            secondHeir = null;
         if (toCopy.heirs != null)
             heirs = new CharacterList(toCopy.heirs);
         else
@@ -437,9 +450,14 @@ public class House {
     }
 
     public String printHeirs() {
-        if (heirs == null)
-            return "No Heirs.\n";
-        return heirs.printNames();
+        String toReturn = "";
+        if (firstHeir != null)
+            toReturn = "First Heir: " + firstHeir.getName() + "\n";
+        if (secondHeir != null)
+            toReturn = toReturn.concat("Second Heir: " + secondHeir.getName() + "\n");
+        if (heirs != null)
+            toReturn = toReturn.concat("Additional heirs: " + heirs.printNames());
+        return toReturn;
     }
 
     public String printHistory() {
@@ -660,12 +678,7 @@ public class House {
     }
 
     public void displayHeirs() {
-        if (heirs != null) {
-            System.out.println("\nHeirs: ");
-            heirs.displayNames();
-        }
-        else
-            System.out.println("\nNo Heirs.");
+        System.out.println(printHeirs());
     }
 
     public void displayResidents() {
@@ -1052,10 +1065,64 @@ public class House {
         }
     }
 
+    public boolean canAfford(String toBuy) {
+        if (toBuy == null)
+            return false;
+        //check if heir
+        switch (toBuy) {
+            case "Heir One":
+                if (getInfluenceRemaining() >= 20 && firstHeir == null)
+                    return true;
+                return false;
+            case "Heir Two":
+                if (getInfluenceRemaining() >= 10 && secondHeir == null)
+                    return true;
+                return false;
+            case "Heir Three":
+                if (getInfluenceRemaining() >= 5)
+                    return true;
+                return false;
+        }
+
+        DefenseHolding temp = new DefenseHolding();
+        //Test if toBuy is a defense structure and can be bought
+        if (temp.isValid(toBuy) && getDefenseRemaining() >= temp.getCost())
+            return true;
+        //check if wealth
+        Wealth wealth = new Wealth();
+        if (wealth.isValid(toBuy) && getWealthRemaining() >= wealth.getCost()
+                && hasWealthRequirements(wealth))
+            return true;
+        return  false;
+    }
+
     public void buyDefenseHolding(String toBuy) {
         if (castles == null)
             castles = new DefenseList();
-        castles.insert(new DefenseNode(toBuy));
+        if (canAfford(toBuy)) {
+            DefenseNode temp = new DefenseNode(toBuy);
+            castles.insert(temp);
+        }
+    }
+
+    public void buyInfluenceHolding(String toBuy) {
+        if (toBuy != null) {
+            if (canAfford(toBuy)) {
+                switch (toBuy) {
+                    case "Heir One":
+                        firstHeir = new Character();
+                        break;
+                    case "Heir Two":
+                        secondHeir = new Character();
+                        break;
+                    case "Heir Three":
+                        if (heirs == null)
+                            heirs = new CharacterList();
+                        heirs.insert(new Character());
+                        break;
+                }
+            }
+        }
     }
 
     public void generateHeirs() {
@@ -1168,6 +1235,7 @@ public class House {
     }
 
     public int getMaxStatus() {
+        setMaxStatus();
         return maxStatus;
     }
 
@@ -1207,24 +1275,14 @@ public class House {
 
     public int getInfluenceInvested() {
         int toReturn = 0;
-        if (heirs != null) {
-            int num = heirs.getCount();
-            if (num % 20 == 0) {
-                num -= 20;
-                toReturn += 20;
-            }
-            if (num % 10 == 0) {
-                num -= 10;
-                toReturn += 10;
-            }
-            while (num > 0 && num % 5 == 0) {
-                num -= 5;
-                toReturn += 5;
-            }
-            return toReturn;
-        }
-        else
-            return toReturn;
+        if (firstHeir != null)
+            toReturn += 20;
+        if (secondHeir != null)
+            toReturn += 10;
+        if (heirs != null)
+            toReturn += 5*heirs.getCount();
+
+        return toReturn;
     }
 
     public int getInfluenceRemaining() {

@@ -4008,6 +4008,8 @@ Venerable
     }
 
     public String getName() {
+        if (name == null)
+            return "";
         String temp = new String() ;
         if (title != null) {
             temp = title;

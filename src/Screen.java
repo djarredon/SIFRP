@@ -4851,7 +4851,7 @@ public class Screen extends JFrame {
 
         JButton river = new JButton("The Riverlands");
         river.setSize(buttonSize);
-        river.setLocation(col1, row);
+        river.setLocation(col1, row += 40);
 
         JButton mountain = new JButton("The Mountains of the Moon");
         mountain.setSize(buttonSize);
@@ -5045,7 +5045,8 @@ public class Screen extends JFrame {
         //defenseName.setBackground(new Color(40,120,120));
         defenseName.setSize(fieldSize);
         defenseName.setLocation(colNames, row);
-        JTextArea defenseResult = new JTextArea(house.getDefense() + "");
+        JTextArea defenseResult = new JTextArea(house.getDefense()
+                - data.getRealmDefenseModifier(realm) +"");
         //defenseResult.setBackground(new Color(40,120,120));
         defenseResult.setLocation(colRoll, row);
         defenseResult.setSize(fieldSize);
@@ -5053,7 +5054,7 @@ public class Screen extends JFrame {
         //defenseModifier.setBackground(new Color(40,120,120));
         defenseModifier.setSize(fieldSize);
         defenseModifier.setLocation(colRealm, row);
-        JTextArea defenseTotal = new JTextArea("" + (house.getDefense() + data.getRealmDefenseModifier(realm)));
+        JTextArea defenseTotal = new JTextArea("" + (house.getDefense()));
         //defenseCol.setBackground(new Color(40,120,120));
         defenseTotal.setSize(fieldSize);
         defenseTotal.setLocation(colTotal, row);
@@ -5064,7 +5065,8 @@ public class Screen extends JFrame {
         //influenceName.setBackground(new Color(40,120,120));
         influenceName.setSize(fieldSize);
         influenceName.setLocation(colNames, row);
-        JTextArea influenceResult = new JTextArea(house.getInfluence() + "");
+        JTextArea influenceResult = new JTextArea((house.getInfluence()
+                - data.getRealmInfluenceModifier(realm)) +  "");
         //influenceResult.setBackground(new Color(40,120,120));
         influenceResult.setLocation(colRoll, row);
         influenceResult.setSize(fieldSize);
@@ -5072,7 +5074,7 @@ public class Screen extends JFrame {
         //influenceModifier.setBackground(new Color(40,120,120));
         influenceModifier.setSize(fieldSize);
         influenceModifier.setLocation(colRealm, row);
-        JTextArea influenceTotal = new JTextArea("" + (house.getInfluence() + data.getRealmInfluenceModifier(realm)));
+        JTextArea influenceTotal = new JTextArea("" + (house.getInfluence()));
         //influenceCol.setBackground(new Color(40,120,120));
         influenceTotal.setSize(fieldSize);
         influenceTotal.setLocation(colTotal, row);
@@ -5083,7 +5085,8 @@ public class Screen extends JFrame {
         //landsName.setBackground(new Color(40,120,120));
         landsName.setSize(fieldSize);
         landsName.setLocation(colNames, row);
-        JTextArea landsResult = new JTextArea(house.getLands() + "");
+        JTextArea landsResult = new JTextArea((house.getLands()
+                - data.getRealmLandsModifier(realm)) +"");
         //landsResult.setBackground(new Color(40,120,120));
         landsResult.setLocation(colRoll, row);
         landsResult.setSize(fieldSize);
@@ -5091,7 +5094,7 @@ public class Screen extends JFrame {
         //landsModifier.setBackground(new Color(40,120,120));
         landsModifier.setSize(fieldSize);
         landsModifier.setLocation(colRealm, row);
-        JTextArea landsTotal = new JTextArea("" + (house.getLands() + data.getRealmLandsModifier(realm)));
+        JTextArea landsTotal = new JTextArea("" + (house.getLands()));
         //landsCol.setBackground(new Color(40,120,120));
         landsTotal.setSize(fieldSize);
         landsTotal.setLocation(colTotal, row);
@@ -5101,7 +5104,8 @@ public class Screen extends JFrame {
         //lawName.setBackground(new Color(40,120,120));
         lawName.setSize(fieldSize);
         lawName.setLocation(colNames, row);
-        JTextArea lawResult = new JTextArea(house.getLaw() + "");
+        JTextArea lawResult = new JTextArea((house.getLaw()
+                - data.getRealmLawModifier(realm)) + "");
         //lawResult.setBackground(new Color(40,120,120));
         lawResult.setLocation(colRoll, row);
         lawResult.setSize(fieldSize);
@@ -5109,7 +5113,7 @@ public class Screen extends JFrame {
         //lawModifier.setBackground(new Color(40,120,120));
         lawModifier.setSize(fieldSize);
         lawModifier.setLocation(colRealm, row);
-        JTextArea lawTotal = new JTextArea("" + (house.getLaw() + data.getRealmLawModifier(realm)));
+        JTextArea lawTotal = new JTextArea("" + (house.getLaw()));
         //lawCol.setBackground(new Color(40,120,120));
         lawTotal.setSize(fieldSize);
         lawTotal.setLocation(colTotal, row);
@@ -5119,7 +5123,8 @@ public class Screen extends JFrame {
         //populationName.setBackground(new Color(40,120,120));
         populationName.setSize(fieldSize);
         populationName.setLocation(colNames, row);
-        JTextArea populationResult = new JTextArea(house.getPopulation() + "");
+        JTextArea populationResult = new JTextArea(house.getPopulation()
+                - data.getRealmPopulationModifier(realm) + "");
         //populationResult.setBackground(new Color(40,120,120));
         populationResult.setLocation(colRoll, row);
         populationResult.setSize(fieldSize);
@@ -5127,7 +5132,7 @@ public class Screen extends JFrame {
         //populationModifier.setBackground(new Color(40,120,120));
         populationModifier.setSize(fieldSize);
         populationModifier.setLocation(colRealm, row);
-        JTextArea populationTotal = new JTextArea("" + (house.getPopulation() + data.getRealmPopulationModifier(realm)));
+        JTextArea populationTotal = new JTextArea("" + (house.getPopulation()));
         //populationCol.setBackground(new Color(40,120,120));
         populationTotal.setSize(fieldSize);
         populationTotal.setLocation(colTotal, row);
@@ -5137,7 +5142,8 @@ public class Screen extends JFrame {
         //powerName.setBackground(new Color(40,120,120));
         powerName.setSize(fieldSize);
         powerName.setLocation(colNames, row);
-        JTextArea powerResult = new JTextArea(house.getPower() + "");
+        JTextArea powerResult = new JTextArea(house.getPower()
+                - data.getRealmPowerModifier(realm) + "");
         //powerResult.setBackground(new Color(40,120,120));
         powerResult.setLocation(colRoll, row);
         powerResult.setSize(fieldSize);
@@ -5145,7 +5151,7 @@ public class Screen extends JFrame {
         //powerModifier.setBackground(new Color(40,120,120));
         powerModifier.setSize(fieldSize);
         powerModifier.setLocation(colRealm, row);
-        JTextArea powerTotal = new JTextArea("" + (house.getPower() + data.getRealmPowerModifier(realm)));
+        JTextArea powerTotal = new JTextArea("" + (house.getPower()));
         //powerCol.setBackground(new Color(40,120,120));
         powerTotal.setSize(fieldSize);
         powerTotal.setLocation(colTotal, row);
@@ -5155,7 +5161,8 @@ public class Screen extends JFrame {
         //wealthName.setBackground(new Color(40,120,120));
         wealthName.setSize(fieldSize);
         wealthName.setLocation(colNames, row);
-        JTextArea wealthResult = new JTextArea(house.getWealth() + "");
+        JTextArea wealthResult = new JTextArea(house.getWealth()
+                - data.getRealmWealthModifier(realm) + "");
         //wealthResult.setBackground(new Color(40,120,120));
         wealthResult.setLocation(colRoll, row);
         wealthResult.setSize(fieldSize);
@@ -5163,7 +5170,7 @@ public class Screen extends JFrame {
         //wealthModifier.setBackground(new Color(40,120,120));
         wealthModifier.setSize(fieldSize);
         wealthModifier.setLocation(colRealm, row);
-        JTextArea wealthTotal = new JTextArea("" + (house.getWealth() + data.getRealmWealthModifier(realm)));
+        JTextArea wealthTotal = new JTextArea("" + (house.getWealth() ));
         //wealthCol.setBackground(new Color(40,120,120));
         wealthTotal.setSize(fieldSize);
         wealthTotal.setLocation(colTotal, row);
@@ -5672,7 +5679,8 @@ public class Screen extends JFrame {
         holdingBenefit.setLocation(colBenefit,row);
 
         //Show points remaining
-        JTextArea pointsRemaining = new JTextArea(house.getDefenseRemaining() + "");
+        JTextArea pointsRemaining = new JTextArea("Defense Remaining: "
+                + house.getDefenseRemaining() + "");
         pointsRemaining.setEditable(false);
         pointsRemaining.setSize(buttonSize);
         pointsRemaining.setLocation(colButton, row);
@@ -5680,11 +5688,6 @@ public class Screen extends JFrame {
         row += 40;
 
         //superior castle
-        boolean canAfford;
-        if (house.getDefenseRemaining() < 50)
-            canAfford = false;
-        else
-            canAfford = true;
         JTextArea superiorCastleName = new JTextArea("Superior \nCastle");
         superiorCastleName.setEditable(false);
         superiorCastleName.setSize(fieldSize);
@@ -5712,17 +5715,13 @@ public class Screen extends JFrame {
         superiorCastleBenefit.setSize(longField);
         superiorCastleBenefit.setLocation(colBenefit,row);
         JButton superiorCastleButton = new JButton("Purchase");
-        if (!canAfford)
+        if (!house.canAfford("Superior Castle"))
             superiorCastleButton.setForeground(Color.red);
         superiorCastleButton.setSize(buttonSize);
         superiorCastleButton.setLocation(colButton, row);
         row += rowInc;
 
         //castle
-        if (house.getDefenseRemaining() < 40)
-            canAfford = false;
-        else
-            canAfford = true;
         JTextArea castleName = new JTextArea("Castle");
         castleName.setEditable(false);
         castleName.setSize(fieldSize);
@@ -5749,17 +5748,13 @@ public class Screen extends JFrame {
         castleBenefit.setSize(longField);
         castleBenefit.setLocation(colBenefit,row);
         JButton castleButton = new JButton("Purchase");
-        if (!canAfford)
+        if (!house.canAfford("Castle"))
             castleButton.setForeground(Color.red);
         castleButton.setSize(buttonSize);
         castleButton.setLocation(colButton, row);
         row += rowInc;
 
         //small castle
-        if (house.getDefenseRemaining() < 30)
-            canAfford = false;
-        else
-            canAfford = true;
         JTextArea smallCastleName = new JTextArea("Small \nCastle");
         smallCastleName.setEditable(false);
         smallCastleName.setSize(fieldSize);
@@ -5784,17 +5779,13 @@ public class Screen extends JFrame {
         smallCastleBenefit.setSize(longField);
         smallCastleBenefit.setLocation(colBenefit,row);
         JButton smallCastleButton = new JButton("Purchase");
-        if (!canAfford)
+        if (!house.canAfford("Small Castle"))
             smallCastleButton.setForeground(Color.red);
         smallCastleButton.setSize(buttonSize);
         smallCastleButton.setLocation(colButton, row);
         row += rowInc;
 
         //Hall, Keep
-        if (house.getDefenseRemaining() < 20)
-            canAfford = false;
-        else
-            canAfford = true;
         JTextArea hallName = new JTextArea("Hall");
         hallName.setEditable(false);
         hallName.setSize(fieldSize);
@@ -5819,18 +5810,14 @@ public class Screen extends JFrame {
         hallBenefit.setSize(longField);
         hallBenefit.setLocation(colBenefit,row);
         JButton hallButton = new JButton("Purchase");
-        if (!canAfford)
+        if (!house.canAfford("Hall"))
             hallButton.setForeground(Color.red);
         hallButton.setSize(buttonSize);
         hallButton.setLocation(colButton, row);
         row += rowInc;
 
-        //Hall, Keep
-        if (house.getDefenseRemaining() < 10)
-            canAfford = false;
-        else
-            canAfford = true;
-        JTextArea towerName = new JTextArea("Hall");
+        //Tower
+        JTextArea towerName = new JTextArea("Tower");
         towerName.setEditable(false);
         towerName.setSize(fieldSize);
         towerName.setLocation(colName, row);
@@ -5855,7 +5842,7 @@ public class Screen extends JFrame {
         towerBenefit.setSize(longField);
         towerBenefit.setLocation(colBenefit,row);
         JButton towerButton = new JButton("Purchase");
-        if (!canAfford)
+        if (!house.canAfford("Tower"))
             towerButton.setForeground(Color.red);
         towerButton.setSize(buttonSize);
         towerButton.setLocation(colButton, row);
@@ -5914,7 +5901,8 @@ public class Screen extends JFrame {
         superiorCastleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                house.buyDefenseHolding("Superior Castle");
+                if (house.canAfford("Superior Castle"))
+                    house.buyDefenseHolding("Superior Castle");
                 purchaseDefenseHoldings(house);
             }
         });
@@ -5922,7 +5910,8 @@ public class Screen extends JFrame {
         castleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                house.buyDefenseHolding("Castle");
+                if (house.canAfford("Castle"))
+                    house.buyDefenseHolding("Castle");
                 purchaseDefenseHoldings(house);
             }
         });
@@ -5930,7 +5919,8 @@ public class Screen extends JFrame {
         smallCastleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                house.buyDefenseHolding("Small Castle");
+                if (house.canAfford("Small Castle"))
+                    house.buyDefenseHolding("Small Castle");
                 purchaseDefenseHoldings(house);
             }
         });
@@ -5938,7 +5928,8 @@ public class Screen extends JFrame {
         hallButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                house.buyDefenseHolding("Hall");
+                if (house.canAfford("Hall"))
+                    house.buyDefenseHolding("Hall");
                 purchaseDefenseHoldings(house);
             }
         });
@@ -5946,7 +5937,8 @@ public class Screen extends JFrame {
         towerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                house.buyDefenseHolding("Tower");
+                if (house.canAfford("Tower"))
+                    house.buyDefenseHolding("Tower");
                 purchaseDefenseHoldings(house);
             }
         });
@@ -5964,14 +5956,171 @@ public class Screen extends JFrame {
         repaint();
         getContentPane().removeAll();
 
+        Dimension longField = new Dimension(250, 35);
+        Dimension shortfield = new Dimension(100, 35);
+
         //back button
         JButton back = new JButton("Purchase Holdings");
         back.setSize(buttonSize);
         back.setLocation(20, 20);
 
+        //Influence holdings are Heirs
+        int col1 = 20, col2 = 150, col3 = 420, col4 = 540;
+        int row = 80;
+
+        //Heir's status     Example         cost
+        JTextField statusField = new JTextField("Heir's Status");
+        statusField.setEditable(false);
+        statusField.setSize(shortfield);
+        statusField.setLocation(col1, row);
+
+        JTextField exampleField = new JTextField("Example");
+        exampleField.setEditable(false);
+        exampleField.setSize(longField);
+        exampleField.setLocation(col2, row);
+
+        JTextField costField = new JTextField("Cost");
+        costField.setEditable(false);
+        costField.setSize(shortfield);
+        costField.setLocation(col3, row);
+
+        JTextField influenceRemaining = new JTextField("Influence Remaining: "
+                + house.getInfluenceRemaining());
+        influenceRemaining.setEditable(false);
+        influenceRemaining.setSize(buttonSize);
+        influenceRemaining.setLocation(col4, row);
+
+        //Heir One
+        int maxStatus = house.getMaxStatus();
+        if (maxStatus -1 < 3)
+            maxStatus = 4;
+        JTextArea heirOneStatus = new JTextArea("Maximum-1 ("
+                + (maxStatus - 1) + ")");
+        heirOneStatus.setEditable(false);
+        heirOneStatus.setSize(shortfield);
+        heirOneStatus.setLocation(col1, row += 50);
+
+        JTextArea heirOneExample = new JTextArea("First-born" +
+                " son (or Daughter, in Dorne).");
+        heirOneExample.setLineWrap(true);
+        heirOneExample.setEditable(false);
+        heirOneExample.setSize(longField);
+        heirOneExample.setLocation(col2, row);
+
+        JTextArea heirOneCost = new JTextArea("20");
+        heirOneCost.setEditable(false);
+        heirOneCost.setSize(shortfield);
+        heirOneCost.setLocation(col3, row);
+
+        JButton buyHeirOne = new JButton("Purchase Heir");
+        if (!house.canAfford("Heir One"))
+            buyHeirOne.setForeground(Color.red);
+        buyHeirOne.setSize(buttonSize);
+        buyHeirOne.setLocation(col4, row);
+
+        //Heir Two
+        if (maxStatus -2 < 3)
+            maxStatus = 5;
+        JTextArea heirTwoStatus = new JTextArea("Maximum-2 ("
+                + (maxStatus -2) + ")");
+        heirTwoStatus.setEditable(false);
+        heirTwoStatus.setSize(shortfield);
+        heirTwoStatus.setLocation(col1, row += 50);
+
+        JTextArea heirTwoExample = new JTextArea("Second son (" +
+                "or daughter, in Dorne), or first-born daughter.");
+        heirTwoExample.setLineWrap(true);
+        heirTwoExample.setEditable(false);
+        heirTwoExample.setSize(longField);
+        heirTwoExample.setLocation(col2, row);
+
+        JTextArea heirTwoCost = new JTextArea("10");
+        heirTwoCost.setEditable(false);
+        heirTwoCost.setSize(shortfield);
+        heirTwoCost.setLocation(col3, row);
+
+        JButton buyHeirTwo = new JButton("Purchase Heir");
+        if (!house.canAfford("Heir Two"))
+            buyHeirTwo.setForeground(Color.red);
+        buyHeirTwo.setSize(buttonSize);
+        buyHeirTwo.setLocation(col4, row);
+
+        //Heir Three
+        if (maxStatus -3 < 3)
+            maxStatus = 6;
+        JTextArea heirThreeStatus = new JTextArea("Maximum-3 ("
+                + (maxStatus -3) + ")");
+        heirThreeStatus.setEditable(false);
+        heirThreeStatus.setSize(shortfield);
+        heirThreeStatus.setLocation(col1, row += 50);
+
+        JTextArea heirThreeExample = new JTextArea("Other children (" +
+                "not including bastards).");
+        heirThreeExample.setWrapStyleWord(true);
+        heirThreeExample.setEditable(false);
+        heirThreeExample.setSize(longField);
+        heirThreeExample.setLocation(col2, row);
+
+        JTextArea heirThreeCost = new JTextArea("5");
+        heirThreeCost.setEditable(false);
+        heirThreeCost.setSize(shortfield);
+        heirThreeCost.setLocation(col3, row);
+
+        JButton buyHeirThree = new JButton("Purchase Heir");
+        if (!house.canAfford("Heir Three"))
+            buyHeirThree.setForeground(Color.red);
+        buyHeirThree.setSize(buttonSize);
+        buyHeirThree.setLocation(col4, row);
 
         c.add(back);
+        c.add(statusField);
+        c.add(exampleField);
+        c.add(costField);
+        c.add(influenceRemaining);
 
+        c.add(heirOneStatus);
+        c.add(heirOneExample);
+        c.add(heirOneCost);
+
+        c.add(heirTwoStatus);
+        c.add(heirTwoExample);
+        c.add(heirTwoCost);
+
+        c.add(heirThreeStatus);
+        c.add(heirThreeExample);
+        c.add(heirThreeCost);
+
+        c.add(buyHeirOne);
+        c.add(buyHeirThree);
+        c.add(buyHeirTwo);
+
+
+        buyHeirOne.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (house.canAfford("Heir One"))
+                    house.buyInfluenceHolding("Heir One");
+                purchaseInfluenceHoldings(house);
+            }
+        });
+
+        buyHeirTwo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (house.canAfford("Heir Two"))
+                    house.buyInfluenceHolding("Heir Two");
+                purchaseInfluenceHoldings(house);
+            }
+        });
+
+        buyHeirThree.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (house.canAfford("Heir Three"))
+                    house.buyInfluenceHolding("Heir Three");
+                purchaseInfluenceHoldings(house);
+            }
+        });
 
         back.addActionListener(new ActionListener() {
             @Override
@@ -5990,6 +6139,24 @@ public class Screen extends JFrame {
         back.setSize(buttonSize);
         back.setLocation(20, 20);
 
+        String realm = house.printRealm();
+        /*
+        Terrain             Realms that don't have
+            * Hills         King's Landing, The Reach
+            * Mountains     Dragonstone, Irons Islands, King's landing, the Reach, Riverlands
+            * Plains        Mountains of the Moon
+            * Wetlands      Dorne, Irons Islands, King's Landing, Mt Moon, Reach, Westerlands
+
+          Features          Realms that don't have
+            * Coast         Riverlands
+            * Community
+            * Grassland     Dorne
+            * Island        King's Landing, Riverlands
+            * Road
+            * Ruin
+            * Water         Dragonstone, Iron Islands
+            * Woods         Dorne, Dragonstone, Iron Islands, Mt. Moon, Reach, Riverlands, Westerlands
+         */
 
         c.add(back);
 
@@ -6059,7 +6226,8 @@ public class Screen extends JFrame {
         holdingBenefit.setLocation(colBenefit + 20,row);
 
         //Show points remaining
-        JTextArea pointsRemaining = new JTextArea(house.getWealthRemaining() + "");
+        JTextArea pointsRemaining = new JTextArea("Wealth Remaining"
+                + house.getWealthRemaining() + "");
         pointsRemaining.setEditable(false);
         pointsRemaining.setSize(buttonSize);
         pointsRemaining.setLocation(colButton + 20, row);
@@ -6067,11 +6235,6 @@ public class Screen extends JFrame {
         row = 10;
 
         //Artisan
-        boolean canAffordArtisan;
-        if (house.getWealthRemaining() < 10 && !house.hasWealthRequirements("Artisan"))
-            canAffordArtisan = false;
-        else
-            canAffordArtisan = true;
         JTextArea artisanName = new JTextArea("Artisan");
         artisanName.setEditable(false);
         artisanName.setSize(fieldSize);
@@ -6099,18 +6262,13 @@ public class Screen extends JFrame {
         artisanBenefit.setSize(longField);
         artisanBenefit.setLocation(colBenefit,row);
         JButton artisanButton = new JButton("Purchase");
-        if (!canAffordArtisan)
+        if (!house.canAfford("Artisan"))
             artisanButton.setForeground(Color.red);
         artisanButton.setSize(buttonSize);
         artisanButton.setLocation(colButton, row);
         row += rowInc;
 
         //GodsWood
-        boolean canAffordGodsWood;
-        if (house.getWealthRemaining() < 5 && !house.hasWealthRequirements("GodsWood"))
-            canAffordGodsWood = false;
-        else
-            canAffordGodsWood = true;
         JTextArea godsWoodName = new JTextArea("GodsWood");
         godsWoodName.setEditable(false);
         godsWoodName.setSize(fieldSize);
@@ -6133,18 +6291,13 @@ public class Screen extends JFrame {
         godsWoodBenefit.setSize(longField);
         godsWoodBenefit.setLocation(colBenefit,row);
         JButton godsWoodButton = new JButton("Purchase");
-        if (!canAffordGodsWood)
+        if (!house.canAfford("GodsWood"))
             godsWoodButton.setForeground(Color.red);
         godsWoodButton.setSize(buttonSize);
         godsWoodButton.setLocation(colButton, row);
         row += rowInc;
 
         //Guilds
-        boolean canAffordGuilds;
-        if (house.getWealthRemaining() < 15 && !house.hasWealthRequirements("Guilds"))
-            canAffordGuilds = false;
-        else
-            canAffordGuilds = true;
         JTextArea guildsName = new JTextArea("Guilds");
         guildsName.setEditable(false);
         guildsName.setSize(fieldSize);
@@ -6167,18 +6320,13 @@ public class Screen extends JFrame {
         guildsBenefit.setSize(longField);
         guildsBenefit.setLocation(colBenefit,row);
         JButton guildsButton = new JButton("Purchase");
-        if (!canAffordGuilds)
+        if (!house.canAfford("Guilds"))
             guildsButton.setForeground(Color.red);
         guildsButton.setSize(buttonSize);
         guildsButton.setLocation(colButton, row);
         row += rowInc;
 
         //Maester
-        boolean canAffordMaester;
-        if (house.getWealthRemaining() < 10 && !house.hasWealthRequirements("Maester"))
-            canAffordMaester = false;
-        else
-            canAffordMaester = true;
         JTextArea maesterName = new JTextArea("Maester");
         maesterName.setEditable(false);
         maesterName.setSize(fieldSize);
@@ -6202,18 +6350,13 @@ public class Screen extends JFrame {
         maesterBenefit.setSize(longField);
         maesterBenefit.setLocation(colBenefit,row);
         JButton maesterButton = new JButton("Purchase");
-        if (!canAffordMaester)
+        if (!house.canAfford("Maester"))
             maesterButton.setForeground(Color.red);
         maesterButton.setSize(buttonSize);
         maesterButton.setLocation(colButton, row);
         row += rowInc;
 
         //Marketplace
-        boolean canAffordMartketplace;
-        if (house.getWealthRemaining() < 10 && !house.hasWealthRequirements("Marketplace"))
-            canAffordMartketplace = false;
-        else
-            canAffordMartketplace = true;
         JTextArea marketplaceName = new JTextArea("Marketplace");
         marketplaceName.setEditable(false);
         marketplaceName.setSize(fieldSize);
@@ -6236,7 +6379,7 @@ public class Screen extends JFrame {
         marketplaceBenefit.setSize(longField);
         marketplaceBenefit.setLocation(colBenefit,row);
         JButton marketplaceButton = new JButton("Purchase");
-        if (!canAffordMartketplace)
+        if (!house.canAfford("Marketplace"))
             marketplaceButton.setForeground(Color.red);
         marketplaceButton.setSize(buttonSize);
         marketplaceButton.setLocation(colButton, row);
@@ -6305,7 +6448,7 @@ public class Screen extends JFrame {
         artisanButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (canAffordArtisan)
+                if (house.canAfford("Artisan"))
                     house.buyWealthHolding("Artisan");
                 purchaseWealthHoldings(house);
             }
@@ -6314,7 +6457,7 @@ public class Screen extends JFrame {
         godsWoodButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (canAffordGodsWood)
+                if (house.canAfford("GodsWood"))
                     house.buyWealthHolding("GodsWood");
                 purchaseWealthHoldings(house);
             }
@@ -6323,7 +6466,7 @@ public class Screen extends JFrame {
         guildsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (canAffordGuilds)
+                if (house.canAfford("Guilds"))
                     house.buyWealthHolding("Guilds");
                 purchaseWealthHoldings(house);
             }
@@ -6332,7 +6475,7 @@ public class Screen extends JFrame {
         maesterButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (canAffordMaester)
+                if (house.canAfford("Maester"))
                     house.buyWealthHolding("Maester");
                 purchaseWealthHoldings(house);
             }
@@ -6341,7 +6484,7 @@ public class Screen extends JFrame {
         marketplaceButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (canAffordMartketplace)
+                if (house.canAfford("Marketplace"))
                     house.buyWealthHolding("Marketplace");
                 purchaseWealthHoldings(house);
             }

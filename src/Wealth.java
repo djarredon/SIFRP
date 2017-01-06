@@ -20,7 +20,16 @@ public class Wealth extends Holding {
     }
 
     public Wealth(String name) {
-        setHolding(name);
+        super();
+        if (name != null)
+            setHolding(name);
+        else {
+            name = null;
+            definition = null;
+            requirements = null;
+            time = null;
+            description = null;
+        }
     }
 
     public Wealth(Wealth toCopy) {
@@ -72,7 +81,13 @@ public class Wealth extends Holding {
         }
     }
 
-    public void setHolding(String name) {
+    public boolean isValid(String name) {
+        return setHolding(name);
+    }
+
+    public boolean setHolding(String name) {
+        if (name == null)
+            return false;
         switch (name) {
             case "Artisan":
                 this.name = name;
@@ -151,13 +166,9 @@ public class Wealth extends Holding {
                         "character or a Narrator character.";
                 break;
             default:
-                this.name = "Guilds";
-                definition = "A Guild controls manufacturing and pricing of commodities.";
-                requirements = "Small Town or Larger Community";
-                setCost(15);
-                time = "2D6 Months";
-                description = "All members of the household gain a 10% discount on any goods \npurchased in their own lands.";
-                break;
+                this.name = "Invalid";
+                return false;
         }
+        return true;
     }
 }

@@ -53,7 +53,12 @@ public class DefenseList {
         }
     }
 
-    public void insert(DefenseNode castle) {
+    public boolean insert(DefenseNode castle) {
+        if (castle == null)
+            return false;
+        if (castle.getName().equalsIgnoreCase("Invalid"))
+            return false;
+
         if (head == null)
             head = new DefenseNode(castle);
         else {
@@ -61,6 +66,7 @@ public class DefenseList {
             temp.setNext(head);
             head = temp;
         }
+        return true;
     }
 
     public boolean hasHolding(String toCheck) {

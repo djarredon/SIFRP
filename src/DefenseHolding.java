@@ -25,7 +25,11 @@ public class DefenseHolding extends Holding {
 
     public DefenseHolding(String toBe) {
         super();
-        setHolding(toBe);
+        if (!setHolding(toBe)) {
+            name = "Invalid";
+            description = benefit = null;
+            type = -1;
+        }
     }
 
     public DefenseHolding(int type) {
@@ -37,7 +41,13 @@ public class DefenseHolding extends Holding {
         setType(this.type);
     }
 
-    public void setHolding(String string) {
+    public boolean isValid(String string) {
+        return setHolding(string);
+    }
+
+    public boolean setHolding(String string) {
+        if (string == null)
+            return false;
         switch (string) {
             case "Superior Castle":
                 setName(1);
@@ -55,9 +65,9 @@ public class DefenseHolding extends Holding {
                 setName(5);
                 break;
             default:
-                setName(5);
-                break;
+                return false;
         }
+        return true;
     }
 
     public String print() {
@@ -81,7 +91,7 @@ public class DefenseHolding extends Holding {
         return name;
     }
 
-    private void setName(int type) {
+    private boolean setName(int type) {
         switch (type) {
             case 1: name =  "Superior Castle";
                 description = "A superior castle is a massive stronghold in the vein of Harrenhal, the" +
@@ -125,9 +135,9 @@ public class DefenseHolding extends Holding {
                 setCost(10);
                 break;
             default:
-                setName(5);
-                break;
+                return false;
         }
+        return true;
     }
 
     public String getDescription() {
