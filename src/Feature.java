@@ -20,6 +20,14 @@ public class Feature extends Holding {
         rand = null;
     }
 
+    public Feature (String name) {
+        if (!setFeature(name)) {
+            featureType = 0;
+            description = null;
+        }
+        rand = null;
+    }
+
     public Feature(Feature feature) {
         rand = null;
         copyFeature(feature);
@@ -95,70 +103,107 @@ public class Feature extends Holding {
         return description;
     }
 
-    public void setFeatureType(int featureType) {
-        this.featureType = featureType;
-        setFeature(this.featureType);
+    public boolean setFeatureType(int featureType) {
+        if (setFeature(this.featureType)) {
+            this.featureType = featureType;
+            return true;
+        }
+        return false;
     }
 
-    public void setFeature(int featureType) {
+    public boolean setFeature(String name) {
+        switch (name) {
+            case "Coast":
+                return setFeature(1);
+            case "Community: Hamlet":
+                return setFeature(2);
+            case "Community: Small Town":
+                return setFeature(3);
+            case "Community: Large Town":
+                return setFeature(4);
+            case "Community: Small City":
+                return setFeature(5);
+            case "Community: Large City":
+                return setFeature(6);
+            case "Grassland":
+                return setFeature(7);
+            case "Island":
+                return setFeature(8);
+            case "Road":
+                return setFeature(9);
+            case "Ruin":
+                return setFeature(10);
+            case "Water: Stream":
+                return setFeature(11);
+            case "Water: River":
+                return setFeature(12);
+            case "Water: Pond":
+                return setFeature(13);
+            case "Water: Lake":
+                return setFeature(14);
+            case "Woods: Light":
+                return setFeature(15);
+            case "Woods: Dense":
+                return setFeature(16);
+        }
+        return false;
+    }
+
+    private boolean setFeature(int featureType) {
         description = new String();
         switch (featureType) {
             case 1: description = "Coast";
                 setCost(3);
-                break;
+                return true;
             case 2: description = "Community: Hamlet";
                 setCost(10);
-                break;
+                return true;
             case 3: description = "Community: Small Town";
                 setCost(20);
-                break;
+                return true;
             case 4: description = "Community: Large Town";
                 setCost(30);
-                break;
+                return true;
             case 5: description = "Community: Small City";
                 setCost(40);
-                break;
+                return true;
             case 6: description = "Community: Large City";
                 setCost(50);
-                break;
+                return true;
             case 7: description = "Grassland";
                 setCost(1);
-                break;
+                return true;
             case 8: description = "Island";
                 setCost(10);
-                break;
+                return true;
             case 9: description = "Road";
                 setCost(5);
-                break;
+                return true;
             case 10: description = "Ruin";
                 setCost(3);
-                break;
+                return true;
             case 11: description = "Water: Stream";
                 setCost(1);
-                break;
+                return true;
             case 12: description = "Water: River";
                 setCost(3);
-                break;
+                return true;
             case 13: description = "Water: Pond";
                 setCost(5);
-                break;
+                return true;
             case 14: description = "Water: Lake";
                 setCost(7);
-                break;
+                return true;
             case 15: description = "Woods: Light";
                 setCost(3);
-                break;
+                return true;
             case 16: description = "Woods: Dense";
                 setCost(5);
-                break;
+                return true;
             default:
                 System.out.println("FEATURE ERROR.");
-                break;
+                return false;
         }
-    }
-
-    public void setFeature(String feature) {
-        this.description = feature;
     }
 
     public int getFeatureType() {

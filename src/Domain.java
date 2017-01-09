@@ -35,9 +35,29 @@ public class Domain extends Holding{
     }
 
     public boolean hasFeature(String toCheck) {
-        if (features == null)
+        if (features == null || toCheck == null)
             return false;
         return features.hasFeature(toCheck);
+    }
+
+    public boolean hasTerrain(String toCheck) {
+        if (terrain == null || toCheck == null)
+            return false;
+        if (terrain.getName().equalsIgnoreCase(toCheck))
+            return true;
+        return false;
+    }
+
+    public boolean setTerrain(String name) {
+        if (name == null)
+            return false;
+        Terrain terrain = new Terrain(name);
+        //check if terrain is valid before setting
+        if (terrain.setName(name)) {
+            setTerrain(terrain);
+            return true;
+        }
+        return false;
     }
 
     public void setTerrain(Terrain terrain) {

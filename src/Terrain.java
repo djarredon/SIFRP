@@ -13,6 +13,13 @@ public class Terrain extends Holding{
         rand = null;
     }
 
+    public Terrain(String name) {
+        if (!setName(name)) {
+            name = null;
+        }
+        rand = null;
+    }
+
     public void setTerrain(int type) {
         this.type = type;
         rand = null;
@@ -80,22 +87,39 @@ public class Terrain extends Holding{
         setName(num);
     }
 
-    public void setName(int type) {
+    public boolean setName(String name) {
+        if (name == null)
+            return false;
+        switch (name) {
+            case "Hills":
+                return setName(1);
+            case "Mountains":
+                return setName(2);
+            case "Plains":
+                return setName(3);
+            case "Wetlands":
+                return setName(4);
+        }
+        return false;
+    }
+
+    public boolean setName(int type) {
         switch (type) {
             case 1: name = "Hills";
                 setCost(7);
-                break;
+                return true;
             case 2: name = "Mountains";
                 setCost(9);
-                break;
+                return true;
             case 3: name = "Plains";
                 setCost(5);
-                break;
+                return true;
             case 4: name = "Wetlands";
                 setCost(3);
-                break;
+                return true;
             default:
                 System.out.println("Invalid Terrain Type");
+                return false;
         }
     }
 }

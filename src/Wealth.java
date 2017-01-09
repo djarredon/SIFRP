@@ -5,7 +5,7 @@ import java.util.Random;
  */
 public class Wealth extends Holding {
     private String name;
-    private String definition;
+    private String benefits;
     private String requirements;
     private String time;
     private String description;
@@ -13,7 +13,7 @@ public class Wealth extends Holding {
     public Wealth() {
         super();
         name = null;
-        definition = null;
+        benefits = null;
         requirements = null;
         time = null;
         description = null;
@@ -24,8 +24,8 @@ public class Wealth extends Holding {
         if (name != null)
             setHolding(name);
         else {
-            name = null;
-            definition = null;
+            this.name = null;
+            benefits = null;
             requirements = null;
             time = null;
             description = null;
@@ -38,7 +38,7 @@ public class Wealth extends Holding {
 
     public void copy(Wealth toCopy) {
         this.name = toCopy.name;
-        this.definition = toCopy.definition;
+        this.benefits = toCopy.benefits;
         this.requirements = toCopy.requirements;
         setCost(toCopy.getCost());
         this.time = toCopy.time;
@@ -49,9 +49,25 @@ public class Wealth extends Holding {
         return name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public String getRequirements() {
+        return requirements;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public String getBenefits() {
+        return benefits;
+    }
+
     public String print() {
         return name + "\n" +
-                definition + "\n" +
+                benefits + "\n" +
                 description + "\n" +
                 "----------";
     }
@@ -91,19 +107,19 @@ public class Wealth extends Holding {
         switch (name) {
             case "Artisan":
                 this.name = name;
-                definition = "Your house acquires the service of a master artisan.";
+                benefits = "Your house acquires the service of a master artisan.";
                 requirements = "Hall or Larger Defensive Structure.";
                 setCost(10);
                 time = "2D6 Months";
                 description = "Choose one of the following benefits each time you invest in this holding:\n" +
-                        "\t*All weapons forged in your house count as castle-forged.\n" +
-                        "\t*Cover benefits from fortifications increase the Defense by +1.\n" +
-                        "\t*Add +1 to the results of your House Fortunes rolls.\n" +
-                        "\t*Other benefits may be available at the Narrator’s discretion.";
+                        "  * All weapons forged in your house count as castle-forged.\n" +
+                        "  * Cover benefits from fortifications increase the Defense by +1.\n" +
+                        "  * Add +1 to the results of your House Fortunes rolls.\n" +
+                        "  * Other benefits may be available at the Narrator’s discretion.";
                 break;
             case "GodsWood":
                 this.name = name;
-                definition = "Your home has a GodsWood, a place sacred to the Old Gods.";
+                benefits = "Your home has a GodsWood, a place sacred to the Old Gods.";
                 requirements = "Realm (The North)";
                 setCost(5);
                 time = "24 + 2D6 Months";
@@ -111,7 +127,7 @@ public class Wealth extends Holding {
                 break;
             case "Guilds":
                 this.name = name;
-                definition = "A Guild controls manufacturing and pricing of commodities.";
+                benefits = "A Guild controls manufacturing and pricing of commodities.";
                 requirements = "Small Town or Larger Community";
                 setCost(15);
                 time = "2D6 Months";
@@ -119,7 +135,7 @@ public class Wealth extends Holding {
                 break;
             case "Maester":
                 this.name = name;
-                definition = "All houses can benefit from the wisdom and learning of a maester.";
+                benefits = "All houses can benefit from the wisdom and learning of a maester.";
                 requirements = "Influence 20+";
                 setCost(10);
                 time = "1d6 Months";
@@ -129,7 +145,7 @@ public class Wealth extends Holding {
                 break;
             case "Marketplace":
                 this.name = name;
-                definition = "A Marketplace facilitates trade and draws merchants from abroad.";
+                benefits = "A Marketplace facilitates trade and draws merchants from abroad.";
                 requirements = "Small town or larger community";
                 setCost(10);
                 time = "1d6 Months";
@@ -138,7 +154,7 @@ public class Wealth extends Holding {
                 break;
             case "Mine":
                 this.name = name;
-                definition = "You open mines on your lands to generate additional income.";
+                benefits = "You open mines on your lands to generate additional income.";
                 requirements = "Mountains or hills";
                 setCost(10);
                 time = "24+2d6 Months";
@@ -146,7 +162,7 @@ public class Wealth extends Holding {
                 break;
             case "Port":
                 this.name = name;
-                definition = "A port enables merchant ships to come to your lands.";
+                benefits = "A port enables merchant ships to come to your lands.";
                 requirements = "Coastline";
                 setCost(10);
                 time = "3d6 Months";
@@ -156,7 +172,7 @@ public class Wealth extends Holding {
                 break;
             case "Sept":
                 this.name = name;
-                definition = "You erect a sept of the Faith to show your family’s piety.";
+                benefits = "You erect a sept of the Faith to show your family’s piety.";
                 requirements = "Hall or larger defensive structure or small\n" +
                         "town or larger community";
                 setCost(15);

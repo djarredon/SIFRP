@@ -5617,7 +5617,7 @@ public class Screen extends JFrame {
         landsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                purchaseLandsHoldings(house);
+                purchaseLandsHoldings(house, null);
             }
         });
 
@@ -6130,7 +6130,8 @@ public class Screen extends JFrame {
         });
     }
 
-    private void purchaseLandsHoldings(House house) {
+    //One Terrain per domain, plus list of features on terrain
+    private void purchaseLandsHoldings(House house, Domain domain) {
         repaint();
         getContentPane().removeAll();
 
@@ -6140,13 +6141,110 @@ public class Screen extends JFrame {
         back.setLocation(20, 20);
 
         String realm = house.printRealm();
+        Dimension field = new Dimension(150, 30);
+        int terrainColumn = 20,
+                terrainCostColumn = terrainColumn + field.width + 10,
+                featureColumn = terrainCostColumn + field.width + 10,
+                featureCostColumn = featureColumn + field.width + 10,
+                row = 100;
+
+        //headers
+        JTextField terrainName = new JTextField("Terrain");
+        terrainName.setEditable(false);
+        terrainName.setSize(field);
+        terrainName.setLocation(terrainColumn, row);
+
+        JTextField terrainCost = new JTextField("Cost");
+        terrainCost.setEditable(false);
+        terrainCost.setSize(field);
+        terrainCost.setLocation(terrainCostColumn, row);
+
+        JTextField featureName = new JTextField("Feature");
+        featureName.setEditable(false);
+        featureName.setSize(field);
+        featureName.setLocation(featureColumn, row);
+
+        JTextField featureCost = new JTextField("Cost");
+        featureCost.setEditable(false);
+        featureCost.setSize(field);
+        featureCost.setLocation(featureCostColumn, row);
+
+        JTextField landsRemaining = new JTextField("Lands Remaining: " + house.getLandsRemaining());
+        landsRemaining.setEditable(false);
+        landsRemaining.setSize(buttonSize);
+        landsRemaining.setLocation(featureCostColumn + field.width + 10, row);
+
+        row += field.height + 10;
+
         /*
         Terrain             Realms that don't have
             * Hills         King's Landing, The Reach
             * Mountains     Dragonstone, Irons Islands, King's landing, the Reach, Riverlands
             * Plains        Mountains of the Moon
             * Wetlands      Dorne, Irons Islands, King's Landing, Mt Moon, Reach, Westerlands
+        */
+        Terrain terrain = new Terrain("Hills");
+        JTextArea hillText = new JTextArea(terrain.getName());
+        hillText.setEditable(false);
+        hillText.setSize(field);
+        hillText.setLocation(terrainColumn, row);
+        JButton hillCost = new JButton("Costs: " + terrain.getCost());
+        if (realm.equalsIgnoreCase("King's Landing")
+                || realm.equalsIgnoreCase("The Reach"))
+            hillCost.setForeground(Color.red);
+        if (domain != null && domain.hasTerrain("Hills"))
+            hillCost.setForeground(Color.blue);
+        hillCost.setSize(field);
+        hillCost.setLocation(terrainCostColumn, row);
 
+        terrain.setName("Mountains");
+        JTextArea mountainText = new JTextArea(terrain.getName());
+        mountainText.setEditable(false);
+        mountainText.setSize(field);
+        mountainText.setLocation(terrainColumn, row += field.height + 10);
+        JButton mountainCost = new JButton("Costs: " + terrain.getCost());
+        if (realm.equalsIgnoreCase("Dragonstone")
+                || realm.equalsIgnoreCase("The Iron Islands")
+                || realm.equalsIgnoreCase("King's Landing")
+                || realm.equalsIgnoreCase("The Reach")
+                || realm.equalsIgnoreCase("The Westerlands"))
+            mountainCost.setForeground(Color.red);
+        if (domain != null && domain.hasTerrain("Mountains"))
+            mountainCost.setForeground(Color.blue);
+        mountainCost.setSize(field);
+        mountainCost.setLocation(terrainCostColumn, row);
+
+        terrain.setName("Plains");
+        JTextArea plainsText = new JTextArea(terrain.getName());
+        plainsText.setEditable(false);
+        plainsText.setSize(field);
+        plainsText.setLocation(terrainColumn, row += field.height + 10);
+        JButton plainsCost = new JButton("Costs: " + terrain.getCost());
+        if (realm.equalsIgnoreCase("Mountains of the Moon"))
+            plainsCost.setForeground(Color.red);
+        if (domain != null && domain.hasTerrain("Plains"))
+            plainsCost.setForeground(Color.blue);
+        plainsCost.setSize(field);
+        plainsCost.setLocation(terrainCostColumn, row);
+
+        terrain.setName("Wetlands");
+        JTextArea wetlandsText = new JTextArea(terrain.getName());
+        wetlandsText.setSize(field);
+        wetlandsText.setLocation(terrainColumn, row += field.height + 10);
+        JButton wetlandsCost = new JButton("Costs: " + terrain.getCost());
+        if (realm.equalsIgnoreCase("Dorne")
+                || realm.equalsIgnoreCase("The Iron Islands")
+                || realm.equalsIgnoreCase("King's Landing")
+                || realm.equalsIgnoreCase("The Reach")
+                || realm.equalsIgnoreCase("The Westerlands"))
+            wetlandsCost.setForeground(Color.red);
+        if (domain != null && domain.hasTerrain("Wetlands"))
+            wetlandsCost.setForeground(Color.blue);
+        wetlandsCost.setSize(field);
+        wetlandsCost.setLocation(terrainCostColumn, row);
+
+        row = 110 + field.height;
+        /*
           Features          Realms that don't have
             * Coast         Riverlands
             * Community
@@ -6157,8 +6255,267 @@ public class Screen extends JFrame {
             * Water         Dragonstone, Iron Islands
             * Woods         Dorne, Dragonstone, Iron Islands, Mt. Moon, Reach, Riverlands, Westerlands
          */
+        //Coast
+        Feature feature = new Feature("Coast");
+        JTextField coastText = new JTextField(feature.getName());
+        coastText.setEditable(false);
+        coastText.setSize(field);
+        coastText.setLocation(featureColumn, row);
+        JButton buyCoast = new JButton("Cost: " + feature.getCost());
+        if (realm.equalsIgnoreCase("The Riverlands"))
+            buyCoast.setForeground(Color.red);
+        if (domain != null && domain.hasFeature("Coast"))
+            buyCoast.setForeground(Color.blue);
+        buyCoast.setSize(field);
+        buyCoast.setLocation(featureCostColumn, row);
+        //Community: Hamlet
+        feature.setFeature("Community: Hamlet");
+        JTextField hamletText = new JTextField(feature.getName());
+        hamletText.setEditable(false);
+        hamletText.setSize(field);
+        hamletText.setLocation(featureColumn, row += field.height + 10);
+        JButton buyHamlet = new JButton("Cost: " + feature.getCost());
+        if (domain != null && domain.hasFeature("Community: Hamlet"))
+            buyHamlet.setForeground(Color.blue);
+        buyHamlet.setSize(field);
+        buyHamlet.setLocation(featureCostColumn, row);
+        //Community: Small Town
+        feature.setFeature("Community: Small Town");
+        JTextField smallTownText = new JTextField(feature.getName());
+        smallTownText.setEditable(false);
+        smallTownText.setSize(field);
+        smallTownText.setLocation(featureColumn, row += field.height + 10);
+        JButton buySmallTown = new JButton("Cost: " + feature.getCost());
+        if (domain != null && domain.hasFeature("Community: Small Town"))
+            buySmallTown.setForeground(Color.blue);
+        buySmallTown.setSize(field);
+        buySmallTown.setLocation(featureCostColumn, row);
+        //Community: Large Town
+        feature.setFeature("Community: Large Town");
+        JTextField largeTownText = new JTextField(feature.getName());
+        largeTownText.setEditable(false);
+        largeTownText.setSize(field);
+        largeTownText.setLocation(featureColumn, row += field.height + 10);
+        JButton buyLargeTown = new JButton("Cost: " + feature.getCost());
+        if (domain != null && domain.hasFeature("Community: Large Town"))
+            buyLargeTown.setForeground(Color.blue);
+        buyLargeTown.setSize(field);
+        buyLargeTown.setLocation(featureCostColumn, row);
+        //Community: Small City
+        feature.setFeature("Community: Small City");
+        JTextField smallCityText = new JTextField(feature.getName());
+        smallCityText.setEditable(false);
+        smallCityText.setSize(field);
+        smallCityText.setLocation(featureColumn, row += field.height + 10);
+        JButton buySmallCity = new JButton("Cost: " + feature.getCost());
+        if (domain != null && domain.hasFeature("Community: Small City"))
+            buySmallCity.setForeground(Color.blue);
+        buySmallCity.setSize(field);
+        buySmallCity.setLocation(featureCostColumn, row);
+        //Community: Large City
+        feature.setFeature("Community: Large City");
+        JTextField largeCityText = new JTextField(feature.getName());
+        largeCityText.setEditable(false);
+        largeCityText.setSize(field);
+        largeCityText.setLocation(featureColumn, row += field.height + 10);
+        JButton buyLargeCity = new JButton("Cost: " + feature.getCost());
+        if (domain != null && domain.hasFeature("Community: Large City"))
+            buyLargeCity.setForeground(Color.blue);
+        buyLargeCity.setSize(field);
+        buyLargeCity.setLocation(featureCostColumn, row);
+        //Grassland
+        feature.setFeature("Grassland");
+        JTextField grasslandText = new JTextField(feature.getName());
+        grasslandText.setEditable(false);
+        grasslandText.setSize(field);
+        grasslandText.setLocation(featureColumn, row += field.height + 10);
+        JButton buyGrassland = new JButton("Cost: " + feature.getCost());
+        if (realm.equalsIgnoreCase("Dorne"))
+            buyGrassland.setForeground(Color.red);
+        if (domain != null && domain.hasFeature("Grassland"))
+            buyGrassland.setForeground(Color.blue);
+        buyGrassland.setSize(field);
+        buyGrassland.setLocation(featureCostColumn, row);
+        //Island
+        feature.setFeature("Island");
+        JTextField islandText = new JTextField(feature.getName());
+        islandText.setEditable(false);
+        islandText.setSize(field);
+        islandText.setLocation(featureColumn, row += field.height + 10);
+        JButton buyIsland = new JButton("Cost: " + feature.getCost());
+        if (realm.equalsIgnoreCase("King's Landing")
+                || realm.equalsIgnoreCase("The Riverlands"))
+            buyIsland.setForeground(Color.red);
+        if (domain != null && domain.hasFeature("Island"))
+            buyIsland.setForeground(Color.blue);
+        buyIsland.setSize(field);
+        buyIsland.setLocation(featureCostColumn, row);
+        //Road
+        feature.setFeature("Road");
+        JTextField roadText = new JTextField(feature.getName());
+        roadText.setEditable(false);
+        roadText.setSize(field);
+        roadText.setLocation(featureColumn, row += field.height + 10);
+        JButton buyRoad = new JButton("Cost: " + feature.getCost());
+        if (domain != null && domain.hasFeature("Road"))
+            buyRoad.setForeground(Color.blue);
+        buyRoad.setSize(field);
+        buyRoad.setLocation(featureCostColumn, row);
+        //Ruin
+        feature.setFeature("Ruin");
+        JTextField ruinText = new JTextField(feature.getName());
+        ruinText.setEditable(false);
+        ruinText.setSize(field);
+        ruinText.setLocation(featureColumn, row += field.height + 10);
+        JButton buyRuin = new JButton("Cost: " + feature.getCost());
+        if (domain != null && domain.hasFeature("Ruin"))
+            buyRuin.setForeground(Color.blue);
+        buyRuin.setSize(field);
+        buyRuin.setLocation(featureCostColumn, row);
+        //Water: Stream
+        feature.setFeature("Water: Stream");
+        JTextField streamText = new JTextField(feature.getName());
+        streamText.setEditable(false);
+        streamText.setSize(field);
+        streamText.setLocation(featureColumn, row += field.height + 10);
+        JButton buyStream = new JButton("Cost: " + feature.getCost());
+        if (realm.equalsIgnoreCase("Dragonstone")
+                || realm.equalsIgnoreCase("The Iron Islands"))
+            buyStream.setForeground(Color.red);
+        if (domain != null && domain.hasFeature("Water: Stream"))
+            buyStream.setForeground(Color.blue);
+        buyStream.setSize(field);
+        buyStream.setLocation(featureCostColumn, row);
+        //Water: River
+        feature.setFeature("Water: River");
+        JTextField riverText = new JTextField(feature.getName());
+        riverText.setEditable(false);
+        riverText.setSize(field);
+        riverText.setLocation(featureColumn, row += field.height + 10);
+        JButton buyRiver = new JButton("Cost: " + feature.getCost());
+        if (realm.equalsIgnoreCase("Dragonstone")
+                || realm.equalsIgnoreCase("The Iron Islands"))
+            buyRiver.setForeground(Color.red);
+        if (domain != null && domain.hasFeature("Water: River"))
+            buyRiver.setForeground(Color.blue);
+        buyRiver.setSize(field);
+        buyRiver.setLocation(featureCostColumn, row);
+        //Water: Pond
+        feature.setFeature("Water: Pond");
+        JTextField pondText = new JTextField(feature.getName());
+        pondText.setEditable(false);
+        pondText.setSize(field);
+        pondText.setLocation(featureColumn, row += field.height + 10);
+        JButton buyPond = new JButton("Cost: " + feature.getCost());
+        if (realm.equalsIgnoreCase("Dragonstone")
+                || realm.equalsIgnoreCase("The Iron Islands"))
+            buyPond.setForeground(Color.red);
+        if (domain != null && domain.hasFeature("Water: Pond"))
+            buyPond.setForeground(Color.blue);
+        buyPond.setSize(field);
+        buyPond.setLocation(featureCostColumn, row);
+        //Water: Lake
+        feature.setFeature("Water: Lake");
+        JTextField lakeText = new JTextField(feature.getName());
+        lakeText.setEditable(false);
+        lakeText.setSize(field);
+        lakeText.setLocation(featureColumn, row += field.height + 10);
+        JButton buyLake = new JButton("Cost: " + feature.getCost());
+        if (realm.equalsIgnoreCase("Dragonstone")
+                || realm.equalsIgnoreCase("The Iron Islands"))
+            buyLake.setForeground(Color.red);
+        if (domain != null && domain.hasFeature("Water: Lake"))
+            buyLake.setForeground(Color.blue);
+        buyLake.setSize(field);
+        buyLake.setLocation(featureCostColumn, row);
+        //Woods: Light
+        feature.setFeature("Woods: Light");
+        JTextField lightWoodsText = new JTextField(feature.getName());
+        lightWoodsText.setEditable(false);
+        lightWoodsText.setSize(field);
+        lightWoodsText.setLocation(featureColumn, row += field.height + 10);
+        JButton buyLightWoods = new JButton("Cost: " + feature.getCost());
+        if (realm.equalsIgnoreCase("Dorne")
+                || realm.equalsIgnoreCase("Dragonstone")
+                || realm.equalsIgnoreCase("The Iron Islands")
+                || realm.equalsIgnoreCase("Mountains of the Moon")
+                || realm.equalsIgnoreCase("The Reach")
+                || realm.equalsIgnoreCase("The Westerlands"))
+            buyLightWoods.setForeground(Color.red);
+        if (domain != null && domain.hasFeature("Woods: Light"))
+            buyLightWoods.setForeground(Color.blue);
+        buyLightWoods.setSize(field);
+        buyLightWoods.setLocation(featureCostColumn, row);
+        //Woods: Dense
+        feature.setFeature("Woods: Dense");
+        JTextField denseWoodsText = new JTextField(feature.getName());
+        denseWoodsText.setEditable(false);
+        denseWoodsText.setSize(field);
+        denseWoodsText.setLocation(featureColumn, row += field.height + 10);
+        JButton buyDenseWoods = new JButton("Cost: " + feature.getCost());
+        if (realm.equalsIgnoreCase("Dorne")
+                || realm.equalsIgnoreCase("Dragonstone")
+                || realm.equalsIgnoreCase("The Iron Islands")
+                || realm.equalsIgnoreCase("Mountains of the Moon")
+                || realm.equalsIgnoreCase("The Reach")
+                || realm.equalsIgnoreCase("The Westerlands"))
+            buyDenseWoods.setForeground(Color.red);
+        if (domain != null && domain.hasFeature("Woods: Dense"))
+            buyDenseWoods.setForeground(Color.blue);
+        buyDenseWoods.setSize(field);
+        buyDenseWoods.setLocation(featureCostColumn, row);
+
+
 
         c.add(back);
+        //headers
+        c.add(terrainName);
+        c.add(terrainCost);
+        c.add(featureName);
+        c.add(featureCost);
+        c.add(landsRemaining);
+        //Terrain
+        c.add(hillText);
+        c.add(hillCost);
+        c.add(mountainCost);
+        c.add(mountainText);
+        c.add(plainsCost);
+        c.add(plainsText);
+        c.add(wetlandsCost);
+        c.add(wetlandsText);
+        //features
+        c.add(coastText);
+        c.add(buyCoast);
+        c.add(hamletText);
+        c.add(buyHamlet);
+        c.add(smallTownText);
+        c.add(buySmallTown);
+        c.add(largeTownText);
+        c.add(buyLargeTown);
+        c.add(smallCityText);
+        c.add(buySmallCity);
+        c.add(largeCityText);
+        c.add(buyLargeCity);
+        c.add(grasslandText);
+        c.add(buyGrassland);
+        c.add(islandText);
+        c.add(buyIsland);
+        c.add(roadText);
+        c.add(buyRoad);
+        c.add(ruinText);
+        c.add(buyRuin);
+        c.add(streamText);
+        c.add(buyStream);
+        c.add(riverText);
+        c.add(buyRiver);
+        c.add(pondText);
+        c.add(buyPond);
+        c.add(lakeText);
+        c.add(buyLake);
+        c.add(lightWoodsText);
+        c.add(buyLightWoods);
+        c.add(denseWoodsText);
+        c.add(buyDenseWoods);
 
 
         back.addActionListener(new ActionListener() {
@@ -6200,12 +6557,15 @@ public class Screen extends JFrame {
         back.setLocation(20, 20);
 
         Dimension fieldSize = new Dimension(80, 100);
-        Dimension longField = new Dimension(250, 100);
+        Dimension longField = new Dimension(175, 100);
 
         //text in red if cost is above budget
         //holding name, cost, description, benefit, purchase button
-        int colName = 20, colCost = colName+90, colDesc = colCost+50,
-                colBenefit = colDesc+longField.width + 10, colButton = colBenefit+longField.width + 10;
+        int colName = 20, colCost = colName+90,
+                colDesc = colCost+50,
+                colReq = colDesc + longField.width + 10,
+                colBenefit = colReq + longField.width + 10,
+                colButton = colBenefit + longField.width + 10;
         int row = 60, rowInc = fieldSize.height + 10;
         //Column headers
         JTextArea holdingName = new JTextArea("Name");
@@ -6220,13 +6580,17 @@ public class Screen extends JFrame {
         holdingDescription.setEditable(false);
         holdingDescription.setSize(longField.width, 30);
         holdingDescription.setLocation(colDesc + 20, row);
+        JTextArea holdingReq = new JTextArea("Requirements");
+        holdingReq.setEditable(false);
+        holdingReq.setSize(longField.width, 30);
+        holdingReq.setLocation(colReq + 20, row);
         JTextArea holdingBenefit = new JTextArea("Benefit");
         holdingBenefit.setEditable(false);
         holdingBenefit.setSize(longField.width, 30);
         holdingBenefit.setLocation(colBenefit + 20,row);
 
         //Show points remaining
-        JTextArea pointsRemaining = new JTextArea("Wealth Remaining"
+        JTextArea pointsRemaining = new JTextArea("Wealth Remaining: "
                 + house.getWealthRemaining() + "");
         pointsRemaining.setEditable(false);
         pointsRemaining.setSize(buttonSize);
@@ -6235,7 +6599,8 @@ public class Screen extends JFrame {
         row = 10;
 
         //Artisan
-        JTextArea artisanName = new JTextArea("Artisan");
+        Wealth tempHolding = new Wealth("Artisan");
+        JTextArea artisanName = new JTextArea(tempHolding.getName());
         artisanName.setEditable(false);
         artisanName.setSize(fieldSize);
         artisanName.setLocation(colName, row);
@@ -6243,17 +6608,23 @@ public class Screen extends JFrame {
         artisanCost.setEditable(false);
         artisanCost.setSize(40,fieldSize.height);
         artisanCost.setLocation(colCost, row);
-        JTextArea artisanDescription = new JTextArea("Your house acquires the service of a master artisan.");
-        artisanDescription.setLineWrap(true);
-        artisanDescription.setWrapStyleWord(true);
-        artisanDescription.setEditable(false);
+        JTextArea artisanDescriptionText = new JTextArea(tempHolding.getDescription());
+        artisanDescriptionText.setLineWrap(true);
+        artisanDescriptionText.setWrapStyleWord(true);
+        artisanDescriptionText.setEditable(false);
+        artisanDescriptionText.setSize(longField);
+        JScrollPane artisanDescription = new JScrollPane(artisanDescriptionText);
         artisanDescription.setSize(longField);
         artisanDescription.setLocation(colDesc, row);
-        JTextArea artisanBenefitText = new JTextArea("Choose one of the following benefits each time you invest in this holding.\n" +
-                "* All weapons forged in your house count as castle-forged.\n" +
-                "* Cover benefits from fortifications increase the Defense by +1.\n" +
-                "* Add +1 to the results of your House Fortunes rolls.\n" +
-                "* Other benefits may be available at the Narrator’s discretion.");
+        JTextArea artisanReqText = new JTextArea(tempHolding.getRequirements());
+        artisanReqText.setLineWrap(true);
+        artisanReqText.setWrapStyleWord(true);
+        artisanReqText.setEditable(false);
+        artisanReqText.setSize(longField);
+        JScrollPane artisanReq = new JScrollPane(artisanReqText);
+        artisanReq.setSize(longField);
+        artisanReq.setLocation(colReq, row);
+        JTextArea artisanBenefitText = new JTextArea(tempHolding.getBenefits());
         artisanBenefitText.setLineWrap(true);
         artisanBenefitText.setWrapStyleWord(true);
         artisanBenefitText.setEditable(false);
@@ -6269,6 +6640,7 @@ public class Screen extends JFrame {
         row += rowInc;
 
         //GodsWood
+        tempHolding.setHolding("GodsWood");
         JTextArea godsWoodName = new JTextArea("GodsWood");
         godsWoodName.setEditable(false);
         godsWoodName.setSize(fieldSize);
@@ -6283,6 +6655,14 @@ public class Screen extends JFrame {
         godsWoodDescription.setEditable(false);
         godsWoodDescription.setSize(longField);
         godsWoodDescription.setLocation(colDesc, row);
+        JTextArea godsWoodReqText = new JTextArea(tempHolding.getRequirements());
+        godsWoodReqText.setLineWrap(true);
+        godsWoodReqText.setWrapStyleWord(true);
+        godsWoodReqText.setEditable(false);
+        godsWoodReqText.setSize(longField);
+        JScrollPane godsWoodReq = new JScrollPane(godsWoodReqText);
+        godsWoodReq.setSize(longField);
+        godsWoodReq.setLocation(colReq, row);
         JTextArea godsWoodBenefit = new JTextArea("Having a godswood allows you to add 2d6–6 to the result when rolling " +
                 "House Fortunes.");
         godsWoodBenefit.setLineWrap(true);
@@ -6298,6 +6678,7 @@ public class Screen extends JFrame {
         row += rowInc;
 
         //Guilds
+        tempHolding.setHolding("Guilds");
         JTextArea guildsName = new JTextArea("Guilds");
         guildsName.setEditable(false);
         guildsName.setSize(fieldSize);
@@ -6312,6 +6693,14 @@ public class Screen extends JFrame {
         guildsDescription.setEditable(false);
         guildsDescription.setSize(longField);
         guildsDescription.setLocation(colDesc, row);
+        JTextArea guildReqText = new JTextArea(tempHolding.getRequirements());
+        guildReqText.setLineWrap(true);
+        guildReqText.setWrapStyleWord(true);
+        guildReqText.setEditable(false);
+        guildReqText.setSize(longField);
+        JScrollPane guildReq = new JScrollPane(guildReqText);
+        guildReq.setSize(longField);
+        guildReq.setLocation(colReq, row);
         JTextArea guildsBenefit = new JTextArea("All members of the household gain a 10% discount on any goods purchased " +
                 "in their own lands.");
         guildsBenefit.setLineWrap(true);
@@ -6327,6 +6716,7 @@ public class Screen extends JFrame {
         row += rowInc;
 
         //Maester
+        tempHolding.setHolding("Maester");
         JTextArea maesterName = new JTextArea("Maester");
         maesterName.setEditable(false);
         maesterName.setSize(fieldSize);
@@ -6341,6 +6731,14 @@ public class Screen extends JFrame {
         maesterDescription.setEditable(false);
         maesterDescription.setSize(longField);
         maesterDescription.setLocation(colDesc, row);
+        JTextArea maesterReqText = new JTextArea(tempHolding.getRequirements());
+        maesterReqText.setLineWrap(true);
+        maesterReqText.setWrapStyleWord(true);
+        maesterReqText.setEditable(false);
+        maesterReqText.setSize(longField);
+        JScrollPane maesterReq = new JScrollPane(maesterReqText);
+        maesterReq.setSize(longField);
+        maesterReq.setLocation(colReq, row);
         JTextArea maesterBenefit = new JTextArea("Gain a +3 bonus on House Fortunes rolls. In addition, your family acquires " +
                 "the service of a maester. This character can be a player character " +
                 "or a Narrator character.");
@@ -6357,6 +6755,7 @@ public class Screen extends JFrame {
         row += rowInc;
 
         //Marketplace
+        tempHolding.setHolding("Marketplace");
         JTextArea marketplaceName = new JTextArea("Marketplace");
         marketplaceName.setEditable(false);
         marketplaceName.setSize(fieldSize);
@@ -6371,6 +6770,14 @@ public class Screen extends JFrame {
         marketplaceDescription.setEditable(false);
         marketplaceDescription.setSize(longField);
         marketplaceDescription.setLocation(colDesc, row);
+        JTextArea marketReqText = new JTextArea(tempHolding.getRequirements());
+        marketReqText.setLineWrap(true);
+        marketReqText.setWrapStyleWord(true);
+        marketReqText.setEditable(false);
+        marketReqText.setSize(longField);
+        JScrollPane marketReq = new JScrollPane(marketReqText);
+        marketReq.setSize(longField);
+        marketReq.setLocation(colReq, row);
         JTextArea marketplaceBenefit = new JTextArea("Each month, whenever your House Fortune would increase your " +
                 "Wealth resource, the Marketplace increases it further by +1.");
         marketplaceBenefit.setLineWrap(true);
@@ -6401,20 +6808,23 @@ public class Screen extends JFrame {
 
 
         JPanel panel = new JPanel(null);
-        panel.setSize(colButton + longField.width + 10, yMax*2);
+        panel.setSize(xMax - 50, yMax*2);
         panel.getPreferredSize();
 
         panel.add(marketplaceName);
         panel.add(marketplaceCost);
+        panel.add(marketReq);
         panel.add(marketplaceDescription);
         panel.add(marketplaceBenefit);
         panel.add(marketplaceButton);
         panel.add(maesterName);
         panel.add(maesterCost);
+        panel.add(maesterReq);
         panel.add(maesterDescription);
         panel.add(maesterBenefit);
         panel.add(maesterButton);
         panel.add(godsWoodName);
+        panel.add(godsWoodReq);
         panel.add(godsWoodCost);
         panel.add(godsWoodDescription);
         panel.add(godsWoodBenefit);
@@ -6422,16 +6832,18 @@ public class Screen extends JFrame {
         panel.add(guildsName);
         panel.add(guildsBenefit);
         panel.add(guildsButton);
+        panel.add(guildReq);
         panel.add(guildsCost);
         panel.add(guildsDescription);
         panel.add(artisanName);
         panel.add(artisanBenefit);
+        panel.add(artisanReq);
         panel.add(artisanButton);
         panel.add(artisanCost);
         panel.add(artisanDescription);
 
         JScrollPane scrollPanel = new JScrollPane(panel);
-        scrollPanel.setSize(colButton + longField.width + 10, yMax-300);
+        scrollPanel.setSize(xMax - 50, yMax-350);
         scrollPanel.setLocation(20, 100);
 
 
@@ -6439,6 +6851,7 @@ public class Screen extends JFrame {
         c.add(scrollPanel);
         c.add(holdingName);
         c.add(holdingBenefit);
+        c.add(holdingReq);
         c.add(holdingCost);
         c.add(holdingDescription);
         c.add(pointsRemaining);
