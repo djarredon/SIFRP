@@ -5617,7 +5617,7 @@ public class Screen extends JFrame {
         landsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                purchaseLandsHoldings(house, null);
+                purchaseLandsHoldings(house, new Domain());
             }
         });
 
@@ -6130,7 +6130,6 @@ public class Screen extends JFrame {
         });
     }
 
-    //One Terrain per domain, plus list of features on terrain
     private void purchaseLandsHoldings(House house, Domain domain) {
         repaint();
         getContentPane().removeAll();
@@ -6173,6 +6172,28 @@ public class Screen extends JFrame {
         landsRemaining.setEditable(false);
         landsRemaining.setSize(buttonSize);
         landsRemaining.setLocation(featureCostColumn + field.width + 10, row);
+
+        JTextArea currentPurchase;
+        if (domain != null)
+            currentPurchase = new JTextArea(domain.print() + "\nCost: " + domain.getCost());
+        else
+            currentPurchase = new JTextArea("Nothing selected.");
+        currentPurchase.setEditable(false);
+        currentPurchase.setLineWrap(true);
+        currentPurchase.setWrapStyleWord(true);
+        currentPurchase.setSize(buttonSize.width, 120);
+
+        JScrollPane currentPurchaseScroll = new JScrollPane(currentPurchase);
+        currentPurchaseScroll.setLocation(featureCostColumn + field.width + 10, row + field.height + 10);
+        currentPurchaseScroll.setSize(buttonSize.width, 120);
+
+
+        JButton purchase = new JButton("Purchase");
+        if (!house.canAfford(domain))
+            purchase.setForeground(Color.red);
+        purchase.setSize(buttonSize);
+        purchase.setLocation(featureCostColumn + field.width + 10,
+                2*(row + field.height + 10) );
 
         row += field.height + 10;
 
@@ -6474,6 +6495,8 @@ public class Screen extends JFrame {
         c.add(featureName);
         c.add(featureCost);
         c.add(landsRemaining);
+        c.add(currentPurchaseScroll);
+        c.add(purchase);
         //Terrain
         c.add(hillText);
         c.add(hillCost);
@@ -6517,6 +6540,226 @@ public class Screen extends JFrame {
         c.add(denseWoodsText);
         c.add(buyDenseWoods);
 
+        //Purchase current domain
+        purchase.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (house.canAfford(domain)) {
+                    house.buyLandHolding(domain);
+                    purchaseLandsHoldings(house, new Domain());
+                }
+            }
+        });
+
+        //Terrains
+        hillCost.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                domain.setTerrain("Hills");
+                purchaseLandsHoldings(house, domain);
+            }
+        });
+
+        mountainCost.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                domain.setTerrain("Mountains");
+                purchaseLandsHoldings(house, domain);
+            }
+        });
+
+        plainsCost.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                domain.setTerrain("Plains");
+                purchaseLandsHoldings(house, domain);
+            }
+        });
+
+        wetlandsCost.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                domain.setTerrain("Wetlands");
+                purchaseLandsHoldings(house, domain);
+            }
+        });
+
+        //Features
+        buyDenseWoods.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!domain.hasFeature("Woods: Dense"))
+                    domain.addFeature(new Feature("Woods: Dense"));
+                else
+                    domain.removeFeature("Woods: Dense");
+                purchaseLandsHoldings(house, domain);
+            }
+        });
+
+        buyLightWoods.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!domain.hasFeature("Woods: Light"))
+                    domain.addFeature(new Feature("Woods: Light"));
+                else
+                    domain.removeFeature("Woods: Light");
+                purchaseLandsHoldings(house, domain);
+            }
+        });
+
+        buyLake.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!domain.hasFeature("Water: Lake"))
+                    domain.addFeature(new Feature("Water: Lake"));
+                else
+                    domain.removeFeature("Water: Lake");
+                purchaseLandsHoldings(house, domain);
+            }
+        });
+
+        buyPond.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!domain.hasFeature("Water: Pond"))
+                    domain.addFeature(new Feature("Water: Pond"));
+                else
+                    domain.removeFeature("Water: Pond");
+                purchaseLandsHoldings(house, domain);
+            }
+        });
+
+        buyRiver.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!domain.hasFeature("Water: River"))
+                    domain.addFeature(new Feature("Water: River"));
+                else
+                    domain.removeFeature("Water: River");
+                purchaseLandsHoldings(house, domain);
+            }
+        });
+
+        buyStream.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!domain.hasFeature("Water: Stream"))
+                    domain.addFeature(new Feature("Water: Stream"));
+                else
+                    domain.removeFeature("Water: Stream");
+                purchaseLandsHoldings(house, domain);
+            }
+        });
+
+        buyRuin.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!domain.hasFeature("Ruin"))
+                    domain.addFeature(new Feature("Ruin"));
+                else
+                    domain.removeFeature("Ruin");
+                purchaseLandsHoldings(house, domain);
+            }
+        });
+
+        buyRoad.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!domain.hasFeature("Road"))
+                    domain.addFeature(new Feature("Road"));
+                else
+                    domain.removeFeature("Road");
+                purchaseLandsHoldings(house, domain);
+            }
+        });
+
+        buyIsland.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!domain.hasFeature("Island"))
+                    domain.addFeature(new Feature("Island"));
+                else
+                    domain.removeFeature("Island");
+                purchaseLandsHoldings(house, domain);
+            }
+        });
+
+        buyGrassland.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!domain.hasFeature("Grassland"))
+                    domain.addFeature(new Feature("Grassland"));
+                else
+                    domain.removeFeature("Grassland");
+                purchaseLandsHoldings(house, domain);
+            }
+        });
+
+        buyLargeCity.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!domain.hasFeature("Community: Large City"))
+                    domain.addFeature(new Feature("Community: Large City"));
+                else
+                    domain.removeFeature("Community: Large City");
+                purchaseLandsHoldings(house, domain);
+            }
+        });
+
+        buySmallCity.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!domain.hasFeature("Community: Small City"))
+                    domain.addFeature(new Feature("Community: Small City"));
+                else
+                    domain.removeFeature("Community: Small City");
+                purchaseLandsHoldings(house, domain);
+            }
+        });
+
+        buyLargeTown.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!domain.hasFeature("Community: Large Town"))
+                    domain.addFeature(new Feature("Community: Large Town"));
+                else
+                    domain.removeFeature("Community: Large Town");
+                purchaseLandsHoldings(house, domain);
+            }
+        });
+
+        buyCoast.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!domain.hasFeature("Coast"))
+                    domain.addFeature(new Feature("Coast"));
+                else
+                    domain.removeFeature("Coast");
+                purchaseLandsHoldings(house, domain);
+            }
+        });
+
+        buyHamlet.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!domain.hasFeature("Community: Hamlet"))
+                    domain.addFeature(new Feature("Community: Hamlet"));
+                else
+                    domain.removeFeature("Community: Hamlet");
+                purchaseLandsHoldings(house, domain);
+            }
+        });
+
+        buySmallTown.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!domain.hasFeature("Community: Small Town"))
+                    domain.addFeature(new Feature("Community: Small Town"));
+                else
+                    domain.removeFeature("Community: Small Town");
+                purchaseLandsHoldings(house, domain);
+            }
+        });
 
         back.addActionListener(new ActionListener() {
             @Override
@@ -6527,6 +6770,9 @@ public class Screen extends JFrame {
     }
 
     private void purchasePowerHoldings(House house) {
+        /*
+        Power holdings include banner houses and military units
+         */
         repaint();
         getContentPane().removeAll();
 

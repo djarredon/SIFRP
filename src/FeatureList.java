@@ -45,15 +45,15 @@ public class FeatureList {
     public int getCost() {
         if (head == null)
             return 0;
-        else {
-            FeatureNode current = head;
-            int cost = 0;
-            while (current != null) {
-                cost += current.getCost();
-                current = current.getNext();
-            }
-            return cost;
+
+        FeatureNode current = head;
+        int cost = 0;
+        while (current != null) {
+            cost += current.getCost();
+            current = current.getNext();
         }
+        return cost;
+
     }
 
     public void insert(Feature feature) {
@@ -67,12 +67,39 @@ public class FeatureList {
         }
     }
 
+    public boolean remove(String toRemove) {
+        if (head == null || toRemove == null)
+            return false;
+        if (hasFeature(toRemove)) {
+            if (head.equals(new Feature(toRemove))) {
+                head = head.getNext();
+                return true;
+            }
+
+            else {
+                FeatureNode current = head;
+                FeatureNode trail = head;
+
+                while (current != null) {
+                    if (current.equals(new Feature(toRemove))) {
+                        trail.setNext(current.getNext());
+                        return true;
+                    }
+                    trail = current;
+                    current = current.getNext();
+                }
+
+            }
+        }
+        return false;
+    }
+
     public boolean hasFeature(String toCheck) {
         return hasFeature(toCheck, head);
     }
 
     private boolean hasFeature(String toCheck, FeatureNode head) {
-        if (head == null)
+        if (head == null || toCheck == null)
             return false;
         if (head.getName().equalsIgnoreCase(toCheck))
             return true;
@@ -85,7 +112,7 @@ public class FeatureList {
         else {
             FeatureNode current = head;
             while (current != null) {
-                if (!current.equals(feature))
+                if (current.equals(feature))
                     return true;
                 current = current.getNext();
             }

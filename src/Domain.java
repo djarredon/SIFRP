@@ -25,11 +25,14 @@ public class Domain extends Holding{
     }
 
     public int getCost() {
-        if (terrain == null)
+        if (terrain == null && features == null)
             return 0;
         else {
-            cost = terrain.getCost();
-            cost += features.getCost();
+            cost = 0;
+            if (terrain != null)
+                cost = terrain.getCost();
+            if (features != null)
+                cost += features.getCost();
         }
         return cost;
     }
@@ -71,6 +74,16 @@ public class Domain extends Holding{
         else {
             features.insert(feature);
         }
+    }
+
+    public boolean removeFeature(String toRemove) {
+        if (toRemove == null || features == null)
+            return false;
+
+        if (features.contains(new Feature(toRemove)))
+            features.remove(toRemove);
+
+        return false;
     }
 
     public String print() {

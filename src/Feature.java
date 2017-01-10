@@ -46,6 +46,7 @@ public class Feature extends Holding {
     public void copyFeature(Feature feature) {
         featureType = feature.featureType;
         description = feature.description;
+        setCost(feature.getCost());
     }
 
     public void randomFeature() {
@@ -201,7 +202,7 @@ public class Feature extends Holding {
                 setCost(5);
                 return true;
             default:
-                System.out.println("FEATURE ERROR.");
+                //System.out.println("FEATURE ERROR.");
                 return false;
         }
     }

@@ -1096,6 +1096,14 @@ public class House {
         return  false;
     }
 
+    public boolean canAfford(Domain domain) {
+        if (domain == null)
+            return false;
+        if (domain.getCost() <= getLandsRemaining())
+            return true;
+        return false;
+    }
+
     public void buyDefenseHolding(String toBuy) {
         if (castles == null)
             castles = new DefenseList();
@@ -1123,6 +1131,14 @@ public class House {
                 }
             }
         }
+    }
+
+    public void buyLandHolding(Domain toBuy) {
+        if (toBuy == null)
+            return;
+        if (domains == null)
+            domains = new DomainList();
+        domains.insert(toBuy);
     }
 
     public void generateHeirs() {
